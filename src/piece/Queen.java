@@ -1,2 +1,4 @@
-package piece;public class Queen {
+package piece;
+
+public class Queen {
 }

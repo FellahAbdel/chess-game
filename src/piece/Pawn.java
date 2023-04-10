@@ -1,2 +1,4 @@
-package piece;public class Pawn {
+package piece;
+
+public class Pawn {
 }

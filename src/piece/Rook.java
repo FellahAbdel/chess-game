@@ -1,2 +1,4 @@
-package piece;public class Rook {
+package piece;
+
+public class Rook {
 }

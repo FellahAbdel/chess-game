@@ -1,2 +1,4 @@
-package piece;public class Knight {
+package piece;
+
+public class Knight {
 }

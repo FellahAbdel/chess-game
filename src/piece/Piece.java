@@ -1,2 +1,5 @@
-package piece;public class Piece {
+package piece;
+
+public abstract class  Piece {
+
 }
