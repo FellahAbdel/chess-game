@@ -1,15 +1,15 @@
 package com.diaby;
 
-import javax.swing.*;
+import java.awt.*;
 
-public abstract class Piece {
+public abstract class ChessPiece {
     private String name; // nom de la pièce
-    private String color; // couleur de la pièce (blanc ou noir)
+    private Color color; // couleur de la pièce (blanc ou noir)
     //private ImageIcon image; // image de la pièce pour l'interface graphique
     private int row; // ligne actuelle de la pièce sur le plateau
     private int col; // colonne actuelle de la pièce sur le plateau
 
-    public Piece(String name, String color, int row , int col) {
+    public ChessPiece(String name, Color color, int row , int col) {
         this.name = name;
         this.color = color;
         this.row = row ;
@@ -20,7 +20,7 @@ public abstract class Piece {
         return name;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
@@ -54,7 +54,7 @@ public abstract class Piece {
      * @param board le tableau de pièces représentant l'état actuel du plateau.
      * @return true si le mouvement est valide, false sinon.
      */
-    public abstract boolean isValidMove(int startX, int startY, int endX, int endY, Piece[][] board);
+    public abstract boolean isValidMove(int startX, int startY, int endX, int endY, ChessPiece[][] board);
 
     /**
      * Vérifie si une pièce peut atteindre une case donnée sur le plateau.
@@ -64,10 +64,10 @@ public abstract class Piece {
      * @param board le tableau de pièces représentant l'état actuel du plateau.
      * @return true si la case peut être atteinte, false sinon.
      */
-    public boolean canMoveTo(int x, int y, Piece[][] board) {
-        int startX = position[0];
-        int startY = position[1];
-        Piece destPiece = board[y][x];
+    public boolean canMoveTo(int x, int y, ChessPiece[][] board) {
+        int startX = col;
+        int startY = row;
+        ChessPiece destPiece = board[y][x];
 
         // Vérifie si la case de destination est occupée par une pièce de la même couleur
         if (destPiece != null && destPiece.getColor().equals(color)) {
@@ -82,6 +82,7 @@ public abstract class Piece {
         return false;
     }
 
+    public abstract String getSymbol();
     @Override
     public String toString() {
         return color + " " + name;
