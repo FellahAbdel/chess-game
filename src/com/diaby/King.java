@@ -6,8 +6,8 @@ public class King extends ChessPiece {
     private boolean castlingDone = false;
     private boolean hasMoved;
 
-    public King(Color color, int row, int col) {
-        super("King", color, row, col);
+    public King(String imageName,Color color, int row, int col) {
+        super("King", imageName, color, row, col);
         hasMoved = false;
     }
 

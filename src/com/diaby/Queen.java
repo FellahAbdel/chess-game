@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Queen extends ChessPiece {
-    public Queen(Color color, int row, int col) {
-        super("Queen", color, row, col);
+    public Queen(String imageName,Color color, int row, int col) {
+        super("Queen", imageName,color, row, col);
     }
 
     @Override

@@ -4,8 +4,8 @@ package com.diaby;
 import java.awt.*;
 
 public class Knight extends ChessPiece {
-    public Knight(Color color, int row, int col) {
-        super("Knight", color, row, col);
+    public Knight(String imageName,Color color, int row, int col) {
+        super("Knight", imageName, color, row, col);
     }
 
     @Override

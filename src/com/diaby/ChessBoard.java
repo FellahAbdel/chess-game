@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ChessBoard {
     private ChessPiece[][] board;
-
+    public boolean[][] highLightCase = new boolean[8][8];
     public ChessBoard() {
         board = new ChessPiece[8][8];
         this.initialize();
@@ -15,32 +15,37 @@ public class ChessBoard {
 
     private void initialize() {
         // Initialiser les pièces blanches
-        board[0][0] = new Rook(Color.WHITE, 0, 0);
-        board[0][1] = new Knight(Color.WHITE, 0, 1);
-        board[0][2] = new Bishop(Color.WHITE, 0, 2);
-        board[0][3] = new Queen(Color.WHITE, 0, 3);
-        board[0][4] = new King(Color.WHITE, 0, 4);
-        board[0][5] = new Bishop(Color.WHITE, 0, 5);
-        board[0][6] = new Knight(Color.WHITE, 0, 6);
-        board[0][7] = new Rook(Color.WHITE, 0, 7);
+        board[0][0] = new Rook("tour_b.png", Color.WHITE, 0, 0);
+        board[1][0] = new Knight("cavalier_b.png",Color.WHITE, 1, 0);
+        board[2][0] = new Bishop("fou_b.png",Color.WHITE, 2, 0);
+        board[3][0] = new Queen("reine_b.png",Color.WHITE, 3, 0);
+        board[4][0] = new King("roi_b.png",Color.WHITE, 4, 0);
+        board[5][0] = new Bishop("fou_b.png",Color.WHITE, 5, 0);
+        board[6][0] = new Knight("cavalier_b.png",Color.WHITE, 6, 0);
+        board[7][0] = new Rook("tour_b.png",Color.WHITE, 7, 0);
         for (int i = 0; i < 8; i++) {
-            board[1][i] = new Pawn(Color.WHITE, 1, i);
+            board[i][1] = new Pawn("pion_b.png",Color.WHITE, i, 1);
         }
 
         // Initialiser les pièces noires
-        board[7][0] = new Rook(Color.BLACK, 7, 0);
-        board[7][1] = new Knight(Color.BLACK, 7, 1);
-        board[7][2] = new Bishop(Color.BLACK, 7, 2);
-        board[7][3] = new Queen(Color.BLACK, 7, 3);
-        board[7][4] = new King(Color.BLACK, 7, 4);
-        board[7][5] = new Bishop(Color.BLACK, 7, 5);
-        board[7][6] = new Knight(Color.BLACK, 7, 6);
-        board[7][7] = new Rook(Color.BLACK, 7, 7);
+        board[0][7] = new Rook("tour_n.png",Color.BLACK, 0, 7);
+        board[1][7] = new Knight("cavalier_n.png",Color.BLACK, 1, 7);
+        board[2][7] = new Bishop("fou_n.png",Color.BLACK, 2, 7);
+        board[3][7] = new Queen("reine_n.png",Color.BLACK, 3, 7);
+        board[4][7] = new King("roi_n.png",Color.BLACK, 4, 7);
+        board[5][7] = new Bishop("fou_n.png",Color.BLACK, 5, 7);
+        board[6][7] = new Knight("cavalier_n.png",Color.BLACK, 6, 7);
+        board[7][7] = new Rook("tour_n.png",Color.BLACK, 7, 7);
         for (int i = 0; i < 8; i++) {
-            board[6][i] = new Pawn(Color.BLACK, 6, i);
+            board[i][6] = new Pawn("pion_n.png",Color.BLACK, i, 6);
         }
     }
 
+   public void resetHighlight() {
+        for(int i = 0; i< 8; i++)
+            for(int j = 0; j< 8; j++)
+                highLightCase[i][j]=false;
+    }
     public ChessPiece getPieceAt(int row, int col) {
         return board[row][col];
     }
@@ -60,9 +65,30 @@ public class ChessBoard {
     public boolean isPieceAt(int row, int col) {
         return board[row][col] != null;
     }
-    public boolean isOccupiedByColor(int row, int col, Color color) {
-        ChessPiece piece = board[row][col];
-        return piece != null && piece.getColor() == color;
+    public int getNbOfWhitePiece() {
+        ArrayList<ChessPiece> pieces = new ArrayList<>();
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                ChessPiece piece = board[row][col];
+                if (piece != null && piece.isWhite()) {
+                    pieces.add(piece);
+                }
+            }
+        }
+        return pieces.size();
+    }
+
+    public int getNbOfBlackPiece() {
+        ArrayList<ChessPiece> pieces = new ArrayList<>();
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                ChessPiece piece = board[row][col];
+                if (piece != null && !piece.isWhite()) {
+                    pieces.add(piece);
+                }
+            }
+        }
+        return pieces.size();
     }
 
     public boolean isOccupied(int row, int col) {
@@ -148,8 +174,15 @@ public class ChessBoard {
     public void promotePawn(Pawn pawn, int row, int col) {
         Color color = pawn.getColor();
         // Replace the pawn with a queen for now
-        Queen queen = new Queen(color, row, col);
-        board[row][col] = queen;
+        if(pawn.isWhite())
+        {
+            Queen queen = new Queen("reine_b.png",color, row, col);
+            board[row][col] = queen;
+        }
+        else{
+            Queen queen = new Queen("reine_n.png",color, row, col);
+            board[row][col] = queen;
+        }
     }
 
     public boolean captureEnPassant(ChessPiece piece, int startRow, int startCol, int endRow, int endCol) {

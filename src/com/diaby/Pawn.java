@@ -6,8 +6,8 @@ import java.awt.*;
 public class Pawn extends ChessPiece {
     private boolean hasMoved; // indique si le pion a déjà été déplacé ou non
     private boolean justMovedDouble; // flag pour indiquer si le pion vient de faire un double pas
-    public Pawn(Color color, int row, int col) {
-        super("Pawn", color, row, col);
+    public Pawn(String imageName,Color color, int row, int col) {
+        super("Pawn",imageName ,color, row, col);
         hasMoved = false;
         justMovedDouble = false;
     }

@@ -7,9 +7,9 @@ import java.awt.*;
 public class Rook extends ChessPiece {
     private boolean hasMoved; // indique si le pion a déjà été déplacé ou non
 
-    public Rook(Color color, int row, int col)
+    public Rook(String imageName,Color color, int row, int col)
     {
-        super("Rook", color, row, col);
+        super("Rook", imageName,color, row, col);
         hasMoved = false;
     }
 

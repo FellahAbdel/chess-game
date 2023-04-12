@@ -4,17 +4,19 @@ import java.awt.*;
 
 public abstract class ChessPiece {
     private String name; // nom de la pièce
+    private String imageName;
     private Color color; // couleur de la pièce (blanc ou noir)
     //private ImageIcon image; // image de la pièce pour l'interface graphique
     private int row; // ligne actuelle de la pièce sur le plateau
     private int col; // colonne actuelle de la pièce sur le plateau
 
     private boolean captured = false;
-    public ChessPiece(String name, Color color, int row , int col) {
+    public ChessPiece(String name,String imageName, Color color, int row , int col) {
         this.name = name;
         this.color = color;
         this.row = row ;
         this.col = col ;
+        this.imageName = imageName;
         captured = false;
     }
 
@@ -54,6 +56,10 @@ public abstract class ChessPiece {
         return this.getColor() == Color.WHITE;
     }
 
+    public String getImageName()
+    {
+        return imageName;
+    }
     /**
      * Vérifie si le mouvement d'une pièce est valide.
      *

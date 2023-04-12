@@ -4,8 +4,8 @@ package com.diaby;
 import java.awt.*;
 
 public class Bishop extends ChessPiece {
-    public Bishop(Color color, int row, int col) {
-        super("Bishop", color, row, col);
+    public Bishop(String imageName, Color color, int row, int col) {
+        super("Bishop",imageName, color, row, col);
     }
 
     @Override
