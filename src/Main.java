@@ -1,4 +1,4 @@
-import com.diaby.ChessBoard;
+import com.diaby.model.ChessBoard;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.diaby;
+package com.diaby.model;
 
 import java.awt.*;
 

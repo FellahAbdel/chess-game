@@ -1,6 +1,5 @@
-package com.diaby;
+package com.diaby.model;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class Pawn extends ChessPiece {

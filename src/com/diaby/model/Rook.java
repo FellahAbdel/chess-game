@@ -1,7 +1,8 @@
-package com.diaby;
+package com.diaby.model;
 
 //import javax.swing.*;
 //import javax.swing.text.Position;
+
 import java.awt.*;
 
 public class Rook extends ChessPiece {

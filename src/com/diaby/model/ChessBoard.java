@@ -1,6 +1,8 @@
-package com.diaby;
+package com.diaby.model;
 
 //import javax.swing.text.Position;
+import com.diaby.model.*;
+
 import java.awt.*;
 import java.util.ArrayList;
 

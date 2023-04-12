@@ -1,4 +1,7 @@
-package com.diaby;
+package com.diaby.view;
+import com.diaby.model.ChessBoard;
+import com.diaby.model.ChessPiece;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
