@@ -1,6 +1,6 @@
 package com.diaby;
 
-import javax.swing.*;
+//import javax.swing.*;
 import java.awt.*;
 
 public class Bishop extends ChessPiece {
@@ -30,12 +30,9 @@ public class Bishop extends ChessPiece {
             y += yIncrement;
         }
 
-        // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
-        if (board[endY][endX] == null || !board[endY][endX].getColor().equals(getColor())) {
-            return true;
-        }
 
-        return false;
+        // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
+        return board[endY][endX] == null || !board[endY][endX].getColor().equals(getColor());
     }
 
     @Override
