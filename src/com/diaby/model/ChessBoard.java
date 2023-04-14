@@ -18,28 +18,28 @@ public class ChessBoard {
     private void initialize() {
         // Initialiser les pièces blanches
         board[0][0] = new Rook("tour_b.png", Color.WHITE, 0, 0);
-        board[1][0] = new Knight("cavalier_b.png",Color.WHITE, 1, 0);
-        board[2][0] = new Bishop("fou_b.png",Color.WHITE, 2, 0);
-        board[3][0] = new Queen("reine_b.png",Color.WHITE, 3, 0);
-        board[4][0] = new King("roi_b.png",Color.WHITE, 4, 0);
-        board[5][0] = new Bishop("fou_b.png",Color.WHITE, 5, 0);
-        board[6][0] = new Knight("cavalier_b.png",Color.WHITE, 6, 0);
-        board[7][0] = new Rook("tour_b.png",Color.WHITE, 7, 0);
-        for (int i = 0; i < 8; i++) {
-            board[i][1] = new Pawn("pion_b.png",Color.WHITE, i, 1);
+        board[0][1] = new Knight("cavalier_b.png",Color.WHITE, 0, 1);
+        board[0][2] = new Bishop("fou_b.png",Color.WHITE, 0, 2);
+        board[0][3] = new Queen("reine_b.png",Color.WHITE, 0, 3);
+        board[0][4] = new King("roi_b.png",Color.WHITE, 0, 4);
+        board[0][5] = new Bishop("fou_b.png",Color.WHITE, 0, 5);
+        board[0][6] = new Knight("cavalier_b.png",Color.WHITE, 0, 6);
+        board[0][7] = new Rook("tour_b.png",Color.WHITE, 0, 7);
+        for (int j = 0; j < 8; j++) {
+            board[1][j] = new Pawn("pion_b.png",Color.WHITE, j, 1);
         }
 
         // Initialiser les pièces noires
-        board[0][7] = new Rook("tour_n.png",Color.BLACK, 0, 7);
-        board[1][7] = new Knight("cavalier_n.png",Color.BLACK, 1, 7);
-        board[2][7] = new Bishop("fou_n.png",Color.BLACK, 2, 7);
-        board[3][7] = new Queen("reine_n.png",Color.BLACK, 3, 7);
-        board[4][7] = new King("roi_n.png",Color.BLACK, 4, 7);
-        board[5][7] = new Bishop("fou_n.png",Color.BLACK, 5, 7);
-        board[6][7] = new Knight("cavalier_n.png",Color.BLACK, 6, 7);
+        board[7][0] = new Rook("tour_n.png",Color.BLACK, 7, 0);
+        board[7][1] = new Knight("cavalier_n.png",Color.BLACK, 7, 1);
+        board[7][2] = new Bishop("fou_n.png",Color.BLACK, 7, 2);
+        board[7][3] = new Queen("reine_n.png",Color.BLACK, 7, 3);
+        board[7][4] = new King("roi_n.png",Color.BLACK, 7, 4);
+        board[7][5] = new Bishop("fou_n.png",Color.BLACK, 7, 5);
+        board[7][6] = new Knight("cavalier_n.png",Color.BLACK, 7, 6);
         board[7][7] = new Rook("tour_n.png",Color.BLACK, 7, 7);
-        for (int i = 0; i < 8; i++) {
-            board[i][6] = new Pawn("pion_n.png",Color.BLACK, i, 6);
+        for (int j = 0; j < 8; j++) {
+            board[6][j] = new Pawn("pion_n.png",Color.BLACK, 6, j);
         }
     }
 
@@ -221,7 +221,7 @@ public class ChessBoard {
                 if (piece == null) {
                     System.out.print("- ");
                 } else {
-                    System.out.print(piece.getName() + " ");
+                    System.out.print(piece.getImageName() + " ");
                 }
             }
             System.out.println();

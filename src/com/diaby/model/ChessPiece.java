@@ -3,7 +3,7 @@ package com.diaby.model;
 import java.awt.*;
 
 public abstract class ChessPiece {
-    private String name; // nom de la pièce
+    private String pieceName; // nom de la pièce
     private String imageName;
     private Color color; // couleur de la pièce (blanc ou noir)
     //private ImageIcon image; // image de la pièce pour l'interface graphique
@@ -12,7 +12,7 @@ public abstract class ChessPiece {
 
     private boolean captured = false;
     public ChessPiece(String name,String imageName, Color color, int row , int col) {
-        this.name = name;
+        this.pieceName = name;
         this.color = color;
         this.row = row ;
         this.col = col ;
@@ -20,8 +20,11 @@ public abstract class ChessPiece {
         captured = false;
     }
 
-    public String getName() {
-        return name;
+    public String getPieceName (){
+        return pieceName;
+    }
+    public String getImageName() {
+        return imageName;
     }
 
     public Color getColor() {
@@ -54,11 +57,6 @@ public abstract class ChessPiece {
 
     public boolean isWhite() {
         return this.getColor() == Color.WHITE;
-    }
-
-    public String getImageName()
-    {
-        return imageName;
     }
     /**
      * Vérifie si le mouvement d'une pièce est valide.
@@ -94,6 +92,6 @@ public abstract class ChessPiece {
 
     @Override
     public String toString() {
-        return color + " " + name;
+        return color + " " + pieceName;
     }
 }
