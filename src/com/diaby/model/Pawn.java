@@ -40,10 +40,17 @@ public class Pawn extends ChessPiece {
             return false;
         }
 
-        // Vérifier que le mouvement ne se fait pas en arrière
-        if (endYRow < startYRow) {
-            return false;
+        // Vérifier que le mouvement ne se fait pas en arrière pour :
+        if(this.getColor().equals(new Color(255, 255, 255))){ // Pion blanc
+            if (startYRow < endYRow) {
+                return false;
+            }
+        }else { // Pion noir
+            if(startYRow < endYRow){
+                return false ;
+            }
         }
+
 
         // Vérifier que le mouvement ne dépasse pas une case si le pion a déjà bougé
         if (hasMoved && rowDiff > 1) {
