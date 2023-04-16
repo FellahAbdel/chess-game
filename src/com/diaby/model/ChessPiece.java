@@ -61,30 +61,30 @@ public abstract class ChessPiece {
     /**
      * Vérifie si le mouvement d'une pièce est valide.
      *
-     * @param startX la position en x de la pièce avant le mouvement.
-     * @param startY la position en y de la pièce avant le mouvement.
-     * @param endX la position en x de la pièce après le mouvement.
-     * @param endY la position en y de la pièce après le mouvement.
+     * @param startYRow la position en x de la pièce avant le mouvement.
+     * @param startXCol la position en y de la pièce avant le mouvement.
+     * @param endXCol la position en x de la pièce après le mouvement.
+     * @param endYRow la position en y de la pièce après le mouvement.
      * @param board le tableau de pièces représentant l'état actuel du plateau.
      * @return true si le mouvement est valide, false sinon.
      */
-    public abstract boolean isValidMove(int startX, int startY, int endX, int endY, ChessPiece[][] board);
+    public abstract boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board);
 
     /**
      * Vérifie si une pièce peut atteindre une case donnée sur le plateau.
      *
-     * @param x la position en x de la case.
-     * @param y la position en y de la case.
+     * @param xCol la position en x de la case.
+     * @param yRow la position en y de la case.
      * @param board le tableau de pièces représentant l'état actuel du plateau.
      * @return true si la case peut être atteinte, false sinon.
      */
-    public boolean canMoveTo(int x, int y, ChessPiece[][] board) {
-        int startX = col;
-        int startY = row;
-        ChessPiece destPiece = board[y][x];
+    public boolean canMoveTo(int yRow, int xCol, ChessPiece[][] board) {
+        int startXCol = col;
+        int startYRow = row;
+        ChessPiece destPiece = board[yRow][xCol];
 
         // Vérifie si le mouvement est valide
-        return isValidMove(startX, startY, x, y, board);
+        return isValidMove(startYRow, startXCol, yRow, xCol, board);
     }
 
     public abstract String getSymbol();
