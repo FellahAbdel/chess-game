@@ -28,39 +28,47 @@ public class Pawn extends ChessPiece {
     }
 
     @Override
-    public boolean isValidMove(int startX, int startY, int endX, int endY, ChessPiece[][] board) {
-        // Vérifie si le déplacement est vertical
-        int deltaX = endX - startX;
-        int deltaY = endY - startY;
-        if (deltaX != 0) {
+    public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
+        // Vérifier que le mouvement se fait dans la même colonne
+        if (startXCol != endXCol) {
             return false;
         }
 
-        // Vérifie si le déplacement est d'une case vers l'avant
-        // faut régler le problème avec equals
-        int forwardDirection = getColor().equals("white") ? -1 : 1;
+        // Vérifier que le mouvement ne dépasse pas deux cases
+        int rowDiff = Math.abs(endYRow - startYRow);
+        if (rowDiff > 2) {
+            return false;
+        }
 
-        if (deltaY != forwardDirection) {
-            // Vérifie si le pion n'a pas encore été déplacé et s'il se déplace de deux cases vers l'avant
-            if (!hasMoved && deltaY == 2 * forwardDirection && board[startY + forwardDirection][startX] == null) {
-                setJustMovedDouble(true);
-                setHasMoved(true);
-                return true;
+        // Vérifier que le mouvement ne se fait pas en arrière
+        if (endYRow < startYRow) {
+            return false;
+        }
+
+        // Vérifier que le mouvement ne dépasse pas une case si le pion a déjà bougé
+        if (hasMoved && rowDiff > 1) {
+            return false;
+        }
+
+        // Vérifier que le pion ne capture pas une pièce de la même couleur
+        if (board[endYRow][endXCol] != null && board[endYRow][endXCol].getColor() == this.getColor()) {
+            return false;
+        }
+
+        // Vérifier que le mouvement est valide pour un premier coup
+        if (!hasMoved && rowDiff == 2) {
+            // Vérifier qu'il n'y a pas de pièce sur la trajectoire
+            int direction = (endYRow - startYRow) / rowDiff;
+            int middleRow = startYRow + direction;
+            if (board[middleRow][startXCol] != null) {
+                return false;
             }
-            return false;
         }
 
-        // Vérifie si la case de destination est vide
-//        if (board[endY][endX] == null) {
-//            return true;
-//        }
-
-        // Vérifie si la case de destination est occupée par une pièce de la couleur opposée
-//        if (!board[endY][endX].getColor().equals(getColor())) {
-//            return true;
-//        }
+        // Le mouvement est valide
         return true;
     }
+
     public String getSymbol(){
         return (getColor() == Color.WHITE ? "B" : "N");
     }
