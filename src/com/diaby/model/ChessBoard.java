@@ -1,45 +1,44 @@
 package com.diaby.model;
 
 //import javax.swing.text.Position;
-import com.diaby.model.*;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class ChessBoard {
-    private ChessPiece[][] board;
+    private ChessPiece[][] tileBoard;
     public boolean[][] highLightCase = new boolean[8][8];
     public ChessBoard() {
-        board = new ChessPiece[8][8];
+        tileBoard = new ChessPiece[8][8];
         this.initialize();
 
     }
 
     private void initialize() {
         // Initialiser les pièces blanches
-        board[0][0] = new Rook("tour_b.png", Color.WHITE, 0, 0);
-        board[0][1] = new Knight("cavalier_b.png",Color.WHITE, 0, 1);
-        board[0][2] = new Bishop("fou_b.png",Color.WHITE, 0, 2);
-        board[0][3] = new Queen("reine_b.png",Color.WHITE, 0, 3);
-        board[0][4] = new King("roi_b.png",Color.WHITE, 0, 4);
-        board[0][5] = new Bishop("fou_b.png",Color.WHITE, 0, 5);
-        board[0][6] = new Knight("cavalier_b.png",Color.WHITE, 0, 6);
-        board[0][7] = new Rook("tour_b.png",Color.WHITE, 0, 7);
+        tileBoard[0][0] = new Rook("tour_b.png", Color.WHITE, 0, 0);
+        tileBoard[0][1] = new Knight("cavalier_b.png",Color.WHITE, 0, 1);
+        tileBoard[0][2] = new Bishop("fou_b.png",Color.WHITE, 0, 2);
+        tileBoard[0][3] = new Queen("reine_b.png",Color.WHITE, 0, 3);
+        tileBoard[0][4] = new King("roi_b.png",Color.WHITE, 0, 4);
+        tileBoard[0][5] = new Bishop("fou_b.png",Color.WHITE, 0, 5);
+        tileBoard[0][6] = new Knight("cavalier_b.png",Color.WHITE, 0, 6);
+        tileBoard[0][7] = new Rook("tour_b.png",Color.WHITE, 0, 7);
         for (int j = 0; j < 8; j++) {
-            board[1][j] = new Pawn("pion_b.png",Color.WHITE, j, 1);
+            tileBoard[1][j] = new Pawn("pion_b.png",Color.WHITE, j, 1);
         }
 
         // Initialiser les pièces noires
-        board[7][0] = new Rook("tour_n.png",Color.BLACK, 7, 0);
-        board[7][1] = new Knight("cavalier_n.png",Color.BLACK, 7, 1);
-        board[7][2] = new Bishop("fou_n.png",Color.BLACK, 7, 2);
-        board[7][3] = new Queen("reine_n.png",Color.BLACK, 7, 3);
-        board[7][4] = new King("roi_n.png",Color.BLACK, 7, 4);
-        board[7][5] = new Bishop("fou_n.png",Color.BLACK, 7, 5);
-        board[7][6] = new Knight("cavalier_n.png",Color.BLACK, 7, 6);
-        board[7][7] = new Rook("tour_n.png",Color.BLACK, 7, 7);
+        tileBoard[7][0] = new Rook("tour_n.png",Color.BLACK, 7, 0);
+        tileBoard[7][1] = new Knight("cavalier_n.png",Color.BLACK, 7, 1);
+        tileBoard[7][2] = new Bishop("fou_n.png",Color.BLACK, 7, 2);
+        tileBoard[7][3] = new Queen("reine_n.png",Color.BLACK, 7, 3);
+        tileBoard[7][4] = new King("roi_n.png",Color.BLACK, 7, 4);
+        tileBoard[7][5] = new Bishop("fou_n.png",Color.BLACK, 7, 5);
+        tileBoard[7][6] = new Knight("cavalier_n.png",Color.BLACK, 7, 6);
+        tileBoard[7][7] = new Rook("tour_n.png",Color.BLACK, 7, 7);
         for (int j = 0; j < 8; j++) {
-            board[6][j] = new Pawn("pion_n.png",Color.BLACK, 6, j);
+            tileBoard[6][j] = new Pawn("pion_n.png",Color.BLACK, 6, j);
         }
     }
 
@@ -49,11 +48,11 @@ public class ChessBoard {
                 highLightCase[i][j]=false;
     }
     public ChessPiece getPieceAt(int row, int col) {
-        return board[row][col];
+        return tileBoard[row][col];
     }
 
     public void setPieceAt(int row, int col, ChessPiece piece) {
-        board[row][col] = piece;
+        tileBoard[row][col] = piece;
     }
 
     public void removePieceAt(int row, int col) {
@@ -61,17 +60,17 @@ public class ChessBoard {
         if (pieceToRemove == null) {
             throw new IllegalArgumentException("No piece at " + row + " " + col);
         }
-        board[row][col] = null ;
+        tileBoard[row][col] = null ;
     }
 
     public boolean isPieceAt(int row, int col) {
-        return board[row][col] != null;
+        return tileBoard[row][col] != null;
     }
     public int getNbOfWhitePiece() {
         ArrayList<ChessPiece> pieces = new ArrayList<>();
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                ChessPiece piece = board[row][col];
+                ChessPiece piece = tileBoard[row][col];
                 if (piece != null && piece.isWhite()) {
                     pieces.add(piece);
                 }
@@ -84,7 +83,7 @@ public class ChessBoard {
         ArrayList<ChessPiece> pieces = new ArrayList<>();
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                ChessPiece piece = board[row][col];
+                ChessPiece piece = tileBoard[row][col];
                 if (piece != null && !piece.isWhite()) {
                     pieces.add(piece);
                 }
@@ -94,14 +93,14 @@ public class ChessBoard {
     }
 
     public boolean isOccupied(int row, int col) {
-        return board[row][col] != null;
+        return tileBoard[row][col] != null;
     }
 
     public ArrayList<ChessPiece> getPiecesByColor(Color color) {
         ArrayList<ChessPiece> piecesList = new ArrayList<>();
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                ChessPiece piece = board[row][col];
+                ChessPiece piece = tileBoard[row][col];
                 if (piece != null && piece.getColor() == color) {
                     piecesList.add(piece);
                 }
@@ -154,7 +153,7 @@ public class ChessBoard {
 
         if (startPiece instanceof King && Math.abs(startRow - endRow) == 2) {
             // The move is a castling move
-           if(((King) startPiece).castle(startRow,startCol,endRow,endCol,board))
+           if(((King) startPiece).castle(startRow,startCol,endRow,endCol, tileBoard))
            {
                // Effectue le roque
                 int dir = endCol > startCol ? 1 : -1;
@@ -164,7 +163,7 @@ public class ChessBoard {
         }
 
         // on effectue le déplacement
-        if (startPiece.canMoveTo(endCol, endRow, board)) {
+        if (startPiece.canMoveTo(endCol, endRow, tileBoard)) {
             move(startRow, startCol, endRow, endCol);
             return true;
         }
@@ -179,11 +178,11 @@ public class ChessBoard {
         if(pawn.isWhite())
         {
             Queen queen = new Queen("reine_b.png",color, row, col);
-            board[row][col] = queen;
+            tileBoard[row][col] = queen;
         }
         else{
             Queen queen = new Queen("reine_n.png",color, row, col);
-            board[row][col] = queen;
+            tileBoard[row][col] = queen;
         }
     }
 
