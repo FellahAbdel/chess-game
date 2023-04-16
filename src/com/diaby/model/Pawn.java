@@ -42,7 +42,7 @@ public class Pawn extends ChessPiece {
 
         // Vérifier que le mouvement ne se fait pas en arrière pour :
         if(this.getColor().equals(new Color(255, 255, 255))){ // Pion blanc
-            if (startYRow < endYRow) {
+            if (startYRow > endYRow) {
                 return false;
             }
         }else { // Pion noir
