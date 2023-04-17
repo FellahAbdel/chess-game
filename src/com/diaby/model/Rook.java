@@ -4,6 +4,7 @@ package com.diaby.model;
 //import javax.swing.text.Position;
 
 import java.awt.*;
+import java.util.List;
 
 public class Rook extends ChessPiece {
     private boolean hasMoved; // indique si le pion a déjà été déplacé ou non
@@ -49,6 +50,16 @@ public class Rook extends ChessPiece {
 
         // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
         return board[endY][endX] == null || !board[endY][endX].getColor().equals(getColor());
+    }
+
+    @Override
+    public List<int[]> getLegalMoves(ChessPiece[][] board, boolean isWhite) {
+        return null;
+    }
+
+    @Override
+    public List<int[]> getAllMoves() {
+        return null;
     }
 
     public String getSymbol(){

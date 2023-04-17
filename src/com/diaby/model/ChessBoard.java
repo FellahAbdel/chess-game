@@ -25,7 +25,7 @@ public class ChessBoard {
         tileBoard[0][6] = new Knight("cavalier_b.png",Color.WHITE, 0, 6);
         tileBoard[0][7] = new Rook("tour_b.png",Color.WHITE, 0, 7);
         for (int j = 0; j < 8; j++) {
-            tileBoard[1][j] = new Pawn("pion_b.png",Color.WHITE, j, 1);
+            tileBoard[1][j] = new Pawn("pion_b.png",Color.WHITE, 1, j);
         }
 
         // Initialiser les pièces noires

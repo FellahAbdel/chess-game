@@ -100,6 +100,9 @@ public class ChessBoardView extends JFrame implements MouseListener {
         // Il faudra penser à tester si tileClicked n'est pas null
         if(tileClicked != null){
             System.out.println("not nul");
+/*
+            System.out.printf("curRow = %d et curCol = %d\n", tileClicked.getRow(), tileClicked.getCol());
+*/
             boolean isValid = tileClicked.isValidMove(rowY, colX, rowY + 1, colX, board.getTileBoard());
             if(isValid){
                 board.highLightCase[rowY + 1][colX] = true ;
@@ -110,16 +113,19 @@ public class ChessBoardView extends JFrame implements MouseListener {
                 }*/
             }
         }
-
-        List<int[]> moves = tileClicked.getLegalMoves(board.getTileBoard()) ;
+        List<int[]> allMoves = tileClicked.getAllMoves();
+        for(int [] moveAl : allMoves){
+            System.out.printf("row = %d et col = %d\n", moveAl[0], moveAl[1]);
+        }/*
+        List<int[]> moves = tileClicked.getLegalMoves(board.getTileBoard(), tileClicked.isWhite()) ;
         JPanel square;
         for(int[] move : moves){
             int row = move[0];
             int col = move[1];
             System.out.printf("row = %d et col = %d\n", row, col);
-            square = (JPanel) chessBoard.getComponent(row * SIZE_COLUMN_BOARD + col);
-            square.setBackground(HIGHLIGHT_CASE);
-        }
+*//*            square = (JPanel) chessBoard.getComponent(row * SIZE_COLUMN_BOARD + col);
+            square.setBackground(HIGHLIGHT_CASE);*//*
+        }*/
         drawGrid();
     }
 

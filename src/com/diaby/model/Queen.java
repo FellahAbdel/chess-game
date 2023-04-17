@@ -1,6 +1,7 @@
 package com.diaby.model;
 
 import java.awt.*;
+import java.util.List;
 
 public class Queen extends ChessPiece {
     public Queen(String imageName,Color color, int row, int col) {
@@ -52,6 +53,17 @@ public class Queen extends ChessPiece {
         }
         return false;
     }
+
+    @Override
+    public List<int[]> getLegalMoves(ChessPiece[][] board, boolean isWhite) {
+        return null;
+    }
+
+    @Override
+    public List<int[]> getAllMoves() {
+        return null;
+    }
+
     public String getSymbol(){
         return (getColor() == Color.WHITE ? "B" : "N");
     }

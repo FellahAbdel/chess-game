@@ -9,8 +9,8 @@ public abstract class ChessPiece {
     private String imageName;
     private Color color; // couleur de la pièce (blanc ou noir)
     //private ImageIcon image; // image de la pièce pour l'interface graphique
-    private int row; // ligne actuelle de la pièce sur le plateau
-    private int col; // colonne actuelle de la pièce sur le plateau
+    protected int row; // ligne actuelle de la pièce sur le plateau
+    protected int col; // colonne actuelle de la pièce sur le plateau
 
     private boolean captured = false;
     public ChessPiece(String name,String imageName, Color color, int row , int col) {
@@ -72,6 +72,8 @@ public abstract class ChessPiece {
      */
     public abstract boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board);
 
+    public abstract List<int[]> getLegalMoves(ChessPiece[][] board, boolean isWhite);
+    public abstract List<int[]> getAllMoves();
     /**
      * Vérifie si une pièce peut atteindre une case donnée sur le plateau.
      *
@@ -89,7 +91,7 @@ public abstract class ChessPiece {
         return isValidMove(startYRow, startXCol, yRow, xCol, board);
     }
 
-    public List<int[]> getLegalMoves(ChessPiece[][] board) {
+/*    public List<int[]> getLegalMoves(ChessPiece[][] board) {
         List<int[]> legalMoves = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -99,7 +101,7 @@ public abstract class ChessPiece {
             }
         }
         return legalMoves;
-    }
+    }*/
 
     public abstract String getSymbol();
 

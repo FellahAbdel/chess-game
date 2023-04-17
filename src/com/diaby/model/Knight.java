@@ -3,6 +3,7 @@ package com.diaby.model;
 //import javax.swing.*;
 
 import java.awt.*;
+import java.util.List;
 
 public class Knight extends ChessPiece {
     public Knight(String imageName,Color color, int row, int col) {
@@ -22,6 +23,16 @@ public class Knight extends ChessPiece {
         }
 
         return false;
+    }
+
+    @Override
+    public List<int[]> getLegalMoves(ChessPiece[][] board, boolean isWhite) {
+        return null;
+    }
+
+    @Override
+    public List<int[]> getAllMoves() {
+        return null;
     }
 
     public String getSymbol(){

@@ -3,6 +3,7 @@ package com.diaby.model;
 //import javax.swing.*;
 
 import java.awt.*;
+import java.util.List;
 
 public class Bishop extends ChessPiece {
     public Bishop(String imageName, Color color, int row, int col) {
@@ -34,6 +35,16 @@ public class Bishop extends ChessPiece {
 
         // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
         return board[endY][endX] == null || !board[endY][endX].getColor().equals(getColor());
+    }
+
+    @Override
+    public List<int[]> getLegalMoves(ChessPiece[][] board, boolean isWhite) {
+        return null;
+    }
+
+    @Override
+    public List<int[]> getAllMoves() {
+        return null;
     }
 
     @Override

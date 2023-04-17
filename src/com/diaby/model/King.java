@@ -2,6 +2,7 @@ package com.diaby.model;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class King extends ChessPiece {
     private boolean castlingDone = false;
@@ -47,6 +48,16 @@ public class King extends ChessPiece {
         }
 
         return false;
+    }
+
+    @Override
+    public List<int[]> getLegalMoves(ChessPiece[][] board, boolean isWhite) {
+        return null;
+    }
+
+    @Override
+    public List<int[]> getAllMoves() {
+        return null;
     }
 
     public String getSymbol() {
