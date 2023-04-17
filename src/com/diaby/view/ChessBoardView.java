@@ -4,7 +4,10 @@ import com.diaby.model.ChessPiece;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Arrays;
 import javax.swing.*;
+import java.util.List;
+import java.util.ArrayList;
 
 /** Fenetre graphique (classe heritant de JFrame) qui reagit au clic de souris (implements MouseListener)
  *   qui affiche le damier, qui permet de selectionner/deplacer des pieces d'echec
@@ -75,6 +78,10 @@ public class ChessBoardView extends JFrame implements MouseListener {
                     JLabel image = new JLabel(new ImageIcon(fileName));
                     square.add(image);
                 }
+
+                if(board.highLightCase[row][col]){
+                    square.setBackground(HIGHLIGHT_CASE);
+                }
                 // Incrémentation de l'indice pour passer à la case suivante
                 index++;
             }
@@ -86,27 +93,44 @@ public class ChessBoardView extends JFrame implements MouseListener {
      */
     public void mousePressed(MouseEvent e){
         // Conversion de la position cliquee en position de la grille
-        int row = e.getX() / (ChessBoardView.SIZE_CASE_X);
-        int col = e.getY() / (ChessBoardView.SIZE_CASE_Y);
+        int colX = e.getX() / (ChessBoardView.SIZE_CASE_X);
+        int rowY = e.getY() / (ChessBoardView.SIZE_CASE_Y);
 
-        // si la position cliquee correspond a une piece, affichage des deplacements
-        if(board.getPieceAt(row,col) != null) { board.resetHighlight(); board.highLightCase[row][col+1] = true; }
+        ChessPiece tileClicked = board.getPieceAt(rowY, colX);
+        // Il faudra penser à tester si tileClicked n'est pas null
+        if(tileClicked != null){
+            System.out.println("not nul");
+            boolean isValid = tileClicked.isValidMove(rowY, colX, rowY + 1, colX, board.getTileBoard());
+            if(isValid){
+                board.highLightCase[rowY + 1][colX] = true ;
+  /*              for(var outer : board.highLightCase){
+                    for(var element : outer){
+                        System.out.println(element);
+                    }
+                }*/
+            }
+        }
 
-        // si la position correspond a une position de deplacement possible, effectuer le deplacement
-        if(board.highLightCase[row][col]) {
-            // Supression de l'ancienne piece (jplabel dans le jpanel correspondant à la case de la grille)
-            ((JPanel)chessBoard.getComponent((col-1) * SIZE_ROW_BOARD +row)).removeAll();
-            board.resetHighlight();
-            // Deplacement de la piece
-            board.movePiece(row,col-1,row,col); }
-        // Mettre a jour l'affichage
+        List<int[]> moves = tileClicked.getLegalMoves(board.getTileBoard()) ;
+        JPanel square;
+        for(int[] move : moves){
+            int row = move[0];
+            int col = move[1];
+            System.out.printf("row = %d et col = %d\n", row, col);
+            square = (JPanel) chessBoard.getComponent(row * SIZE_COLUMN_BOARD + col);
+            square.setBackground(HIGHLIGHT_CASE);
+        }
         drawGrid();
     }
 
     public void mouseReleased(MouseEvent e) {}
     public void mouseClicked(MouseEvent e) {}
-    public void mouseEntered(MouseEvent e){}
-    public void mouseExited(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e){
+        // On met en evidence les mouvements possibles
+    }
+    public void mouseExited(MouseEvent e) {
+        // On efface l'évidence.
+    }
 
     public static void main(String[] args) {
         // Definir et afficher la fenetre graphique correspondant au damier
@@ -116,59 +140,6 @@ public class ChessBoardView extends JFrame implements MouseListener {
         frame.setResizable(false);
         frame.setLocationRelativeTo( null );
         frame.setVisible(true);
-/*
-        JFrame frame = new JFrame();
-        frame.setBounds(10, 10, 512, 512);
-        frame.setUndecorated(true);
-        JPanel pn=new JPanel(){
-            @Override
-            public void paint(Graphics g) {
-                boolean white=true;
-                for(int y= 0;y<8;y++){
-                    for(int x= 0;x<8;x++){
-                        if(white){
-                            g.setColor(new Color(235,235, 208));
-                        }else{
-                            g.setColor(new Color(119, 148, 85));
-
-                        }
-                        g.fillRect(x*64, y*64, 64, 64);
-                        white=!white;
-                    }
-                    white=!white;
-                }*/
-/*                for(Piece p: ps){
-                    int ind=0;
-                    if(p.name.equalsIgnoreCase("king")){
-                        ind=0;
-                    }
-                    if(p.name.equalsIgnoreCase("queen")){
-                        ind=1;
-                    }
-                    if(p.name.equalsIgnoreCase("bishop")){
-                        ind=2;
-                    }
-                    if(p.name.equalsIgnoreCase("knight")){
-                        ind=3;
-                    }
-                    if(p.name.equalsIgnoreCase("rook")){
-                        ind=4;
-                    }
-                    if(p.name.equalsIgnoreCase("pawn")){
-                        ind=5;
-                    }
-                    if(!p.isWhite){
-                        ind+=6;
-                    }
-                    g.drawImage(imgs[ind], p.xp*64, p.yp*64, this);
-                }*/
-        /*    }
-
-        };
-        frame.add(pn);
-        frame.setDefaultCloseOperation(3);
-        frame.setVisible(true);
-    }*/
 }
 }
 

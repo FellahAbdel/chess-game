@@ -7,7 +7,7 @@ public class Main {
 
         System.out.println(chess.movePiece(1, 0, 2, 0));
         chess.printBoard();
-        chess.removePieceAt(2, 0);
-        chess.printBoard();
+      /*  chess.removePieceAt(2, 0);
+        chess.printBoard();*/
     }
 }

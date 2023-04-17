@@ -42,7 +42,11 @@ public class ChessBoard {
         }
     }
 
-   public void resetHighlight() {
+    public ChessPiece[][] getTileBoard() {
+        return tileBoard;
+    }
+
+    public void resetHighlight() {
         for(int i = 0; i< 8; i++)
             for(int j = 0; j< 8; j++)
                 highLightCase[i][j]=false;

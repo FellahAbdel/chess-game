@@ -1,6 +1,8 @@
 package com.diaby.model;
 
 import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public abstract class ChessPiece {
     private String pieceName; // nom de la pièce
@@ -85,6 +87,18 @@ public abstract class ChessPiece {
 
         // Vérifie si le mouvement est valide
         return isValidMove(startYRow, startXCol, yRow, xCol, board);
+    }
+
+    public List<int[]> getLegalMoves(ChessPiece[][] board) {
+        List<int[]> legalMoves = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (canMoveTo(i, j, board)) {
+                    legalMoves.add(new int[] {i, j});
+                }
+            }
+        }
+        return legalMoves;
     }
 
     public abstract String getSymbol();
