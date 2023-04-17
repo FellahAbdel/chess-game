@@ -113,19 +113,19 @@ public class ChessBoardView extends JFrame implements MouseListener {
                 }*/
             }
         }
-        List<int[]> allMoves = tileClicked.getAllMoves();
+/*        List<int[]> allMoves = tileClicked.getAllMoves();
         for(int [] moveAl : allMoves){
             System.out.printf("row = %d et col = %d\n", moveAl[0], moveAl[1]);
-        }/*
+        }*/
         List<int[]> moves = tileClicked.getLegalMoves(board.getTileBoard(), tileClicked.isWhite()) ;
         JPanel square;
         for(int[] move : moves){
             int row = move[0];
             int col = move[1];
             System.out.printf("row = %d et col = %d\n", row, col);
-*//*            square = (JPanel) chessBoard.getComponent(row * SIZE_COLUMN_BOARD + col);
-            square.setBackground(HIGHLIGHT_CASE);*//*
-        }*/
+/*            square = (JPanel) chessBoard.getComponent(row * SIZE_COLUMN_BOARD + col);
+            square.setBackground(HIGHLIGHT_CASE);*/
+        }
         drawGrid();
     }
 
