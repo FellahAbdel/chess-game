@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public abstract class ChessPiece {
     private String pieceName; // nom de la pièce
     private String imageName;
-    private Color color; // couleur de la pièce (blanc ou noir)
+    protected Color color; // couleur de la pièce (blanc ou noir)
     //private ImageIcon image; // image de la pièce pour l'interface graphique
     private int row; // ligne actuelle de la pièce sur le plateau
     private int col; // colonne actuelle de la pièce sur le plateau
@@ -60,6 +60,7 @@ public abstract class ChessPiece {
     public boolean isWhite() {
         return this.getColor() == Color.WHITE;
     }
+    public boolean isBlack(){return  this.getColor() == Color.BLACK;}
     /**
      * Vérifie si le mouvement d'une pièce est valide.
      *
@@ -72,34 +73,38 @@ public abstract class ChessPiece {
      */
     public abstract boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board);
 
+    public abstract ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board);
     /**
      * Vérifie si une pièce peut atteindre une case donnée sur le plateau.
      *
-     * @param xCol la position en x de la case.
-     * @param yRow la position en y de la case.
+     * @param endcol la position en x de la case.
+     * @param endrow la position en y de la case.
      * @param board le tableau de pièces représentant l'état actuel du plateau.
      * @return true si la case peut être atteinte, false sinon.
      */
-    public boolean canMoveTo(int yRow, int xCol, ChessPiece[][] board) {
-        int startXCol = col;
-        int startYRow = row;
-        ChessPiece destPiece = board[yRow][xCol];
+    public boolean canMoveTo(int endrow, int endcol, ChessPiece[][] board) {
+        int startXCol = this.col;
+        int startYRow = this.row;
 
         // Vérifie si le mouvement est valide
-        return isValidMove(startYRow, startXCol, yRow, xCol, board);
+        return isValidMove(startYRow, startXCol, endrow, endcol, board);
     }
 
-    public List<int[]> getLegalMoves(ChessPiece[][] board) {
-        List<int[]> legalMoves = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (canMoveTo(i, j, board)) {
-                    legalMoves.add(new int[] {i, j});
+
+    public ArrayList<ChessPiece> getPieces(ChessPiece[][] board) {
+        ArrayList<ChessPiece> piecesList = new ArrayList<>();
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                ChessPiece piece = board[row][col];
+                if (piece != null) {
+                    piecesList.add(piece);
                 }
             }
         }
-        return legalMoves;
+        return piecesList;
     }
+
+//    public abstract ArrayList<int[]> generateMoves(int x, int y, int[][] board);
 
     public abstract String getSymbol();
 

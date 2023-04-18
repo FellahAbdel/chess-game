@@ -3,6 +3,8 @@ package com.diaby.model;
 //import javax.swing.*;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bishop extends ChessPiece {
     public Bishop(String imageName, Color color, int row, int col) {
@@ -35,6 +37,71 @@ public class Bishop extends ChessPiece {
         // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
         return board[endY][endX] == null || !board[endY][endX].getColor().equals(getColor());
     }
+
+//    @Override
+    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
+        ArrayList<int[]>  moves = new ArrayList<>();
+
+        // Upper Left Diagonal
+        for(int i=startYRow-1, j=startXCol-1; i>=0 && j>=0; i--, j--){
+            if(board[i][j] == null) {
+                moves.add(new int[]{i, j});
+            }
+            else if(board[i][j].isWhite() != this.isWhite()){
+                moves.add(new int[]{i, j});
+                break;
+            }
+            else {
+                break;
+            }
+        }
+
+        // Upper Right Diagonal
+        for(int i=startYRow-1, j=startXCol+1; i>=0 && j<8; i--, j++){
+            if(board[i][j] == null) {
+                moves.add(new int[]{i, j});
+            }
+            else if(board[i][j].isWhite() != this.isWhite()){
+                moves.add(new int[]{i, j});
+                break;
+            }
+            else {
+                break;
+            }
+        }
+
+        // Lower Left Diagonal
+        for(int i=startYRow+1, j=startXCol-1; i<8 && j>=0; i++, j--){
+            if(board[i][j] == null) {
+                moves.add(new int[]{i, j});
+            }
+            else if(board[i][j].isWhite() != this.isWhite()){
+                moves.add(new int[]{i, j});
+                break;
+            }
+            else {
+                break;
+            }
+        }
+
+        // Lower Right Diagonal
+        for(int i=startYRow+1, j=startXCol+1; i<8 && j<8; i++, j++){
+            if(board[i][j] == null) {
+                moves.add(new int[]{i, j});
+            }
+            else if(board[i][j].isWhite() != this.isWhite()){
+                moves.add(new int[]{i, j});
+                break;
+            }
+            else {
+                break;
+            }
+        }
+
+        return moves;
+    }
+
+
 
     @Override
     public String getSymbol(){

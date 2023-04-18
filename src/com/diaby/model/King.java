@@ -204,18 +204,78 @@ public class King extends ChessPiece {
         return false;
     }
 
-    public ArrayList<ChessPiece> getPieces(ChessPiece[][] board) {
-        ArrayList<ChessPiece> piecesList = new ArrayList<>();
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                ChessPiece piece = board[row][col];
-                if (piece != null) {
-                    piecesList.add(piece);
-                }
+
+
+    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
+        ArrayList<int[]> moves = new ArrayList<>();
+
+        // Check moves to the right
+        if (startXCol + 1 < 8) {
+            ChessPiece piece = board[startYRow][startXCol+1];
+            if (piece == null || piece.isWhite() != this.isWhite()) {
+                moves.add(new int[]{startYRow, startXCol+1});
             }
         }
-        return piecesList;
+
+        // Check moves to the left
+        if (startXCol - 1 >= 0) {
+            ChessPiece piece = board[startYRow][startXCol-1];
+            if (piece == null || piece.isWhite() != this.isWhite()) {
+                moves.add(new int[]{startYRow, startXCol-1});
+            }
+        }
+
+        // Check moves to the bottom
+        if (startYRow + 1 < 8) {
+            ChessPiece piece = board[startYRow+1][startXCol];
+            if (piece == null || piece.isWhite() != this.isWhite()) {
+                moves.add(new int[]{startYRow+1, startXCol});
+            }
+        }
+
+        // Check moves to the top
+        if (startYRow - 1 >= 0) {
+            ChessPiece piece = board[startYRow-1][startXCol];
+            if (piece == null || piece.isWhite() != this.isWhite()) {
+                moves.add(new int[]{startYRow-1, startXCol});
+            }
+        }
+
+        // Check diagonal moves to the top-right
+        if (startYRow - 1 >= 0 && startXCol + 1 < 8) {
+            ChessPiece piece = board[startYRow-1][startXCol+1];
+            if (piece == null || piece.isWhite() != this.isWhite()) {
+                moves.add(new int[]{startYRow-1, startXCol+1});
+            }
+        }
+
+        // Check diagonal moves to the top-left
+        if (startYRow - 1 >= 0 && startXCol - 1 >= 0) {
+            ChessPiece piece = board[startYRow-1][startXCol-1];
+            if (piece == null || piece.isWhite() != this.isWhite()) {
+                moves.add(new int[]{startYRow-1, startXCol-1});
+            }
+        }
+
+        // Check diagonal moves to the bottom-right
+        if (startYRow + 1 < 8 && startXCol + 1 < 8) {
+            ChessPiece piece = board[startYRow+1][startXCol+1];
+            if (piece == null || piece.isWhite() != this.isWhite()) {
+                moves.add(new int[]{startYRow+1, startXCol+1});
+            }
+        }
+
+        // Check diagonal moves to the bottom-left
+        if (startYRow + 1 < 8 && startXCol - 1 >= 0) {
+            ChessPiece piece = board[startYRow+1][startXCol-1];
+            if (piece == null || piece.isWhite() != this.isWhite()) {
+                moves.add(new int[]{startYRow+1, startXCol-1});
+            }
+        }
+
+        return moves;
     }
+
 
 }
 

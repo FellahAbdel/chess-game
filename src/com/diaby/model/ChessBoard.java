@@ -25,7 +25,7 @@ public class ChessBoard {
         tileBoard[0][6] = new Knight("cavalier_b.png",Color.WHITE, 0, 6);
         tileBoard[0][7] = new Rook("tour_b.png",Color.WHITE, 0, 7);
         for (int j = 0; j < 8; j++) {
-            tileBoard[1][j] = new Pawn("pion_b.png",Color.WHITE, j, 1);
+            tileBoard[1][j] = new Pawn("pion_b.png",Color.WHITE, 1, j);
         }
 
         // Initialiser les pièces noires
@@ -113,14 +113,13 @@ public class ChessBoard {
         return piecesList;
     }
 
-    public void move(int startRow, int startCol, int endRow, int endCol)
-    {
+    public void move(int startRow, int startCol, int endRow, int endCol) {
         ChessPiece startPiece = getPieceAt(startRow, startCol);
         ChessPiece endPiece = getPieceAt(endRow, endCol);
-        if(isOccupied(endRow,endRow))
+        if(endPiece != null)
         {
             endPiece.setCaptured();
-            removePieceAt(endRow,endCol);
+            removePieceAt(endRow, endCol);
             setPieceAt(endRow, endCol, startPiece);
             setPieceAt(startRow, startCol, null);
             startPiece.setRow(endRow);
@@ -135,6 +134,7 @@ public class ChessBoard {
         }
 
     }
+
     public boolean movePiece(int startRow, int startCol, int endRow, int endCol) {
         ChessPiece startPiece = getPieceAt(startRow, startCol);
         ChessPiece endPiece = getPieceAt(endRow, endCol);
@@ -146,32 +146,35 @@ public class ChessBoard {
             return false;
         }
 
-        if (startPiece instanceof Pawn && (endRow == 0 || endRow == 7)) {
+        if (startPiece instanceof Pawn && ((endRow == 0 && startPiece.getColor() == Color.BLACK) || (endRow == 7 && startPiece.getColor() == Color.WHITE))) {
             promotePawn((Pawn) startPiece, endRow, endCol);
         }
 
-        if(startPiece instanceof Pawn)
-        {
-            return captureEnPassant(startPiece, startRow, startCol, endRow, endCol);
-        }
-
-        if (startPiece instanceof King && Math.abs(startRow - endRow) == 2) {
-            // The move is a castling move
-           if(((King) startPiece).castle(startRow,startCol,endRow,endCol, tileBoard))
-           {
-               // Effectue le roque
-                int dir = endCol > startCol ? 1 : -1;
-                this.movePiece(startRow, startCol, endRow, endCol);
-                this.movePiece(startRow, endCol + dir, startRow, endCol - dir);
-           }
-        }
+//        if (startPiece instanceof Pawn) {
+//            if (endPiece == null && startPiece.canMoveTo(endCol, endRow, tileBoard)) {
+//                return false;
+//            }
+//            return captureEnPassant(startPiece, startRow, startCol, endRow, endCol);
+//        }
+//
+//        if (startPiece instanceof King && Math.abs(startRow - endRow) == 2) {
+//            // The move is a castling move
+//            if(((King) startPiece).castle(startRow,startCol,endRow,endCol, tileBoard))
+//            {
+//                // Effectue le roque
+//                int dir = endCol > startCol ? 1 : -1;
+//                this.movePiece(startRow, startCol, endRow, endCol);
+//                this.movePiece(startRow, endCol + dir, startRow, endCol - dir);
+//            }
+//        }
 
         // on effectue le déplacement
-        if (startPiece.canMoveTo(endCol, endRow, tileBoard)) {
+        if (startPiece.canMoveTo(endRow, endCol, tileBoard)) {
             move(startRow, startCol, endRow, endCol);
+
             return true;
         }
-        return true;
+        return false;
     }
 
 
