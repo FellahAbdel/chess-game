@@ -4,7 +4,7 @@ package com.diaby.model;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Bishop extends ChessPiece {
     public Bishop(String imageName, Color color, int row, int col) {
