@@ -1,12 +1,12 @@
-import com.diaby.model.ChessBoard;
-import com.diaby.model.*;
-
-import java.awt.*;
-import java.util.Random;
-import java.util.Scanner;
-
-public class Main {
-    public static void main(String[] args) {
+//import com.diaby.model.ChessBoard;
+//import com.diaby.model.*;
+//
+//import java.awt.*;
+//import java.util.Random;
+//import java.util.Scanner;
+//
+//public class Main {
+//    public static void main(String[] args) {
 //        // Initialisation du jeu
 //        ChessBoard game = new ChessBoard();
 //        Scanner scanner = new Scanner(System.in);
@@ -47,13 +47,13 @@ public class Main {
 //
 //        // Fermeture du scanner
 //        scanner.close();
-
+//
 //        ChessBoard chess = new ChessBoard();
 //        chess.printBoard();
 //
 //        System.out.println(chess.movePiece(1, 0, 2, 0));
 //        chess.printBoard();
-
-    }
-}
+//
+//    }
+//}
 
