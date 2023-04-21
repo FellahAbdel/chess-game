@@ -29,83 +29,25 @@ public class King extends ChessPiece {
         this.hasMoved = hasMoved;
     }
 
-    @Override
-    public boolean isValidMove(int startX, int startY, int endX, int endY, ChessPiece[][] board) {
-        // Vérifie si le déplacement se fait d'une case dans n'importe quelle direction
-        int deltaX = Math.abs(endX - startX);
-        int deltaY = Math.abs(endY - startY);
-        if (deltaX <= 1 && deltaY <= 1)
-        {
-            // check if the King is not moving to a threatened position
-            if (isPositionThreatened(board, endX, endY, this.isWhite())) {
-                return true;
-            }
-            // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
-            if (board[endY][endX] == null || !board[endY][endX].getColor().equals(getColor())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public String getSymbol() {
-        return (getColor() == Color.WHITE ? "B" : "N");
-    }
-
-
-    public boolean castle(int startX, int startY, int endX, int endY, ChessPiece[][] board) {
-        // we can't move the piece to a position that has a piece of the same color
-
-        ChessPiece endPiece = board[endX][endY];
-
-        int x = Math.abs(startX - endX);
-        int y = Math.abs(startY - endY);
-
-        if (x == 2 && y == 0) {
-            // check if the King is not moving to a threatened position
-            if (isPositionThreatened(board, endX, endY, this.isWhite())) {
-                // check if the King is not castling through a check
-                if (!this.castlingDone && canCastle(endPiece, startX, startY, endX, endY, board)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean canCastle(ChessPiece piece, int startRow, int startCol, int endRow, int endCol, ChessPiece[][] board) {
-        // Vérifie si la pièce est un roi et si le mouvement est un roque valide
-        if (!(piece instanceof King) || Math.abs(endCol - startCol) != 2 || startRow != endRow) {
-            return false;
-        }
-
-        King king = (King) piece;
-        Color color = king.getColor();
-
-        // Vérifie si le roi n'a pas encore bougé et n'est pas en échec
-        if (king.getHasMoved() || isInCheck(king, color, board)) {
-            return false;
-        }
-
-        // Vérifie si les cases entre le roi et la tour sont vides
-        int dir = endCol > startCol ? 1 : -1;
-        int col = startCol + dir;
-        while (col != endCol) {
-            if (board[startRow][col] != null) {
-                return false;
-            }
-            col += dir;
-        }
-
-        // Vérifie si la tour correspondante n'a pas bougé
-        ChessPiece rook = board[startRow][endCol + dir];
-        if (!(rook instanceof Rook) || rook.getColor() != color || ((Rook) rook).getHasMoved()) {
-            return false;
-        }
-
-        return true;
-    }
+//    @Override
+//    public boolean isValidMove(int startX, int startY, int endX, int endY, ChessPiece[][] board) {
+//        // Vérifie si le déplacement se fait d'une case dans n'importe quelle direction
+//        int deltaX = Math.abs(endX - startX);
+//        int deltaY = Math.abs(endY - startY);
+//        if (deltaX <= 1 && deltaY <= 1)
+//        {
+//            // check if the King is not moving to a threatened position
+//            if (isPositionThreatened(board, endX, endY, this.isWhite())) {
+//                return true;
+//            }
+//            // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
+//            if (board[endY][endX] == null || !board[endY][endX].getColor().equals(getColor())) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
 
     private boolean isPositionThreatened(ChessPiece[][] board, int x, int y, boolean isWhite) {
         // check if any opposing Knight is threatening the position
@@ -178,33 +120,51 @@ public class King extends ChessPiece {
         return x >= 0 && x < 8 && y >= 0 && y < 8;
     }
 
-    public boolean isInCheck(King king, Color color, ChessPiece[][] board) {
-        // Récupérer la position du roi du joueur en question
-
-        if (king == null) {
-            // Si on ne trouve pas le roi, renvoyer une exception
-            throw new RuntimeException("Unable to find " + color + " king position");
+    public boolean canCastle(ChessPiece piece, int startRow, int startCol, int endRow, int endCol, ChessPiece[][] board) {
+        // Vérifie si la pièce est un roi et si le mouvement est un roque valide
+        if (!(piece instanceof King) || Math.abs(endCol - startCol) != 2 || startRow != endRow) {
+            return false;
         }
 
-        int endX = king.getRow();
-        int endY = king.getCol();
-        int starX, starY;
-        ArrayList<ChessPiece> pieces = getPieces(board);
-        // Vérifier si le roi est menacé par une pièce ennemie
-        for (ChessPiece piece : pieces) {
+        King king = (King) piece;
 
-            if (piece.getColor() != color) {
-                starX = piece.getRow();
-                starY = piece.getCol();
-                if (piece.isValidMove(starX, starY, endX, endY, board)) {
-                    return true;
+        // Vérifie si le roi n'a pas encore bougé et n'est pas en échec
+        if (king.getHasMoved() || isInCheck(king.isWhite(), board)) {
+            return false;
+        }
+
+        // petit roque
+        if(!this.getHasMoved()  && startCol == 4) {
+            ChessPiece rook = board[startRow][7];
+            if(rook instanceof Rook && !((Rook) rook).getHasMoved() && board[startRow][5] == null && board[startRow][6] == null) {
+                boolean isInCheck = false;
+                if (isInCheck(piece.isWhite(), board)) {
+                    isInCheck = true;
+                }
+                if (isInCheck) {
+                    return false;
                 }
             }
         }
-        return false;
+
+        // grand roque
+        if(!this.getHasMoved() && startCol == 4) {
+            ChessPiece rook = board[startRow][0];
+            if(rook instanceof Rook && !((Rook) rook).getHasMoved() && board[startRow][1] == null && board[startRow][2] == null && board[startRow][3] == null) {
+                boolean isInCheck = false;
+                if (isInCheck(piece.isWhite(), board)) {
+                    isInCheck = true;
+                }
+                if (!isInCheck) {
+                    return false;
+                }
+            }
+        }
+
+
+        // no opposing piece is threatening the position
+        return true;
     }
-
-
 
     public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
@@ -273,9 +233,75 @@ public class King extends ChessPiece {
             }
         }
 
+        // petit roque
+        if(!this.getHasMoved()  && startXCol == 4) {
+            ChessPiece rook = board[startYRow][7];
+            if(rook instanceof Rook && !((Rook) rook).getHasMoved() && board[startYRow][5] == null && board[startYRow][6] == null) {
+                boolean isInCheck = false;
+                ChessPiece piece = board[startYRow][startXCol];
+                if (isInCheck(piece.isWhite(), board)) {
+                    isInCheck = true;
+                }
+                if (!isInCheck) {
+                    moves.add(new int[] {startYRow, startXCol + 2});
+                }
+            }
+        }
+
+        // grand roque
+        if(!this.getHasMoved() && startXCol == 4) {
+            ChessPiece rook = board[startYRow][0];
+            if(rook instanceof Rook && !((Rook) rook).getHasMoved() && board[startYRow][1] == null && board[startYRow][2] == null && board[startYRow][3] == null) {
+                boolean isInCheck = false;
+                ChessPiece piece = board[startYRow][startXCol];
+                if (isInCheck(piece.isWhite(), board)) {
+                    isInCheck = true;
+                }
+                if (!isInCheck) {
+                    moves.add(new int[] {startYRow, startXCol - 2});
+                }
+            }
+        }
+
+
         return moves;
     }
 
+
+    public boolean isInCheck(boolean isWhiteKing, ChessPiece[][] board) {
+        // Find the king's position
+        int[] kingPos = null;
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                ChessPiece piece = board[row][col];
+                if (piece instanceof King && piece.isWhite() == isWhiteKing) {
+                    kingPos = new int[]{row, col};
+                }
+            }
+        }
+
+        // Check if any opponent piece can attack the king
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                ChessPiece piece = board[row][col];
+                if (piece != null && piece.isWhite() != isWhiteKing) {
+                    ArrayList<int[]> moves = piece.PossiblesMoves(row, col, board);
+                    for (int[] move : moves) {
+                        if (kingPos != null && move[0] == kingPos[0] && move[1] == kingPos[1]) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        // The king is not in check
+        return false;
+    }
+
+    public String getSymbol() {
+        return (getColor() == Color.WHITE ? "B" : "N");
+    }
 
 }
 
