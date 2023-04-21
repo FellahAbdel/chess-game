@@ -8,7 +8,6 @@ public abstract class ChessPiece {
     private String pieceName; // nom de la pièce
     private String imageName;
     protected Color color; // couleur de la pièce (blanc ou noir)
-    //private ImageIcon image; // image de la pièce pour l'interface graphique
     private int row; // ligne actuelle de la pièce sur le plateau
     private int col; // colonne actuelle de la pièce sur le plateau
 
@@ -32,10 +31,6 @@ public abstract class ChessPiece {
     public Color getColor() {
         return color;
     }
-
-/*    public ImageIcon getImage() {
-        return image;
-    }*/
 
     public int getRow() {
         return row;
@@ -71,7 +66,7 @@ public abstract class ChessPiece {
      * @param board le tableau de pièces représentant l'état actuel du plateau.
      * @return true si le mouvement est valide, false sinon.
      */
-    public abstract boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board);
+//    public abstract boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board);
 
     public abstract ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board);
     /**
@@ -82,13 +77,13 @@ public abstract class ChessPiece {
      * @param board le tableau de pièces représentant l'état actuel du plateau.
      * @return true si la case peut être atteinte, false sinon.
      */
-    public boolean canMoveTo(int endrow, int endcol, ChessPiece[][] board) {
-        int startXCol = this.col;
-        int startYRow = this.row;
-
-        // Vérifie si le mouvement est valide
-        return isValidMove(startYRow, startXCol, endrow, endcol, board);
-    }
+//    public boolean canMoveTo(int endrow, int endcol, ChessPiece[][] board) {
+//        int startXCol = this.col;
+//        int startYRow = this.row;
+//
+//        // Vérifie si le mouvement est valide
+//        return isValidMove(startYRow, startXCol, endrow, endcol, board);
+//    }
 
 
     public ArrayList<ChessPiece> getPieces(ChessPiece[][] board) {
@@ -103,8 +98,6 @@ public abstract class ChessPiece {
         }
         return piecesList;
     }
-
-//    public abstract ArrayList<int[]> generateMoves(int x, int y, int[][] board);
 
     public abstract String getSymbol();
 

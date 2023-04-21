@@ -116,7 +116,7 @@ public class ChessBoard {
     public void move(int startRow, int startCol, int endRow, int endCol) {
         ChessPiece startPiece = getPieceAt(startRow, startCol);
         ChessPiece endPiece = getPieceAt(endRow, endCol);
-        if(endPiece != null)
+        if(endPiece != null && (endPiece.getColor() != startPiece.getColor()))
         {
             endPiece.setCaptured();
             removePieceAt(endRow, endCol);
@@ -157,41 +157,49 @@ public class ChessBoard {
 //            return captureEnPassant(startPiece, startRow, startCol, endRow, endCol);
 //        }
 //
-//        if (startPiece instanceof King && Math.abs(startRow - endRow) == 2) {
-//            // The move is a castling move
-//            if(((King) startPiece).castle(startRow,startCol,endRow,endCol, tileBoard))
-//            {
-//                // Effectue le roque
-//                int dir = endCol > startCol ? 1 : -1;
-//                this.movePiece(startRow, startCol, endRow, endCol);
-//                this.movePiece(startRow, endCol + dir, startRow, endCol - dir);
-//            }
-//        }
+        if (startPiece instanceof King ) {
+            // The move is a castling move
+            if(!((King) startPiece).canCastle(startPiece,startRow,startCol,endRow,endCol, tileBoard)) {
+                // Effectue le roque
+                // petit roque
+                if(endCol > startCol) {
+                    // déplacement de la tour pour le petit roque
+                    move(endRow, 7, endRow, 5);
+                } else { // grand roque
+                    // déplacement de la tour pour le grand roque
+                    move(endRow, 0, endRow, 3);
+                }
+            }
+        }
+
+
+        move(startRow, startCol, endRow, endCol);
+
 
         // on effectue le déplacement
-        if (startPiece.canMoveTo(endRow, endCol, tileBoard)) {
-            move(startRow, startCol, endRow, endCol);
+//        if (startPiece.canMoveTo(endRow, endCol, tileBoard)) {
+//            move(startRow, startCol, endRow, endCol);
+//
+//            return true;
+//        }
+//        return false;
 
-            return true;
-        }
-        return false;
+        return true;
     }
 
 
 
     public void promotePawn(Pawn pawn, int row, int col) {
         Color color = pawn.getColor();
-        // Replace the pawn with a queen for now
-        if(pawn.isWhite())
-        {
-            Queen queen = new Queen("reine_b.png",color, row, col);
-            tileBoard[row][col] = queen;
+        ChessPiece newPiece;
+        if (pawn.isWhite()) {
+            newPiece = new Queen("reine_b.png", color, row, col);
+        } else {
+            newPiece = new Queen("reine_n.png", color, row, col);
         }
-        else{
-            Queen queen = new Queen("reine_n.png",color, row, col);
-            tileBoard[row][col] = queen;
-        }
+        tileBoard[row][col] = newPiece;
     }
+
 
     public boolean captureEnPassant(ChessPiece piece, int startRow, int startCol, int endRow, int endCol) {
         // Vérifie si la pièce est un pion et si le mouvement est un en passant valide

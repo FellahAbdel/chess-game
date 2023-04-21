@@ -22,35 +22,35 @@ public class Rook extends ChessPiece {
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
     }
-    @Override
-    public boolean isValidMove(int startX, int startY, int endX, int endY, ChessPiece[][] board) {
-        // Vérifie si le déplacement est horizontal ou vertical
-        if (startX != endX && startY != endY) {
-            return false;
-        }
-
-        // Vérifie si la trajectoire ne rencontre pas d'obstacle
-        int increment;
-        if (startX == endX) {
-            increment = (endY - startY > 0 ? 1 : -1);
-        } else {
-            increment = (endX - startX > 0 ? 1 : -1);
-        }
-        int x = startX;
-        int y = startY;
-
-        while ((startX == endX && y != endY) || (startY == endY && x != endX)) {
-            x += startX == endX ? 0 : increment;
-            y += startY == endY ? 0 : increment;
-            if (board[y][x] != null) {
-                return false;
-            }
-        }
-        setHasMoved(true);
-
-        // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
-        return board[endY][endX] == null || !board[endY][endX].getColor().equals(getColor());
-    }
+//    @Override
+//    public boolean isValidMove(int startX, int startY, int endX, int endY, ChessPiece[][] board) {
+//        // Vérifie si le déplacement est horizontal ou vertical
+//        if (startX != endX && startY != endY) {
+//            return false;
+//        }
+//
+//        // Vérifie si la trajectoire ne rencontre pas d'obstacle
+//        int increment;
+//        if (startX == endX) {
+//            increment = (endY - startY > 0 ? 1 : -1);
+//        } else {
+//            increment = (endX - startX > 0 ? 1 : -1);
+//        }
+//        int x = startX;
+//        int y = startY;
+//
+//        while ((startX == endX && y != endY) || (startY == endY && x != endX)) {
+//            x += startX == endX ? 0 : increment;
+//            y += startY == endY ? 0 : increment;
+//            if (board[y][x] != null) {
+//                return false;
+//            }
+//        }
+//        setHasMoved(true);
+//
+//        // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
+//        return board[endY][endX] == null || !board[endY][endX].getColor().equals(getColor());
+//    }
 
     public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
