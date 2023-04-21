@@ -12,9 +12,13 @@ import java.util.ArrayList;
  *   qui affiche le damier, qui permet de selectionner/deplacer des pieces d'echec
  */
 public class ChessBoardView extends JFrame implements MouseListener {
-    /** Panneau principal */
+    /**
+     * Panneau principal
+     */
     JPanel mainPanel;
-    /** Panneau correspondant au damier */
+    /**
+     * Panneau correspondant au damier
+     */
     JPanel chessBoard;
     static final int SIZE_COLUMN_BOARD = 8;
     static final int SIZE_ROW_BOARD = 8;
@@ -26,7 +30,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
     static final Color WHITE_CASE = Color.white;
     static final Color HIGHLIGHT_CASE = Color.red;
 
-    public ChessBoardView(){
+    public ChessBoardView() {
         // Taille d'un element graphique
         Dimension boardSize = new Dimension(SIZE_CASE_X * SIZE_COLUMN_BOARD, SIZE_CASE_Y * SIZE_ROW_BOARD);
 
@@ -39,8 +43,8 @@ public class ChessBoardView extends JFrame implements MouseListener {
         // Definition du panel contenant le damier
         chessBoard = new JPanel();
         mainPanel.add(chessBoard); // Ajout du panel damier au panel principal
-        chessBoard.setLayout( new GridLayout(SIZE_COLUMN_BOARD, SIZE_ROW_BOARD) ); // le damier sera une grille N * M
-        chessBoard.setPreferredSize( boardSize );
+        chessBoard.setLayout(new GridLayout(SIZE_COLUMN_BOARD, SIZE_ROW_BOARD)); // le damier sera une grille N * M
+        chessBoard.setPreferredSize(boardSize);
         chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
 
         // Dans le damier, ajout de N*M panneau, chacun correspondant a une case de la grille
@@ -56,8 +60,8 @@ public class ChessBoardView extends JFrame implements MouseListener {
         drawGrid();
     }
 
-    /** Methode d'affichage de la grille
-     *
+    /**
+     * Methode d'affichage de la grille
      */
     public void drawGrid() {
         JPanel square;
@@ -78,7 +82,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
                     square.add(image);
                 }
 
-                if(board.highLightCase[row][col]){
+                if (board.highLightCase[row][col]) {
                     square.setBackground(HIGHLIGHT_CASE);
                 }
                 // Incrémentation de l'indice pour passer à la case suivante
@@ -92,160 +96,152 @@ public class ChessBoardView extends JFrame implements MouseListener {
      */
     /**
      * Capture du bonton presse du pointeur sur la fenetre graphique
+     *
      * @param e evenement pointeur presse
      */
 
-//    public void mousePressed(MouseEvent e) {
-//        // Conversion de la position cliquée en position de la grille
-//        int colX = e.getX() / (ChessBoardView.SIZE_CASE_X);
-//        int rowY = e.getY() / (ChessBoardView.SIZE_CASE_Y);
+
+  //  && piece.getColor() == board.getCurrentPlayer()
+//  public void mousePressed(MouseEvent e) {
+//      // Conversion de la position cliquée en position de la grille
+//      int colX = e.getX() / (ChessBoardView.SIZE_CASE_X);
+//      int rowY = e.getY() / (ChessBoardView.SIZE_CASE_Y);
 //
-//        ChessPiece piece = board.getPieceAt(rowY, colX);
+//      ChessPiece piece = board.getPieceAt(rowY, colX);
+//      if (selectedPiece == null) { // Premier clic pour sélectionner la pièce
+//          if (piece != null ) { // Vérifie que la pièce appartient au joueur dont c'est le tour
+//              selectedPiece = piece;
+//              ArrayList<int[]> moves = selectedPiece.PossiblesMoves(rowY, colX, board.getTileBoard());
+//              board.resetHighlight();
+//              for (int[] move : moves) {
+//                  board.highLightCase[move[0]][move[1]] = true;
+//              }
+//          }
+//      } else { // Deuxième clic pour déplacer la pièce
+//          if (board.highLightCase[rowY][colX]) { // Vérifie que la case cliquée est un mouvement possible
+//              board.resetHighlight();
+//              JPanel oldSquare = (JPanel) chessBoard.getComponent((selectedPiece.getRow() * SIZE_ROW_BOARD) + selectedPiece.getCol());
+//              oldSquare.removeAll();
+//              oldSquare.repaint();
+//              oldSquare.revalidate();
+//              board.resetHighlight();
+//              boolean capturedPiece = board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
+//              System.out.println(capturedPiece);
+//              if (capturedPiece && piece != null && piece.getColor() != selectedPiece.getColor()) { // Si une pièce a été capturée
+//                  JPanel capturedSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+//                  capturedSquare.removeAll();
+//                  capturedSquare.repaint();
+//                  capturedSquare.revalidate();
+//              }
+//              // Promotion du pion en reine
+//              if (selectedPiece instanceof Pawn && (selectedPiece.getRow() == 0 || selectedPiece.getRow() == 7)) {
+//                  board.promotePawn((Pawn) selectedPiece, rowY, colX);
+//                  JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+//                  promotionSquare.removeAll();
+//                  String fileName = "src/com/diaby/model/img/" + selectedPiece.getImageName();
+//                  JLabel image = new JLabel(new ImageIcon(fileName));
+//                  promotionSquare.add(image);
+//                  promotionSquare.repaint();
+//                  promotionSquare.revalidate();
+//              }
 //
-//        if (piece != null) {
-//            // Test si la pièce est blanche
-//            if (piece.isWhite()) {
-//                if (piece instanceof Pawn) {
-//                    boolean isValid = piece.isValidMove(rowY, colX, rowY + 1, colX, board.getTileBoard());
-//                    if (isValid) {
-//                        board.resetHighlight();
-//                        board.highLightCase[rowY + 1][colX] = true;
-//                    }
-//                }
-//            }
-//            // Test si la pièce est noire
-//            else if (piece.isBlack()) {
-//                if (piece instanceof Pawn) {
-//                    boolean isValid = piece.isValidMove(rowY, colX, rowY - 1, colX, board.getTileBoard());
-//                    if (isValid) {
-//                        board.resetHighlight();
-//                        board.highLightCase[rowY - 1][colX] = true;
-//                    }
-//                }
-//            }
-//        } else {
-//            // Test si la case cliquée est mise en surbrillance
-//            if (board.highLightCase[rowY][colX]) {
-//                // Récupération de la pièce sélectionnée
-//                ChessPiece selectedPieceWhite = board.getPieceAt(rowY-1, colX);
-//                ChessPiece selectedPieceBlack = board.getPieceAt(rowY+1,colX);
-//
-//                // Test si la pièce sélectionnée existe et qu'elle est de la même couleur que la case cliquée
-//                if (selectedPieceWhite != null && selectedPieceWhite.isWhite()) {
-//                    // Suppression de l'ancienne pièce
-//                    JPanel oldSquare = (JPanel) chessBoard.getComponent(((rowY-1) * SIZE_ROW_BOARD) + colX);
-//                    oldSquare.removeAll();
-//                    oldSquare.repaint();
-//                    oldSquare.revalidate();
-//                    board.resetHighlight();
-//                    // Déplacement de la pièce dans la grille
-//                    board.movePiece(rowY-1, colX, rowY, colX);
-//                } else if (selectedPieceBlack != null && selectedPieceBlack.isBlack()) {
-//                    // Suppression de l'ancienne pièce
-//                    JPanel oldSquare = (JPanel) chessBoard.getComponent(((rowY+1) * SIZE_ROW_BOARD) + colX);
-//                    oldSquare.removeAll();
-//                    oldSquare.repaint();
-//                    oldSquare.revalidate();
-//                    board.resetHighlight();
-//                    // Déplacement de la pièce dans la grille
-//                    board.movePiece(rowY+1, colX, rowY, colX);
-//                }
-//            }
+//          }
+//                selectedPiece = null;
+//                board.resetHighlight();
 //        }
 //        // Mise à jour de l'affichage
 //        drawGrid();
 //    }
 
 
+    private ChessPiece selectedPiece = null;
     public void mousePressed(MouseEvent e) {
         // Conversion de la position cliquée en position de la grille
         int colX = e.getX() / (ChessBoardView.SIZE_CASE_X);
         int rowY = e.getY() / (ChessBoardView.SIZE_CASE_Y);
 
         ChessPiece piece = board.getPieceAt(rowY, colX);
+        if (selectedPiece == null) { // Premier clic pour sélectionner la pièce
+            if (piece != null ) { // Vérifie que la pièce appartient au joueur dont c'est le tour
+                selectedPiece = piece;
+                ArrayList<int[]> moves = selectedPiece.PossiblesMoves(rowY, colX, board.getTileBoard());
+                board.resetHighlight();
+                System.out.println("nom piece : " + selectedPiece.getPieceName());
+                for (int[] move : moves) {
 
-
-        if (piece instanceof Pawn) {
-            ArrayList<int[]> moves = piece.PossiblesMoves(rowY, colX, board.getTileBoard());
-            board.resetHighlight();
-            for (int[] move : moves) {
-                board.highLightCase[move[0]][move[1]] = true;
-            }
-        }
-        else {
-            // Test si la case cliquée est mise en surbrillance
-            if (board.highLightCase[rowY][colX]) {
-                // Récupération de la pièce sélectionnée
-                ChessPiece selectedPieceWhite = board.getPieceAt(rowY - 1, colX);
-                ChessPiece selectedPieceBlack = board.getPieceAt(rowY + 1, colX);
-
-                // Test si la pièce sélectionnée existe et qu'elle est de la même couleur que la case cliquée
-                if (selectedPieceWhite != null && selectedPieceWhite.isWhite()) {
-                    // Suppression de l'ancienne pièce
-                    JPanel oldSquare = (JPanel) chessBoard.getComponent(((rowY - 1) * SIZE_ROW_BOARD) + colX);
-                    oldSquare.removeAll();
-                    oldSquare.repaint();
-                    oldSquare.revalidate();
-                    board.resetHighlight();
-                    // Déplacement de la pièce dans la grille
-                    board.movePiece(rowY - 1, colX, rowY, colX);
-                }
-
-                if (selectedPieceBlack != null && selectedPieceBlack.isBlack()) {
-                    // Suppression de l'ancienne pièce
-                    JPanel oldSquare = (JPanel) chessBoard.getComponent(((rowY + 1) * SIZE_ROW_BOARD) + colX);
-                    oldSquare.removeAll();
-                    oldSquare.repaint();
-                    oldSquare.revalidate();
-                    board.resetHighlight();
-                    // Déplacement de la pièce dans la grille
-                    board.movePiece(rowY + 1, colX, rowY, colX);
+                    System.out.println("row = " + move[0] + " " + "col = " + move[1]);
+                    board.highLightCase[move[0]][move[1]] = true;
                 }
             }
-        }
-        if(piece instanceof Knight)
-        {
-            ArrayList<int[]> moves = piece.PossiblesMoves(rowY, colX, board.getTileBoard());
-            board.resetHighlight();
-            for (int[] move : moves) {
-                board.highLightCase[move[0]][move[1]] = true;
+        } else { // Deuxième clic pour déplacer la pièce
+            if (board.highLightCase[rowY][colX]) { // Vérifie que la case cliquée est un mouvement possible
+                board.resetHighlight();
+                JPanel oldSquare = (JPanel) chessBoard.getComponent((selectedPiece.getRow() * SIZE_ROW_BOARD) + selectedPiece.getCol());
+                oldSquare.removeAll();
+                oldSquare.repaint();
+                oldSquare.revalidate();
+                boolean capturedPiece = board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
+                System.out.println(capturedPiece);
+
+                if ( piece!= null && piece.getColor() != selectedPiece.getColor()) { // Si une pièce a été capturée
+                    JPanel capturedSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+                    capturedSquare.removeAll();
+                    capturedSquare.repaint();
+                    capturedSquare.revalidate();
+                }
+                // Promotion du pion en reine
+                if (selectedPiece instanceof Pawn && (selectedPiece.getRow() == 0 || selectedPiece.getRow() == 7)) {
+                    board.promotePawn((Pawn) selectedPiece, rowY, colX);
+                    JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+                    promotionSquare.removeAll();
+                    String fileName = "src/com/diaby/model/img/" + selectedPiece.getImageName();
+                    JLabel image = new JLabel(new ImageIcon(fileName));
+                    promotionSquare.add(image);
+                    promotionSquare.repaint();
+                    promotionSquare.revalidate();
+                }
+                // Roque
+                if (selectedPiece instanceof King ) {
+                    // Roque court
+                    if (colX - 2 == 4) {
+
+                            // Déplace la tour
+                            board.movePiece(selectedPiece.getRow(), 7, selectedPiece.getRow(), 5);
+                            // Met à jour l'interface graphique
+                            JPanel oldRookSquare = (JPanel) chessBoard.getComponent((selectedPiece.getRow() * SIZE_ROW_BOARD) + 7);
+                            JPanel newRookSquare = (JPanel) chessBoard.getComponent((selectedPiece.getRow() * SIZE_ROW_BOARD) + 5);
+                            JLabel rookLabel = (JLabel) oldRookSquare.getComponent(0);
+                            oldRookSquare.removeAll();
+                            oldRookSquare.repaint();
+                            oldRookSquare.revalidate();
+                            newRookSquare.add(rookLabel);
+                            newRookSquare.repaint();
+                            newRookSquare.revalidate();
+
+                    }
+                    // Roque long
+                    else if (colX + 2 == 4) {
+                            // Déplace la tour
+                            board.movePiece(selectedPiece.getRow(), 0, selectedPiece.getRow(), 3);
+                            JPanel oldRookSquare = (JPanel) chessBoard.getComponent((selectedPiece.getRow() * SIZE_ROW_BOARD));
+                            JPanel newRookSquare = (JPanel) chessBoard.getComponent((selectedPiece.getRow() * SIZE_ROW_BOARD) + 3);
+                            JLabel rookLabel = (JLabel) oldRookSquare.getComponent(0);
+                            oldRookSquare.removeAll();
+                            oldRookSquare.repaint();
+                            oldRookSquare.revalidate();
+                            newRookSquare.add(rookLabel);
+                            newRookSquare.repaint();
+                            newRookSquare.revalidate();
+
+                    }
+                }
             }
-        }
-        if(piece instanceof Bishop)
-        {
-             ArrayList<int[]> moves = piece.PossiblesMoves(rowY, colX, board.getTileBoard());
-             board.resetHighlight();
-             for (int[] move : moves) {
-                 board.highLightCase[move[0]][move[1]] = true;
-             }
-        }
-        if(piece instanceof Rook)
-        {
-            ArrayList<int[]> moves = piece.PossiblesMoves(rowY, colX, board.getTileBoard());
-            board.resetHighlight();
-            for (int[] move : moves) {
-                board.highLightCase[move[0]][move[1]] = true;
-            }
-        }
-        if(piece instanceof Queen)
-        {
-            ArrayList<int[]> moves = piece.PossiblesMoves(rowY, colX, board.getTileBoard());
-            board.resetHighlight();
-            for (int[] move : moves) {
-                board.highLightCase[move[0]][move[1]] = true;
-            }
-        }
-        if(piece instanceof King)
-        {
-            ArrayList<int[]> moves = piece.PossiblesMoves(rowY, colX, board.getTileBoard());
-            board.resetHighlight();
-            for (int[] move : moves) {
-                board.highLightCase[move[0]][move[1]] = true;
-            }
+
+            selectedPiece = null;
+
         }
         // Mise à jour de l'affichage
         drawGrid();
-
     }
 
     public void mouseReleased(MouseEvent e) {}
