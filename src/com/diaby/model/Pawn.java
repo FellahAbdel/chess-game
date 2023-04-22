@@ -63,46 +63,101 @@ public class Pawn extends ChessPiece {
 //        return false;
 //    }
 
-    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
+    public void promotePawn(Pawn pawn, int row, int col, String pieceType,ChessPiece[][] board) {
+        Color color = pawn.getColor();
+        ChessPiece newPiece;
+        switch (pieceType) {
+            case "Queen":
+                if (pawn.isWhite()) {
+                    newPiece = new Queen("reine_b.png", color, row, col);
+                } else {
+                    newPiece = new Queen("reine_n.png", color, row, col);
+                }
+                break;
+            case "Rook":
+                if (pawn.isWhite()) {
+                    newPiece = new Rook("tour_b.png", color, row, col);
+                } else {
+                    newPiece = new Rook("tour_n.png", color, row, col);
+                }
+                break;
+            case "Bishop":
+                if (pawn.isWhite()) {
+                    newPiece = new Bishop("fou_b.png", color, row, col);
+                } else {
+                    newPiece = new Bishop("fou_n.png", color, row, col);
+                }
+                break;
+            case "Knight":
+                if (pawn.isWhite()) {
+                    newPiece = new Knight("cavalier_b.png", color, row, col);
+                } else {
+                    newPiece = new Knight("cavalier_n.png", color, row, col);
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid piece type");
+        }
+        board[row][col] = newPiece;
+    }
+
+    public ArrayList<int[]> PossiblesMoves(int startXCol, int startYRow, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
 
         if (this.isWhite()) {
+
             // Check one step forward
-            if (startYRow < 7 && board[startYRow + 1][startXCol] == null) {
-                moves.add(new int[]{startYRow + 1, startXCol});
+            if (startXCol < 7 && board[startXCol + 1][startYRow] == null) {
+                moves.add(new int[]{startXCol + 1, startYRow});
             }
             // Check two steps forward
-            if (startYRow == 1 && board[startYRow + 1][startXCol] == null && board[startYRow + 2][startXCol] == null) {
-                moves.add(new int[]{startYRow + 2, startXCol});
+            if (startXCol == 1 && board[startXCol + 1][startYRow] == null && board[startXCol + 2][startYRow] == null) {
+                moves.add(new int[]{startXCol + 2, startYRow});
             }
             // Check diagonal captures
-            if (startYRow < 7 && startXCol > 0 && board[startYRow + 1][startXCol - 1] != null && !board[startYRow + 1][startXCol - 1].isWhite()) {
-                moves.add(new int[]{startYRow + 1, startXCol - 1});
+            if (startXCol < 6 && startYRow > 0 && board[startXCol + 1][startYRow - 1] != null && !board[startXCol + 1][startYRow - 1].isWhite()) {
+                moves.add(new int[]{startXCol + 1, startYRow - 1});
             }
-            if (startYRow < 7 && startXCol < 7 && board[startYRow + 1][startXCol + 1] != null && !board[startYRow + 1][startXCol + 1].isWhite()) {
-                moves.add(new int[]{startYRow + 1, startXCol + 1});
+            if (startXCol < 6 && startYRow < 7 && board[startXCol + 1][startYRow + 1] != null && !board[startXCol + 1][startYRow + 1].isWhite()) {
+                moves.add(new int[]{startXCol + 1, startYRow + 1});
+            }
+            // Check en passant capture
+            if (startXCol == 4 && startYRow > 0 && board[startXCol][startYRow - 1] != null && !board[startXCol][startYRow - 1].isWhite()
+                    && board[startXCol + 1][startYRow - 1] == null && board[startXCol][startYRow - 1] instanceof Pawn) {
+                moves.add(new int[]{startXCol + 1, startYRow - 1});
+            }
+            if (startXCol == 4 && startYRow < 7 && board[startXCol][startYRow + 1] != null && !board[startXCol][startYRow + 1].isWhite()
+                    && board[startXCol + 1][startYRow + 1] == null && board[startXCol][startYRow + 1] instanceof Pawn) {
+                moves.add(new int[]{startXCol + 1, startYRow + 1});
             }
         } else {
             // Check one step forward
-            if (startYRow > 0 && board[startYRow - 1][startXCol] == null) {
-                moves.add(new int[]{startYRow - 1, startXCol});
+            if (startXCol > 0 && board[startXCol - 1][startYRow] == null) {
+                moves.add(new int[]{startXCol - 1, startYRow});
             }
             // Check two steps forward
-            if (startYRow == 6 && board[startYRow - 1][startXCol] == null && board[startYRow - 2][startXCol] == null) {
-                moves.add(new int[]{startYRow - 2, startXCol});
+            if (startXCol == 6 && board[startXCol - 1][startYRow] == null && board[startXCol - 2][startYRow] == null) {
+                moves.add(new int[]{startXCol - 2, startYRow});
             }
             // Check diagonal captures
-            if (startYRow > 0 && startXCol > 0 && board[startYRow - 1][startXCol - 1] != null && board[startYRow - 1][startXCol - 1].isWhite()) {
-                moves.add(new int[]{startYRow - 1, startXCol - 1});
+            if (startXCol > 1 && startYRow > 0 && board[startXCol - 1][startYRow - 1] != null && board[startXCol - 1][startYRow - 1].isWhite()) {
+                moves.add(new int[]{startXCol - 1, startYRow - 1});
             }
-            if (startYRow > 0 && startXCol < 7 && board[startYRow - 1][startXCol + 1] != null && board[startYRow - 1][startXCol + 1].isWhite()) {
-                moves.add(new int[]{startYRow - 1, startXCol + 1});
+            if (startXCol > 1 && startYRow < 7 && board[startXCol - 1][startYRow + 1] != null && board[startXCol - 1][startYRow + 1].isWhite()) {
+                moves.add(new int[]{startXCol - 1, startYRow + 1});
+            }
+            // Check en passant capture
+            if (startXCol == 3 && startYRow > 0 && board[startXCol][startYRow - 1] != null && board[startXCol][startYRow - 1].isWhite()
+                    && board[startXCol - 1][startYRow - 1] == null && board[startXCol][startYRow - 1] instanceof Pawn) {
+                moves.add(new int[]{startXCol - 1, startYRow - 1});
+            }
+            if (startXCol == 3 && startYRow < 7 && board[startXCol][startYRow + 1] != null && board[startXCol][startYRow + 1].isWhite()
+                    && board[startXCol - 1][startYRow + 1] == null && board[startXCol][startYRow + 1] instanceof Pawn) {
+                moves.add(new int[]{startXCol - 1, startYRow + 1});
             }
         }
-
         return moves;
     }
-
 
 
 
