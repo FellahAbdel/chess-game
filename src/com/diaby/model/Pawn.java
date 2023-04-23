@@ -27,41 +27,39 @@ public class Pawn extends ChessPiece {
         this.justMovedDouble = justMovedDouble;
     }
 
-//    @Override
-//    public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
-//        // Vérifie si le déplacement est vertical
-//        int deltaX = endXCol - startXCol;
-//        int deltaY = endYRow- startYRow;
-//        if (deltaX != 0) {
-//            return false;
-//        }
-//
-//        // Vérifie si le déplacement est d'une case vers l'avant en fonction de la couleur
-//        if (isWhite()) {
-//            // Vérifie si le pion n'a pas encore été déplacé et s'il se déplace de deux cases vers l'avant
-//            if (!hasMoved && deltaY == 2 && board[startYRow + 1][startXCol] == null) {
-//                setJustMovedDouble(true);
-//                return true;
-//            }
-//            // Vérifie si le pion se déplace d'une case vers l'avant
-//            if (deltaY == 1 && board[endYRow][endXCol] == null) {
-//                return true;
-//            }
-//        } else {
-//            // Vérifie si le pion n'a pas encore été déplacé et s'il se déplace de deux cases vers l'avant
-//            if (!hasMoved && deltaY == -2 && board[startYRow - 1][startXCol] == null) {
-//                setJustMovedDouble(true);
-//                return true;
-//            }
-//            // Vérifie si le pion se déplace d'une case vers l'avant
-//            if (deltaY == -1 && board[endYRow][endXCol] == null) {
-//                return true;
-//            }
-//        }
-//
-//        // Si aucun des cas précédents n'est vérifié, le mouvement n'est pas valide
-//        return false;
-//    }
+    @Override
+    public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
+        // Vérifie si le déplacement est vertical
+        int deltaX = endXCol - startXCol;
+        int deltaY = endYRow- startYRow;
+        if (deltaX != 0) {
+            return false;
+        }
+
+        // Vérifie si le déplacement est d'une case vers l'avant en fonction de la couleur
+        if (isWhite()) {
+            // Vérifie si le pion n'a pas encore été déplacé et s'il se déplace de deux cases vers l'avant
+            if (!hasMoved && deltaY == 2 && board[startYRow + 1][startXCol] == null) {
+                return true;
+            }
+            // Vérifie si le pion se déplace d'une case vers l'avant
+            if (deltaY == 1 && board[endYRow][endXCol] == null) {
+                return true;
+            }
+        } else {
+            // Vérifie si le pion n'a pas encore été déplacé et s'il se déplace de deux cases vers l'avant
+            if (!hasMoved && deltaY == -2 && board[startYRow - 1][startXCol] == null) {
+                return true;
+            }
+            // Vérifie si le pion se déplace d'une case vers l'avant
+            if (deltaY == -1 && board[endYRow][endXCol] == null) {
+                return true;
+            }
+        }
+
+        // Si aucun des cas précédents n'est vérifié, le mouvement n'est pas valide
+        return false;
+    }
 
     public void promotePawn(Pawn pawn, int row, int col, String pieceType,ChessPiece[][] board) {
         Color color = pawn.getColor();

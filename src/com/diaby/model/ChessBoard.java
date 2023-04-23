@@ -67,9 +67,6 @@ public class ChessBoard {
         tileBoard[row][col] = null ;
     }
 
-    public boolean isPieceAt(int row, int col) {
-        return tileBoard[row][col] != null;
-    }
     public int getNbOfWhitePiece() {
         ArrayList<ChessPiece> pieces = new ArrayList<>();
         for (int row = 0; row < 8; row++) {
@@ -111,6 +108,21 @@ public class ChessBoard {
             }
         }
         return piecesList;
+    }
+
+    public King getKing(boolean isWhiteKing)
+    {
+        King king = null;
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                ChessPiece piece = tileBoard[row][col];
+                if (piece instanceof King && piece.isWhite() == isWhiteKing) {
+                    king = (King) getPieceAt(row,col);
+                }
+            }
+        }
+
+        return king;
     }
 
     public void move(int startRow, int startCol, int endRow, int endCol) {

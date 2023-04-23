@@ -29,25 +29,25 @@ public class King extends ChessPiece {
         this.hasMoved = hasMoved;
     }
 
-//    @Override
-//    public boolean isValidMove(int startX, int startY, int endX, int endY, ChessPiece[][] board) {
-//        // Vérifie si le déplacement se fait d'une case dans n'importe quelle direction
-//        int deltaX = Math.abs(endX - startX);
-//        int deltaY = Math.abs(endY - startY);
-//        if (deltaX <= 1 && deltaY <= 1)
-//        {
-//            // check if the King is not moving to a threatened position
-//            if (isPositionThreatened(board, endX, endY, this.isWhite())) {
-//                return true;
-//            }
-//            // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
-//            if (board[endY][endX] == null || !board[endY][endX].getColor().equals(getColor())) {
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
+    @Override
+    public boolean isValidMove(int startX, int startY, int endX, int endY, ChessPiece[][] board) {
+        // Vérifie si le déplacement se fait d'une case dans n'importe quelle direction
+        int deltaX = Math.abs(endX - startX);
+        int deltaY = Math.abs(endY - startY);
+        if (deltaX <= 1 && deltaY <= 1)
+        {
+            // check if the King is not moving to a threatened position
+            if (isPositionThreatened(board, endX, endY, this.isWhite())) {
+                return true;
+            }
+            // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
+            if (board[endY][endX] == null || !board[endY][endX].getColor().equals(getColor())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     private boolean isPositionThreatened(ChessPiece[][] board, int x, int y, boolean isWhite) {
         // check if any opposing Knight is threatening the position

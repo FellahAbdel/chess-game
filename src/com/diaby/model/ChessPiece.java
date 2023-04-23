@@ -66,24 +66,23 @@ public abstract class ChessPiece {
      * @param board le tableau de pièces représentant l'état actuel du plateau.
      * @return true si le mouvement est valide, false sinon.
      */
-//    public abstract boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board);
+    public abstract boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board);
 
     public abstract ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board);
     /**
      * Vérifie si une pièce peut atteindre une case donnée sur le plateau.
      *
-     * @param endcol la position en x de la case.
-     * @param endrow la position en y de la case.
+     * @param colX la position en x de la case.
+     * @param rowY la position en y de la case.
      * @param board le tableau de pièces représentant l'état actuel du plateau.
      * @return true si la case peut être atteinte, false sinon.
      */
-//    public boolean canMoveTo(int endrow, int endcol, ChessPiece[][] board) {
-//        int startXCol = this.col;
-//        int startYRow = this.row;
-//
-//        // Vérifie si le mouvement est valide
-//        return isValidMove(startYRow, startXCol, endrow, endcol, board);
-//    }
+    public boolean canMove(int rowY, int colX, ChessPiece[][] board) {
+
+        ArrayList<int[]> moves = PossiblesMoves(rowY,colX,board);
+        // Vérifie si il a des mouvements valides
+        return moves.size() != 0;
+    }
 
 
     public ArrayList<ChessPiece> getPieces(ChessPiece[][] board) {

@@ -10,20 +10,20 @@ public class Knight extends ChessPiece {
         super("Knight", imageName, color, row, col);
     }
 
-//    @Override
-//    public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
-//        // Vérifie si le déplacement forme un L
-//        int deltaX = Math.abs(endXCol - startXCol);
-//        int deltaY = Math.abs(endYRow - startYRow);
-//        if ((deltaX == 1 && deltaY == 2) || (deltaX == 2 && deltaY == 1)) {
-//            // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
-//            if (board[endYRow][endXCol] == null || !board[endYRow][endXCol].getColor().equals(getColor())) {
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
+    @Override
+    public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
+        // Vérifie si le déplacement forme un L
+        int deltaX = Math.abs(endXCol - startXCol);
+        int deltaY = Math.abs(endYRow - startYRow);
+        if ((deltaX == 1 && deltaY == 2) || (deltaX == 2 && deltaY == 1)) {
+            // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
+            if (board[endYRow][endXCol] == null || !board[endYRow][endXCol].getColor().equals(getColor())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
