@@ -1,7 +1,6 @@
 package com.diaby.model;
 
 import java.awt.*;
-import java.util.List;
 import java.util.ArrayList;
 
 public abstract class ChessPiece {
