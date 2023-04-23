@@ -120,52 +120,6 @@ public class King extends ChessPiece {
         return x >= 0 && x < 8 && y >= 0 && y < 8;
     }
 
-    public boolean canCastle(ChessPiece piece, int startRow, int startCol, int endRow, int endCol, ChessPiece[][] board) {
-        // Vérifie si la pièce est un roi et si le mouvement est un roque valide
-        if (!(piece instanceof King) || Math.abs(endCol - startCol) != 2 || startRow != endRow) {
-            return false;
-        }
-
-        King king = (King) piece;
-
-        // Vérifie si le roi n'a pas encore bougé et n'est pas en échec
-        if (king.getHasMoved() || isInCheck(king.isWhite(), board)) {
-            return false;
-        }
-
-        // petit roque
-        if(!this.getHasMoved()  && startCol == 4) {
-            ChessPiece rook = board[startRow][7];
-            if(rook instanceof Rook && !((Rook) rook).getHasMoved() && board[startRow][5] == null && board[startRow][6] == null) {
-                boolean isInCheck = false;
-                if (isInCheck(piece.isWhite(), board)) {
-                    isInCheck = true;
-                }
-                if (isInCheck) {
-                    return false;
-                }
-            }
-        }
-
-        // grand roque
-        if(!this.getHasMoved() && startCol == 4) {
-            ChessPiece rook = board[startRow][0];
-            if(rook instanceof Rook && !((Rook) rook).getHasMoved() && board[startRow][1] == null && board[startRow][2] == null && board[startRow][3] == null) {
-                boolean isInCheck = false;
-                if (isInCheck(piece.isWhite(), board)) {
-                    isInCheck = true;
-                }
-                if (!isInCheck) {
-                    return false;
-                }
-            }
-        }
-
-
-        // no opposing piece is threatening the position
-        return true;
-    }
-
     public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
 
