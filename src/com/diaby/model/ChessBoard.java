@@ -154,16 +154,6 @@ public class ChessBoard {
             removePieceAt(capturedPieceRow, endCol);
         }
 
-//        if (startPiece instanceof King ) {
-//            if (!((King) startPiece).canCastle(startPiece, startRow, startCol, endRow, endCol, tileBoard)) {
-//                if (endCol > startCol) {
-//                    move(endRow, 7, endRow, 5);
-//                } else {
-//                    move(endRow, 0, endRow, 3);
-//                }
-//            }
-//        }
-
         move(startRow, startCol, endRow, endCol);
         return true;
     }
