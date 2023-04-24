@@ -311,6 +311,11 @@ public class ChessBoardView extends JFrame implements MouseListener {
 //    }
 
 
+    private void removeSquare(JPanel oldSquare){
+        oldSquare.removeAll();
+        oldSquare.repaint();
+        oldSquare.revalidate();
+    }
 
     public void mousePressed(MouseEvent e) {
         // Conversion de la position cliquée en position de la grille
