@@ -93,7 +93,7 @@ public class Noctambule extends ChessPiece {
      * Vérifie si la position donnée est sur le plateau
      */
     public boolean isOnBoard(int row, int col) {
-        return (row >= 0 && col >= 0 && row < 7 && col < 7);
+        return (row >= 0 && col >= 0 && row < 8 && col < 12);
     }
 
     /**

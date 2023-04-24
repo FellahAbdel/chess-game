@@ -94,6 +94,38 @@ public class Pawn extends ChessPiece {
                     newPiece = new Knight("cavalier_n.png", color, row, col);
                 }
                 break;
+            case "Imperatrice":
+                if(pawn.isWhite())
+                {
+                    newPiece = new Imperatrice("imperatrice_b",color,row,col);
+                }else{
+                    newPiece = new Imperatrice("imperatrice_n",color,row,col);
+                }
+                break;
+            case "Princesse":
+                if(pawn.isWhite())
+                {
+                    newPiece = new Princesse("princesse_b",color,row,col);
+                }else{
+                    newPiece = new Princesse("princesse_n",color,row,col);
+                }
+                break;
+            case "Noctambule":
+                if(pawn.isWhite())
+                {
+                    newPiece = new Noctambule("noctambule_b",color,row,col);
+                }else{
+                    newPiece = new Noctambule("noctambule_n",color,row,col);
+                }
+                break;
+            case "Sauterelle":
+                if(pawn.isWhite())
+                {
+                    newPiece = new Sauterelle("sauterelle_b",color,row,col);
+                }else{
+                    newPiece = new Sauterelle("sauterelle_n",color,row,col);
+                }
+                break;
             default:
                 throw new IllegalArgumentException("Invalid piece type");
         }
