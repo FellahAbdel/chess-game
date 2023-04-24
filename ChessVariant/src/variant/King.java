@@ -124,7 +124,7 @@ public class King extends ChessPiece {
         ArrayList<int[]> moves = new ArrayList<>();
 
         // Check moves to the right
-        if (startXCol + 1 < 8) {
+        if (startXCol + 1 < 12) {
             ChessPiece piece = board[startYRow][startXCol+1];
             if (piece == null || piece.isWhite() != this.isWhite()) {
                 moves.add(new int[]{startYRow, startXCol+1});
@@ -172,7 +172,7 @@ public class King extends ChessPiece {
         }
 
         // Check diagonal moves to the bottom-right
-        if (startYRow + 1 < 8 && startXCol + 1 < 8) {
+        if (startYRow + 1 < 8 && startXCol + 1 < 12) {
             ChessPiece piece = board[startYRow+1][startXCol+1];
             if (piece == null || piece.isWhite() != this.isWhite()) {
                 moves.add(new int[]{startYRow+1, startXCol+1});
@@ -187,37 +187,6 @@ public class King extends ChessPiece {
             }
         }
 
-        // petit roque
-        if(!this.getHasMoved()  && startXCol == 4) {
-            ChessPiece rook = board[startYRow][7];
-            if(rook instanceof Rook && !((Rook) rook).getHasMoved() && board[startYRow][5] == null && board[startYRow][6] == null) {
-                boolean isInCheck = false;
-                ChessPiece piece = board[startYRow][startXCol];
-                if (isInCheck(piece.isWhite(), board)) {
-                    isInCheck = true;
-                }
-                if (!isInCheck) {
-                    moves.add(new int[] {startYRow, startXCol + 2});
-                }
-            }
-        }
-
-        // grand roque
-        if(!this.getHasMoved() && startXCol == 4) {
-            ChessPiece rook = board[startYRow][0];
-            if(rook instanceof Rook && !((Rook) rook).getHasMoved() && board[startYRow][1] == null && board[startYRow][2] == null && board[startYRow][3] == null) {
-                boolean isInCheck = false;
-                ChessPiece piece = board[startYRow][startXCol];
-                if (isInCheck(piece.isWhite(), board)) {
-                    isInCheck = true;
-                }
-                if (!isInCheck) {
-                    moves.add(new int[] {startYRow, startXCol - 2});
-                }
-            }
-        }
-
-
         return moves;
     }
 
@@ -226,7 +195,7 @@ public class King extends ChessPiece {
         // Find the king's position
         int[] kingPos = null;
         for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
+            for (int col = 0; col < 12; col++) {
                 ChessPiece piece = board[row][col];
                 if (piece instanceof King && piece.isWhite() == isWhiteKing) {
                     kingPos = new int[]{row, col};
@@ -236,7 +205,7 @@ public class King extends ChessPiece {
 
         // Check if any opponent piece can attack the king
         for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
+            for (int col = 0; col < 12; col++) {
                 ChessPiece piece = board[row][col];
                 if (piece != null && piece.isWhite() != isWhiteKing) {
                     ArrayList<int[]> moves = piece.PossiblesMoves(row, col, board);

@@ -38,7 +38,7 @@ public class Imperatrice extends ChessPiece {
         // Ajout des mouvements de la pièce comme une Tour
 
         // Check moves to the right
-        for (int i = startXCol + 1; i < 10; i++) {
+        for (int i = startXCol + 1; i < 12; i++) {
             if (board[startYRow][i] == null) {
                 moves.add(new int[]{startYRow, i});
             } else if (board[startYRow][i].isWhite() != this.isWhite()) {
@@ -95,7 +95,7 @@ public class Imperatrice extends ChessPiece {
                 moves.add(new int[]{startYRow-2, startXCol-1});
             }
             // One step to the right
-            if(startXCol+1 < 10 && (board[startYRow-2][startXCol+1] == null || board[startYRow-2][startXCol+1].isWhite() != this.isWhite())){
+            if(startXCol+1 < 12 && (board[startYRow-2][startXCol+1] == null || board[startYRow-2][startXCol+1].isWhite() != this.isWhite())){
                 moves.add(new int[]{startYRow-2, startXCol+1});
             }
         }
@@ -107,7 +107,7 @@ public class Imperatrice extends ChessPiece {
                 moves.add(new int[]{startYRow+2, startXCol-1});
             }
             // One step to the right
-            if(startXCol+1 < 10 && (board[startYRow+2][startXCol+1] == null || board[startYRow+2][startXCol+1].isWhite() != this.isWhite())){
+            if(startXCol+1 < 12 && (board[startYRow+2][startXCol+1] == null || board[startYRow+2][startXCol+1].isWhite() != this.isWhite())){
                 moves.add(new int[]{startYRow+2, startXCol+1});
             }
         }
@@ -125,7 +125,7 @@ public class Imperatrice extends ChessPiece {
         }
 
         // Two steps to the right
-        if(startXCol+2 < 10){
+        if(startXCol+2 < 12){
             // One step up
             if(startYRow-1 >= 0 && (board[startYRow-1][startXCol+2] == null || board[startYRow-1][startXCol+2].isWhite() != this.isWhite())){
                 moves.add(new int[]{startYRow-1, startXCol+2});

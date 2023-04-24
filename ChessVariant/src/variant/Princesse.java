@@ -70,7 +70,7 @@ public class Princesse extends ChessPiece{
         }
 
         // Upper Right Diagonal
-        for(int i=startYRow-1, j=startXCol+1; i>=0 && j<10; i--, j++){
+        for(int i=startYRow-1, j=startXCol+1; i>=0 && j<12; i--, j++){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
             }
@@ -98,7 +98,7 @@ public class Princesse extends ChessPiece{
         }
 
         // Lower Right Diagonal
-        for(int i=startYRow+1, j=startXCol+1; i<8 && j<10; i++, j++){
+        for(int i=startYRow+1, j=startXCol+1; i<8 && j<12; i++, j++){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
             }
@@ -121,7 +121,7 @@ public class Princesse extends ChessPiece{
                 moves.add(new int[]{startYRow-2, startXCol-1});
             }
             // One step to the right
-            if(startXCol+1 < 10 && (board[startYRow-2][startXCol+1] == null || board[startYRow-2][startXCol+1].isWhite() != this.isWhite())){
+            if(startXCol+1 < 12 && (board[startYRow-2][startXCol+1] == null || board[startYRow-2][startXCol+1].isWhite() != this.isWhite())){
                 moves.add(new int[]{startYRow-2, startXCol+1});
             }
         }
@@ -133,7 +133,7 @@ public class Princesse extends ChessPiece{
                 moves.add(new int[]{startYRow+2, startXCol-1});
             }
             // One step to the right
-            if(startXCol+1 < 10 && (board[startYRow+2][startXCol+1] == null || board[startYRow+2][startXCol+1].isWhite() != this.isWhite())){
+            if(startXCol+1 < 12 && (board[startYRow+2][startXCol+1] == null || board[startYRow+2][startXCol+1].isWhite() != this.isWhite())){
                 moves.add(new int[]{startYRow+2, startXCol+1});
             }
         }
@@ -151,7 +151,7 @@ public class Princesse extends ChessPiece{
         }
 
         // Two steps to the right
-        if(startXCol+2 < 10){
+        if(startXCol+2 < 12){
             // One step up
             if(startYRow-1 >= 0 && (board[startYRow-1][startXCol+2] == null || board[startYRow-1][startXCol+2].isWhite() != this.isWhite())){
                 moves.add(new int[]{startYRow-1, startXCol+2});

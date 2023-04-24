@@ -32,7 +32,7 @@ public class Sauterelle extends ChessPiece {
 
         // Parcourir toutes les cases de la même ligne, colonne ou diagonale que la case de départ
         for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+            for (int j = 0; j < 12; j++) {
                 if (isValidMove(startYRow, startXCol, i, j, board)) {
                     possibleMoves.add(new int[]{i, j});
                 }
@@ -112,7 +112,7 @@ public class Sauterelle extends ChessPiece {
      * Vérifie si la position donnée est sur le plateau
      */
     public boolean isOnBoard(int row, int col) {
-        return (row >= 0 && col >= 0 && row < 7 && col < 7);
+        return (row >= 0 && col >= 0 && row < 8 && col < 12);
     }
 
     /**
