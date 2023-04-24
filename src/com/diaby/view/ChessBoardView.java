@@ -360,6 +360,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
                     JDialog promotionDialog = new JDialog();
                     promotionDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                     promotionDialog.setSize(250, 120);
+                    promotionDialog.setTitle("Promote into");
                     promotionDialog.setLocationRelativeTo(null);
                     promotionDialog.setLayout(new GridLayout(1, 4));
                     promotionDialog.setUndecorated(true); // enlève le bouton de fermeture du panneau
@@ -370,13 +371,18 @@ public class ChessBoardView extends JFrame implements MouseListener {
                     Pawn pawn = (Pawn) selectedPiece;
 
                     // Ajoute les boutons pour chaque type de promotion
+                    String imagePath = "src/com/diaby/model/img/";
+                    String queen = pawn.isWhite() ? imagePath + "reine_b.png" : imagePath + "reine_n.png";
+                    String rook = pawn.isWhite() ? imagePath + "tour_b.png" : imagePath + "tour_n.png";
+                    String bishop = pawn.isWhite() ? imagePath + "fou_b.png" : imagePath + "fou_n.png";
+                    String knight = pawn.isWhite() ? imagePath + "cavalier_b.png" : imagePath + "cavalier_n.png";
 
                     if(pawn.isWhite())
                     {
-                        queenButton = new JButton(new ImageIcon("src/com/diaby/model/img/reine_b.png"));
-                        rookButton = new JButton(new ImageIcon("src/com/diaby/model/img/tour_b.png"));
-                        bishopButton = new JButton(new ImageIcon("src/com/diaby/model/img/fou_b.png"));
-                        knightButton = new JButton(new ImageIcon("src/com/diaby/model/img/cavalier_b.png"));
+                        queenButton = new JButton(new ImageIcon(queen));
+                        rookButton = new JButton(new ImageIcon(rook));
+                        bishopButton = new JButton(new ImageIcon(bishop));
+                        knightButton = new JButton(new ImageIcon(knight));
                         promotionDialog.add(queenButton);
                         promotionDialog.add(rookButton);
                         promotionDialog.add(bishopButton);
