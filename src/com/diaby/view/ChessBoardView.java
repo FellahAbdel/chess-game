@@ -339,9 +339,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
             if (board.highLightCase[rowY][colX]) { // Vérifie que la case cliquée est un mouvement possible
                 board.resetHighlight();
                 JPanel oldSquare = (JPanel) chessBoard.getComponent((selectedPiece.getRow() * SIZE_ROW_BOARD) + selectedPiece.getCol());
-                oldSquare.removeAll();
-                oldSquare.repaint();
-                oldSquare.revalidate();
+                this.removeSquare(oldSquare);
 
                 // déplacement de la pièce indépendamment des conditions
 
@@ -350,16 +348,13 @@ public class ChessBoardView extends JFrame implements MouseListener {
                     board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
                     int capturedPieceRow = selectedPiece.getColor() == Color.WHITE ? rowY - 1 : rowY + 1;
                     JPanel capturedSquare = (JPanel) chessBoard.getComponent((capturedPieceRow * SIZE_ROW_BOARD) + colX);
-                    capturedSquare.removeAll();
-                    capturedSquare.repaint();
-                    capturedSquare.revalidate();
+                    this.removeSquare(capturedSquare);
 
                 } else if(selectedPiece instanceof Pawn && colX != selectedPiece.getCol() && piece != null && piece.getColor() != selectedPiece.getColor()){// Si une pièce a été capturée
                     board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
                     JPanel capturedSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
-                    capturedSquare.removeAll();
-                    capturedSquare.repaint();
-                    capturedSquare.revalidate();
+                    this.removeSquare(capturedSquare);
+
                 } else if (selectedPiece instanceof Pawn && (rowY == 0 || rowY == 7)) {  // Promotion du pion en reine
                     // Ouvre la boîte de dialogue de promotion
                     JDialog promotionDialog = new JDialog();
@@ -523,12 +518,14 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
                         JPanel oldRookSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + 7);
 
-                        oldKingSquare.removeAll();
+              /*          oldKingSquare.removeAll();
                         oldKingSquare.repaint();
-                        oldKingSquare.revalidate();
-                        oldRookSquare.removeAll();
+                        oldKingSquare.revalidate();*/
+                        this.removeSquare(oldKingSquare);
+/*                      oldRookSquare.removeAll();
                         oldRookSquare.repaint();
-                        oldRookSquare.revalidate();
+                        oldRookSquare.revalidate();*/
+                        this.removeSquare(oldRookSquare);
 
 
                     } else if(colX < selectedPiece.getCol()){// Roque long
@@ -541,22 +538,27 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
                         JPanel oldRookSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD));
 
-                        oldKingSquare.removeAll();
+                        /*oldKingSquare.removeAll();
                         oldKingSquare.repaint();
-                        oldKingSquare.revalidate();
+                        oldKingSquare.revalidate();*/
 
-                        oldRookSquare.removeAll();
+                        this.removeSquare(oldKingSquare);
+
+                        /*oldRookSquare.removeAll();
                         oldRookSquare.repaint();
-                        oldRookSquare.revalidate();
+                        oldRookSquare.revalidate();*/
+
+                        this.removeSquare(oldRookSquare);
 
 
                     }
                 } else if (board.isOccupied(rowY, colX) && board.getPieceAt(rowY,colX).getColor() != selectedPiece.getColor()) {
                     board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
                     JPanel capturedSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
-                    capturedSquare.removeAll();
+                    /*capturedSquare.removeAll();
                     capturedSquare.repaint();
-                    capturedSquare.revalidate();
+                    capturedSquare.revalidate();*/
+                    this.removeSquare(capturedSquare);
                 }
             }
             board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
