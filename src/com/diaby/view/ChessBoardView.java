@@ -317,6 +317,18 @@ public class ChessBoardView extends JFrame implements MouseListener {
         oldSquare.revalidate();
     }
 
+    private void promoteInto(JDialog promotionDialog, Pawn pawn, int rowY, int colX, String imageName){
+        pawn.promotePawn(pawn, rowY, colX, "Queen", board.getTileBoard());
+        promotionDialog.dispose();
+        JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+        promotionSquare.removeAll();
+        String fileName = imageName;
+        JLabel image = new JLabel(new ImageIcon(fileName));
+        promotionSquare.add(image);
+        promotionSquare.repaint();
+        promotionSquare.revalidate();
+    }
+
     public void mousePressed(MouseEvent e) {
         // Conversion de la position cliquée en position de la grille
         int colX = e.getX() / (ChessBoardView.SIZE_CASE_X);
