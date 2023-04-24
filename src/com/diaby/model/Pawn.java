@@ -99,7 +99,7 @@ public class Pawn extends ChessPiece {
         board[row][col] = newPiece;
     }
 
-    public ArrayList<int[]> PossiblesMoves(int startXCol, int startYRow, ChessPiece[][] board) {
+    public ArrayList<int[]> possiblesMoves(int startXCol, int startYRow, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
 
         if (this.isWhite()) {
