@@ -101,7 +101,7 @@ public class King extends ChessPiece {
     }
 
     private boolean isValidPosition(int x, int y) {
-        return x >= 0 && x < 8 && y >= 0 && y < 8;
+        return x >= 0 && x < 8 && y >= 0 && y < 12;
     }
 
     public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
