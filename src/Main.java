@@ -1,3 +1,4 @@
+import com.diaby.controller.GameController;
 import com.diaby.model.ChessBoard;
 import com.diaby.model.*;
 
@@ -7,7 +8,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // Initialisation du jeu
+/*        // Initialisation du jeu
         ChessBoard game = new ChessBoard();
         Scanner scanner = new Scanner(System.in);
         boolean gameOver = false;
@@ -16,7 +17,7 @@ public class Main {
 
         // Choix aléatoire du joueur qui commence
         Random rnd = new Random();
-        Player currentPlayer = rnd.nextInt(2) == 0 ? p1 : p2;
+        Player currentPlayer = rnd.nextInt(2) == 0 ? p1 : p2;*/
 
         // Boucle principale
 //        while (!gameOver) {
@@ -34,6 +35,8 @@ public class Main {
 //        // Fermeture du scanner
 //       }
 
+        GameController game = new GameController();
+        game.startGame();
     }
 }
 
