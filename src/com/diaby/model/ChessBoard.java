@@ -167,6 +167,12 @@ public class ChessBoard {
         }
 
         move(startRow, startCol, endRow, endCol);
+        // Mise à hasMoved = true, une fois le déplacement effectué pour le roi et la tour.
+        if(startPiece instanceof King){
+            ((King) startPiece).setHasMoved(true);
+        }else if (startPiece instanceof Bishop){
+            ((Bishop) startPiece).setHasMoved(true);
+        }
         return true;
     }
 
