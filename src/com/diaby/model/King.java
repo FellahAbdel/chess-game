@@ -124,7 +124,7 @@ public class King extends ChessPiece {
         return x >= 0 && x < 8 && y >= 0 && y < 8;
     }
 
-    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
+    public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
 
         // Check moves to the right
@@ -310,7 +310,7 @@ public class King extends ChessPiece {
             for (int col = 0; col < 8; col++) {
                 ChessPiece piece = board[row][col];
                 if (piece != null && piece.isWhite() != isWhiteKing) {
-                    ArrayList<int[]> moves = piece.PossiblesMoves(row, col, board);
+                    ArrayList<int[]> moves = piece.possiblesMoves(row, col, board);
                     for (int[] move : moves) {
                         if (kingPos != null && move[0] == kingPos[0] && move[1] == kingPos[1]) {
                             return true;

@@ -107,7 +107,7 @@ public class Pawn extends ChessPiece {
                 {
                     newPiece = new Sauterelle("sauterelle_b.png",color,row,col);
                 }else{
-                    newPiece = new Sauterelle("sauterelle_n",color,row,col);
+                    newPiece = new Sauterelle("sauterelle_n.png",color,row,col);
                 }
                 break;
             default:

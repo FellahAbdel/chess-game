@@ -67,7 +67,7 @@ public abstract class ChessPiece {
      */
     public abstract boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board);
 
-    public abstract ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board);
+    public abstract ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board);
     /**
      * Vérifie si une pièce peut atteindre une case donnée sur le plateau.
      *
@@ -78,7 +78,7 @@ public abstract class ChessPiece {
      */
     public boolean canMove(int rowY, int colX, ChessPiece[][] board) {
 
-        ArrayList<int[]> moves = PossiblesMoves(rowY,colX,board);
+        ArrayList<int[]> moves = possiblesMoves(rowY,colX,board);
         // Vérifie si il a des mouvements valides
         return moves.size() != 0;
     }

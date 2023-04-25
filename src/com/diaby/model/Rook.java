@@ -28,7 +28,7 @@ public class Rook extends ChessPiece {
     }
     @Override
     public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
-        ArrayList<int[]> moves = PossiblesMoves(startYRow,startXCol,board);
+        ArrayList<int[]> moves = possiblesMoves(startYRow,startXCol,board);
         for(int[] move : moves)
         {
             if(endYRow == move[0] && endXCol == move[1])
@@ -46,7 +46,7 @@ public class Rook extends ChessPiece {
 
    }
 
-    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
+    public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
 
         // Check moves to the right

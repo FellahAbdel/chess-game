@@ -14,7 +14,7 @@ public class Queen extends ChessPiece {
 
     @Override
     public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
-        ArrayList<int[]> moves = PossiblesMoves(startYRow,startXCol,board);
+        ArrayList<int[]> moves = possiblesMoves(startYRow,startXCol,board);
         // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
         for(int[] move : moves)
         {
@@ -30,7 +30,7 @@ public class Queen extends ChessPiece {
         return false;
     }
 
-    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
+    public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
 
         // generate moves like bishop
