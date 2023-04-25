@@ -46,6 +46,21 @@ public class Rook extends ChessPiece {
 
    }
 
+    private void checkMoves(int row, int col, int limit, int increment, ChessPiece[][] board, ArrayList<int[]> moves) {
+        boolean canMove = true;
+        while (canMove && row != limit && col != limit) {
+            if (board[row][col] == null) {
+                moves.add(new int[]{row, col});
+            } else if (board[row][col].isWhite() != this.isWhite()) {
+                moves.add(new int[]{row, col});
+                canMove = false;
+            } else {
+                canMove = false;
+            }
+            row += increment;
+            col += increment;
+        }
+    }
     public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
 
