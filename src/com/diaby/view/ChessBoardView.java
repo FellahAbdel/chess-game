@@ -293,5 +293,13 @@ public class ChessBoardView extends JFrame implements MouseListener {
         frame.setLocationRelativeTo( null );
         frame.setVisible(true);
     }
+
+    public ChessBoard getBoard() {
+        return board;
+    }
+
+    public void displayGameOver() {
+        System.out.println("Game is over.");
+    }
 }
 
