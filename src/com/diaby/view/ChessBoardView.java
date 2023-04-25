@@ -101,7 +101,293 @@ public class ChessBoardView extends JFrame implements MouseListener {
      */
 
     private ChessPiece selectedPiece = null;
+//    && piece.getColor() == board.getCurrentPlayer()
+//    public void mousePressed(MouseEvent e) {
+//        // Conversion de la position cliquée en position de la grille
+//        int colX = e.getX() / (ChessBoardView.SIZE_CASE_X);
+//        int rowY = e.getY() / (ChessBoardView.SIZE_CASE_Y);
+//
+//        ChessPiece piece = board.getPieceAt(rowY, colX);
+//        if (selectedPiece == null) { // Premier clic pour sélectionner la pièce
+//            if (piece != null ) { // Vérifie que la pièce appartient au joueur dont c'est le tour
+//                selectedPiece = piece;
+//                ArrayList<int[]> moves = selectedPiece.PossiblesMoves(rowY, colX, board.getTileBoard());
+//                board.resetHighlight();
+//                for (int[] move : moves) {
+//                    board.highLightCase[move[0]][move[1]] = true;
+//                }
+//            }
+//        } else { // Deuxième clic pour déplacer la pièce
+//            if (board.highLightCase[rowY][colX]) { // Vérifie que la case cliquée est un mouvement possible
+//                board.resetHighlight();
+//                JPanel oldSquare = (JPanel) chessBoard.getComponent((selectedPiece.getRow() * SIZE_ROW_BOARD) + selectedPiece.getCol());
+//                oldSquare.removeAll();
+//                oldSquare.repaint();
+//                oldSquare.revalidate();
+//                board.resetHighlight();
+//
+//                // Vérification pour la prise en passant
+//                boolean capturedEnPassant = false;
+//                if (selectedPiece instanceof Pawn && colX != selectedPiece.getCol() && piece == null) {
+//                    capturedEnPassant = board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
+//                    if (capturedEnPassant) {
+//                        int capturedPieceRow = selectedPiece.getColor() == Color.WHITE ? rowY - 1 : rowY + 1;
+//                        JPanel capturedSquare = (JPanel) chessBoard.getComponent((capturedPieceRow * SIZE_ROW_BOARD) + colX);
+//                        capturedSquare.removeAll();
+//                        capturedSquare.repaint();
+//                        capturedSquare.revalidate();
+//                    }
+//                } else {
+//                    boolean capturedPiece = board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
+//                    if (capturedPiece && piece != null && piece.getColor() != selectedPiece.getColor()) { // Si une pièce a été capturée
+//                        JPanel capturedSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+//                        capturedSquare.removeAll();
+//                        capturedSquare.repaint();
+//                        capturedSquare.revalidate();
+//                    }
+//                }
+//
+//                if (selectedPiece instanceof Pawn && (selectedPiece.getRow() == 0 || selectedPiece.getRow() == 7)) {
+//                    // Ouvre la boîte de dialogue de promotion
+//                    JDialog promotionDialog = new JDialog();
+//                    promotionDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//                    promotionDialog.setSize(250, 120);
+//                    promotionDialog.setLocationRelativeTo(null);
+//                    promotionDialog.setLayout(new GridLayout(1, 4));
+//
+//                    JButton queenButton;
+//                    JButton rookButton;
+//                    JButton bishopButton;
+//                    JButton knightButton;
+//                    Pawn pawn = (Pawn) board.getPieceAt(rowY,colX);
+//                    // Ajoute les boutons pour chaque type de promotion
+//
+//                    if(pawn.isWhite())
+//                    {
+//                        queenButton = new JButton(new ImageIcon("src/com/diaby/model/img/reine_b.png"));
+//                        rookButton = new JButton(new ImageIcon("src/com/diaby/model/img/tour_b.png"));
+//                        bishopButton = new JButton(new ImageIcon("src/com/diaby/model/img/fou_b.png"));
+//                        knightButton = new JButton(new ImageIcon("src/com/diaby/model/img/cavalier_b.png"));
+//                        promotionDialog.add(queenButton);
+//                        promotionDialog.add(rookButton);
+//                        promotionDialog.add(bishopButton);
+//                        promotionDialog.add(knightButton);
+//
+//                        queenButton.addActionListener(e1 -> {
+//                            pawn.promotePawn(pawn, rowY, colX, "Queen", board.getTileBoard());
+//                            promotionDialog.dispose();
+//                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+//                            promotionSquare.removeAll();
+//                            String fileName = "src/com/diaby/model/img/reine_b.png";
+//                            JLabel image = new JLabel(new ImageIcon(fileName));
+//                            promotionSquare.add(image);
+//                            promotionSquare.repaint();
+//                            promotionSquare.revalidate();
+//                            // Mise à jour de la pièce sélectionnée et du plateau
+//                            selectedPiece = null;
+//                            board.resetHighlight();
+//                        });
+//                        rookButton.addActionListener(e12 -> {
+//                            pawn.promotePawn(pawn, rowY, colX, "Rook",board.getTileBoard());
+//                            promotionDialog.dispose();
+//                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+//                            promotionSquare.removeAll();
+//                            String fileName = "src/com/diaby/model/img/tour_b.png";
+//                            JLabel image = new JLabel(new ImageIcon(fileName));
+//                            promotionSquare.add(image);
+//                            promotionSquare.repaint();
+//                            promotionSquare.revalidate();
+//                            // Mise à jour de la pièce sélectionnée et du plateau
+//                            selectedPiece = null;
+//                            board.resetHighlight();
+//                        });
+//                        bishopButton.addActionListener(e13 -> {
+//                            pawn.promotePawn(pawn, rowY, colX, "Bishop", board.getTileBoard());
+//                            promotionDialog.dispose();
+//                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+//                            promotionSquare.removeAll();
+//                            String fileName = "src/com/diaby/model/img/fou_b.png";
+//                            JLabel image = new JLabel(new ImageIcon(fileName));
+//                            promotionSquare.add(image);
+//                            promotionSquare.repaint();
+//                            promotionSquare.revalidate();
+//                            // Mise à jour de la pièce sélectionnée et du plateau
+//                            selectedPiece = null;
+//                            board.resetHighlight();
+//                        });
+//                        knightButton.addActionListener(e14 -> {
+//                            pawn.promotePawn(pawn, rowY, colX, "Knight", board.getTileBoard());
+//                            promotionDialog.dispose();
+//                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+//                            promotionSquare.removeAll();
+//                            String fileName = "src/com/diaby/model/img/cavalier_b.png";
+//                            JLabel image = new JLabel(new ImageIcon(fileName));
+//                            promotionSquare.add(image);
+//                            promotionSquare.repaint();
+//                            promotionSquare.revalidate();
+//                            // Mise à jour de la pièce sélectionnée et du plateau
+//                            selectedPiece = null;
+//                            board.resetHighlight();
+//                        });
+//                    }
+//                    else{
+//                        queenButton = new JButton(new ImageIcon("src/com/diaby/model/img/reine_n.png"));
+//                        rookButton = new JButton(new ImageIcon("src/com/diaby/model/img/tour_n.png"));
+//                        bishopButton = new JButton(new ImageIcon("src/com/diaby/model/img/fou_n.png"));
+//                        knightButton = new JButton(new ImageIcon("src/com/diaby/model/img/cavalier_n.png"));
+//                        promotionDialog.add(queenButton);
+//                        promotionDialog.add(rookButton);
+//                        promotionDialog.add(bishopButton);
+//                        promotionDialog.add(knightButton);
+//
+//                        queenButton.addActionListener(e1 -> {
+//                            pawn.promotePawn(pawn, rowY, colX, "Queen", board.getTileBoard());
+//                            promotionDialog.dispose();
+//                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+//                            promotionSquare.removeAll();
+//                            String fileName = "src/com/diaby/model/img/reine_n.png";
+//                            JLabel image = new JLabel(new ImageIcon(fileName));
+//                            promotionSquare.add(image);
+//                            promotionSquare.repaint();
+//                            promotionSquare.revalidate();
+//                            // Mise à jour de la pièce sélectionnée et du plateau
+//                            selectedPiece = null;
+//                            board.resetHighlight();
+//                        });
+//                        rookButton.addActionListener(e12 -> {
+//                            pawn.promotePawn(pawn, rowY, colX, "Rook",board.getTileBoard());
+//                            promotionDialog.dispose();
+//                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+//                            promotionSquare.removeAll();
+//                            String fileName = "src/com/diaby/model/img/tour_n.png";
+//                            JLabel image = new JLabel(new ImageIcon(fileName));
+//                            promotionSquare.add(image);
+//                            promotionSquare.repaint();
+//                            promotionSquare.revalidate();
+//                            // Mise à jour de la pièce sélectionnée et du plateau
+//                            selectedPiece = null;
+//                            board.resetHighlight();
+//                        });
+//                        bishopButton.addActionListener(e13 -> {
+//                            pawn.promotePawn(pawn, rowY, colX, "Bishop", board.getTileBoard());
+//                            promotionDialog.dispose();
+//                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+//                            promotionSquare.removeAll();
+//                            String fileName = "src/com/diaby/model/img/fou_n.png";
+//                            JLabel image = new JLabel(new ImageIcon(fileName));
+//                            promotionSquare.add(image);
+//                            promotionSquare.repaint();
+//                            promotionSquare.revalidate();
+//                            // Mise à jour de la pièce sélectionnée et du plateau
+//                            selectedPiece = null;
+//                            board.resetHighlight();
+//                        });
+//                        knightButton.addActionListener(e14 -> {
+//                            pawn.promotePawn(pawn, rowY, colX, "Knight", board.getTileBoard());
+//                            promotionDialog.dispose();
+//                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+//                            promotionSquare.removeAll();
+//                            String fileName = "src/com/diaby/model/img/cavalier_n.png";
+//                            JLabel image = new JLabel(new ImageIcon(fileName));
+//                            promotionSquare.add(image);
+//                            promotionSquare.repaint();
+//                            promotionSquare.revalidate();
+//                            // Mise à jour de la pièce sélectionnée et du plateau
+//                            selectedPiece = null;
+//                            board.resetHighlight();
+//                        });
+//                    }
+//
+//                    promotionDialog.setVisible(true);
+//                }
+//
+//                // Mise à jour de la pièce sélectionnée et du plateau
+//                selectedPiece = null;
+//                board.resetHighlight();
+//            }
+//        }
+//        // Mise à jour de l'affichage
+//        drawGrid();
+//    }
 
+
+    private void removeSquare(JPanel oldSquare){
+        oldSquare.removeAll();
+        oldSquare.repaint();
+        oldSquare.revalidate();
+    }
+
+    private void promoteInto(JDialog promotionDialog, Pawn pawn, int rowY, int colX,String pieceType, String imageName){
+        pawn.promotePawn(pawn, rowY, colX, pieceType, board.getTileBoard());
+        promotionDialog.dispose();
+        JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+        promotionSquare.removeAll();
+        String fileName = imageName;
+        JLabel image = new JLabel(new ImageIcon(fileName));
+        promotionSquare.add(image);
+        promotionSquare.repaint();
+        promotionSquare.revalidate();
+    }
+
+    private void promotionView(ChessPiece selectedPiece, int rowY, int colX){
+        // Ouvre la boîte de dialogue de promotion
+        JDialog promotionDialog = new JDialog();
+        promotionDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        promotionDialog.setSize(250, 120);
+        promotionDialog.setTitle("Promote into");
+        promotionDialog.setLocationRelativeTo(null);
+        promotionDialog.setLayout(new GridLayout(1, 4));
+        promotionDialog.setUndecorated(true); // enlève le bouton de fermeture du panneau
+
+        JButton queenButton;
+        JButton rookButton;
+        JButton bishopButton;
+        JButton knightButton;
+        Pawn pawn = (Pawn) selectedPiece;
+
+        // Ajoute les boutons pour chaque type de promotion
+        String imagePath = "src/com/diaby/model/img/";
+        String queen = pawn.isWhite() ? imagePath + "reine_b.png" : imagePath + "reine_n.png";
+        String rook = pawn.isWhite() ? imagePath + "tour_b.png" : imagePath + "tour_n.png";
+        String bishop = pawn.isWhite() ? imagePath + "fou_b.png" : imagePath + "fou_n.png";
+        String knight = pawn.isWhite() ? imagePath + "cavalier_b.png" : imagePath + "cavalier_n.png";
+
+        queenButton = new JButton(new ImageIcon(queen));
+        rookButton = new JButton(new ImageIcon(rook));
+        bishopButton = new JButton(new ImageIcon(bishop));
+        knightButton = new JButton(new ImageIcon(knight));
+
+        promotionDialog.add(queenButton);
+        promotionDialog.add(rookButton);
+        promotionDialog.add(bishopButton);
+        promotionDialog.add(knightButton);
+
+        queenButton.addActionListener(e1 -> {
+            this.promoteInto(promotionDialog, pawn, rowY, colX, "Queen", queen);
+        });
+
+        rookButton.addActionListener(e12 -> {
+            this.promoteInto(promotionDialog, pawn, rowY, colX, "Rook", rook);
+
+        });
+
+        bishopButton.addActionListener(e13 -> {
+            this.promoteInto(promotionDialog, pawn, rowY, colX, "Bishop", bishop);
+        });
+
+        knightButton.addActionListener(e14 -> {
+            this.promoteInto(promotionDialog, pawn, rowY, colX, "Knight", knight);
+        });
+
+        // fermeture une fois le clique capturé
+        queenButton.addActionListener(e1 -> promotionDialog.dispose());
+        rookButton.addActionListener(e1 -> promotionDialog.dispose());
+        bishopButton.addActionListener(e1 -> promotionDialog.dispose());
+        knightButton.addActionListener(e1 -> promotionDialog.dispose());
+
+        promotionDialog.setVisible(true);
+        board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
+    }
     public void mousePressed(MouseEvent e) {
         // Conversion de la position cliquée en position de la grille
         int colX = e.getX() / (ChessBoardView.SIZE_CASE_X);
@@ -124,9 +410,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
             if (board.highLightCase[rowY][colX]) { // Vérifie que la case cliquée est un mouvement possible
                 board.resetHighlight();
                 JPanel oldSquare = (JPanel) chessBoard.getComponent((selectedPiece.getRow() * SIZE_ROW_BOARD) + selectedPiece.getCol());
-                oldSquare.removeAll();
-                oldSquare.repaint();
-                oldSquare.revalidate();
+                this.removeSquare(oldSquare);
 
                 // déplacement de la pièce indépendamment des conditions
 
@@ -135,166 +419,15 @@ public class ChessBoardView extends JFrame implements MouseListener {
                     board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
                     int capturedPieceRow = selectedPiece.getColor() == Color.WHITE ? rowY - 1 : rowY + 1;
                     JPanel capturedSquare = (JPanel) chessBoard.getComponent((capturedPieceRow * SIZE_ROW_BOARD) + colX);
-                    capturedSquare.removeAll();
-                    capturedSquare.repaint();
-                    capturedSquare.revalidate();
+                    this.removeSquare(capturedSquare);
 
                 } else if(selectedPiece instanceof Pawn && colX != selectedPiece.getCol() && piece != null && piece.getColor() != selectedPiece.getColor()){// Si une pièce a été capturée
                     board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
                     JPanel capturedSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
-                    capturedSquare.removeAll();
-                    capturedSquare.repaint();
-                    capturedSquare.revalidate();
+                    this.removeSquare(capturedSquare);
+
                 } else if (selectedPiece instanceof Pawn && (rowY == 0 || rowY == 7)) {  // Promotion du pion en reine
-                    // Ouvre la boîte de dialogue de promotion
-                    JDialog promotionDialog = new JDialog();
-                    promotionDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                    promotionDialog.setSize(250, 120);
-                    promotionDialog.setLocationRelativeTo(null);
-                    promotionDialog.setLayout(new GridLayout(1, 4));
-                    promotionDialog.setUndecorated(true); // enlève le bouton de fermeture du panneau
-                    JButton queenButton;
-                    JButton rookButton;
-                    JButton bishopButton;
-                    JButton knightButton;
-                    Pawn pawn = (Pawn) selectedPiece;
-
-                    // Ajoute les boutons pour chaque type de promotion
-
-                    if(pawn.isWhite())
-                    {
-                        queenButton = new JButton(new ImageIcon("src/com/diaby/model/img/reine_b.png"));
-                        rookButton = new JButton(new ImageIcon("src/com/diaby/model/img/tour_b.png"));
-                        bishopButton = new JButton(new ImageIcon("src/com/diaby/model/img/fou_b.png"));
-                        knightButton = new JButton(new ImageIcon("src/com/diaby/model/img/cavalier_b.png"));
-                        promotionDialog.add(queenButton);
-                        promotionDialog.add(rookButton);
-                        promotionDialog.add(bishopButton);
-                        promotionDialog.add(knightButton);
-
-                        queenButton.addActionListener(e1 -> {
-                            pawn.promotePawn(pawn, rowY, colX, "Queen", board.getTileBoard());
-                            promotionDialog.dispose();
-                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
-                            promotionSquare.removeAll();
-                            String fileName = "src/com/diaby/model/img/reine_b.png";
-                            JLabel image = new JLabel(new ImageIcon(fileName));
-                            promotionSquare.add(image);
-                            promotionSquare.repaint();
-                            promotionSquare.revalidate();
-
-                        });
-                        rookButton.addActionListener(e12 -> {
-                            pawn.promotePawn(pawn, rowY, colX, "Rook",board.getTileBoard());
-                            promotionDialog.dispose();
-                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
-                            promotionSquare.removeAll();
-                            String fileName = "src/com/diaby/model/img/tour_b.png";
-                            JLabel image = new JLabel(new ImageIcon(fileName));
-                            promotionSquare.add(image);
-                            promotionSquare.repaint();
-                            promotionSquare.revalidate();
-
-
-                        });
-                        bishopButton.addActionListener(e13 -> {
-                            pawn.promotePawn(pawn, rowY, colX, "Bishop", board.getTileBoard());
-                            promotionDialog.dispose();
-                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
-                            promotionSquare.removeAll();
-                            String fileName = "src/com/diaby/model/img/fou_b.png";
-                            JLabel image = new JLabel(new ImageIcon(fileName));
-                            promotionSquare.add(image);
-                            promotionSquare.repaint();
-                            promotionSquare.revalidate();
-
-                        });
-                        knightButton.addActionListener(e14 -> {
-                            pawn.promotePawn(pawn, rowY, colX, "Knight", board.getTileBoard());
-                            promotionDialog.dispose();
-                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
-                            promotionSquare.removeAll();
-                            String fileName = "src/com/diaby/model/img/cavalier_b.png";
-                            JLabel image = new JLabel(new ImageIcon(fileName));
-                            promotionSquare.add(image);
-                            promotionSquare.repaint();
-                            promotionSquare.revalidate();
-
-                        });
-
-                        // fermeture une fois le clique capturé
-                        queenButton.addActionListener(e1 -> promotionDialog.dispose());
-                        rookButton.addActionListener(e1 -> promotionDialog.dispose());
-                        bishopButton.addActionListener(e1 -> promotionDialog.dispose());
-                        knightButton.addActionListener(e1 -> promotionDialog.dispose());
-                    }
-                    else{
-                        queenButton = new JButton(new ImageIcon("src/com/diaby/model/img/reine_n.png"));
-                        rookButton = new JButton(new ImageIcon("src/com/diaby/model/img/tour_n.png"));
-                        bishopButton = new JButton(new ImageIcon("src/com/diaby/model/img/fou_n.png"));
-                        knightButton = new JButton(new ImageIcon("src/com/diaby/model/img/cavalier_n.png"));
-                        promotionDialog.add(queenButton);
-                        promotionDialog.add(rookButton);
-                        promotionDialog.add(bishopButton);
-                        promotionDialog.add(knightButton);
-
-                        queenButton.addActionListener(e1 -> {
-                            pawn.promotePawn(pawn, rowY, colX, "Queen", board.getTileBoard());
-                            promotionDialog.dispose();
-                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
-                            promotionSquare.removeAll();
-                            String fileName = "src/com/diaby/model/img/reine_n.png";
-                            JLabel image = new JLabel(new ImageIcon(fileName));
-                            promotionSquare.add(image);
-                            promotionSquare.repaint();
-                            promotionSquare.revalidate();
-
-                        });
-                        rookButton.addActionListener(e12 -> {
-                            pawn.promotePawn(pawn, rowY, colX, "Rook",board.getTileBoard());
-                            promotionDialog.dispose();
-                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
-                            promotionSquare.removeAll();
-                            String fileName = "src/com/diaby/model/img/tour_n.png";
-                            JLabel image = new JLabel(new ImageIcon(fileName));
-                            promotionSquare.add(image);
-                            promotionSquare.repaint();
-                            promotionSquare.revalidate();
-
-                        });
-                        bishopButton.addActionListener(e13 -> {
-                            pawn.promotePawn(pawn, rowY, colX, "Bishop", board.getTileBoard());
-                            promotionDialog.dispose();
-                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
-                            promotionSquare.removeAll();
-                            String fileName = "src/com/diaby/model/img/fou_n.png";
-                            JLabel image = new JLabel(new ImageIcon(fileName));
-                            promotionSquare.add(image);
-                            promotionSquare.repaint();
-                            promotionSquare.revalidate();
-
-                        });
-                        knightButton.addActionListener(e14 -> {
-                            pawn.promotePawn(pawn, rowY, colX, "Knight", board.getTileBoard());
-                            promotionDialog.dispose();
-                            JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
-                            promotionSquare.removeAll();
-                            String fileName = "src/com/diaby/model/img/cavalier_n.png";
-                            JLabel image = new JLabel(new ImageIcon(fileName));
-                            promotionSquare.add(image);
-                            promotionSquare.repaint();
-                            promotionSquare.revalidate();
-
-                        });
-                        // fermeture une fois le clique capturé
-                        queenButton.addActionListener(e1 -> promotionDialog.dispose());
-                        rookButton.addActionListener(e1 -> promotionDialog.dispose());
-                        bishopButton.addActionListener(e1 -> promotionDialog.dispose());
-                        knightButton.addActionListener(e1 -> promotionDialog.dispose());
-                    }
-
-                    promotionDialog.setVisible(true);
-                    board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
+                    promotionView(selectedPiece, rowY, colX);
                 }else if (selectedPiece instanceof King ) {// Roque
                     // Roque court
                     if (colX > selectedPiece.getCol()) {
@@ -307,13 +440,8 @@ public class ChessBoardView extends JFrame implements MouseListener {
                         JPanel oldKingSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + 4);
 
                         JPanel oldRookSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + 7);
-
-                        oldKingSquare.removeAll();
-                        oldKingSquare.repaint();
-                        oldKingSquare.revalidate();
-                        oldRookSquare.removeAll();
-                        oldRookSquare.repaint();
-                        oldRookSquare.revalidate();
+                        this.removeSquare(oldKingSquare);
+                        this.removeSquare(oldRookSquare);
 
 
                     } else if(colX < selectedPiece.getCol()){// Roque long
@@ -323,25 +451,14 @@ public class ChessBoardView extends JFrame implements MouseListener {
                         board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
                         // Met à jour l'interface graphique
                         JPanel oldKingSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + 4);
-
                         JPanel oldRookSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD));
-
-                        oldKingSquare.removeAll();
-                        oldKingSquare.repaint();
-                        oldKingSquare.revalidate();
-
-                        oldRookSquare.removeAll();
-                        oldRookSquare.repaint();
-                        oldRookSquare.revalidate();
-
-
+                        this.removeSquare(oldKingSquare);
+                        this.removeSquare(oldRookSquare);
                     }
                 } else if (board.isOccupied(rowY, colX) && board.getPieceAt(rowY,colX).getColor() != selectedPiece.getColor()) {
                     board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
                     JPanel capturedSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
-                    capturedSquare.removeAll();
-                    capturedSquare.repaint();
-                    capturedSquare.revalidate();
+                    this.removeSquare(capturedSquare);
                 }
             }
             board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
