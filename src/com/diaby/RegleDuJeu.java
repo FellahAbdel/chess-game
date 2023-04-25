@@ -2,12 +2,6 @@ package com.diaby;
 import com.diaby.model.*;
 public class RegleDuJeu {
 
-    public static boolean estFinDeJeu( ChessBoard board) {
-        // Vérifie si l'un des joueurs a perdu toutes ses pièces ou si le jeu est bloqué
-        return board.getNbOfWhitePiece() == 0
-                || board.getNbOfBlackPiece() == 0 ;
-    }
-
     public static boolean estPat(King king, ChessBoard board) {
         // Vérifie si le roi est en échec
         if (king.isInCheck(king.isWhite(), board.getTileBoard())) {
