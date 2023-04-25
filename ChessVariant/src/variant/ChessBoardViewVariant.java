@@ -214,7 +214,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
                 promotionSquare.revalidate();
 
             });
-            rookButton.addActionListener(e1 -> {
+            rookButton.addActionListener(e12 -> {
                 pawn.promotePawn(pawn, rowY, colX, "Rook",board.getTileBoard());
                 promotionDialog.dispose();
                 JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
@@ -227,7 +227,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
 
 
             });
-            bishopButton.addActionListener(e1 -> {
+            bishopButton.addActionListener(e13 -> {
                 pawn.promotePawn(pawn, rowY, colX, "Bishop", board.getTileBoard());
                 promotionDialog.dispose();
                 JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
@@ -239,7 +239,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
                 promotionSquare.revalidate();
 
             });
-            knightButton.addActionListener(e1 -> {
+            knightButton.addActionListener(e14 -> {
                 pawn.promotePawn(pawn, rowY, colX, "Knight", board.getTileBoard());
                 promotionDialog.dispose();
                 JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
@@ -251,7 +251,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
                 promotionSquare.revalidate();
 
             });
-            princesseButton.addActionListener(e1 -> {
+            princesseButton.addActionListener(e15 -> {
                 pawn.promotePawn(pawn, rowY, colX, "Princesse", board.getTileBoard());
                 promotionDialog.dispose();
                 JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
@@ -263,7 +263,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
                 promotionSquare.revalidate();
 
             });
-            imperatriceButton.addActionListener(e1 -> {
+            imperatriceButton.addActionListener(e16 -> {
                 pawn.promotePawn(pawn, rowY, colX, "Imperatrice", board.getTileBoard());
                 promotionDialog.dispose();
                 JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
@@ -275,7 +275,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
                 promotionSquare.revalidate();
 
             });
-            sauterelleButton.addActionListener(e1 -> {
+            sauterelleButton.addActionListener(e17 -> {
                 pawn.promotePawn(pawn, rowY, colX, "Sauterelle", board.getTileBoard());
                 promotionDialog.dispose();
                 JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
@@ -287,7 +287,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
                 promotionSquare.revalidate();
 
             });
-            noctambuleButton.addActionListener(e1 -> {
+            noctambuleButton.addActionListener(e18 -> {
                 pawn.promotePawn(pawn, rowY, colX, "Noctambule", board.getTileBoard());
                 promotionDialog.dispose();
                 JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
@@ -331,7 +331,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
                 promotionSquare.revalidate();
 
             });
-            rookButton.addActionListener(e1 -> {
+            rookButton.addActionListener(e12 -> {
                 pawn.promotePawn(pawn, rowY, colX, "Rook",board.getTileBoard());
                 promotionDialog.dispose();
                 JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
@@ -343,7 +343,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
                 promotionSquare.revalidate();
 
             });
-            bishopButton.addActionListener(e1 -> {
+            bishopButton.addActionListener(e13 -> {
                 pawn.promotePawn(pawn, rowY, colX, "Bishop", board.getTileBoard());
                 promotionDialog.dispose();
                 JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
@@ -355,7 +355,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
                 promotionSquare.revalidate();
 
             });
-            knightButton.addActionListener(e1 -> {
+            knightButton.addActionListener(e14 -> {
                 pawn.promotePawn(pawn, rowY, colX, "Knight", board.getTileBoard());
                 promotionDialog.dispose();
                 JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
@@ -367,7 +367,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
                 promotionSquare.revalidate();
 
             });
-            princesseButton.addActionListener(e1 -> {
+            princesseButton.addActionListener(e15 -> {
                 pawn.promotePawn(pawn, rowY, colX, "Princesse", board.getTileBoard());
                 promotionDialog.dispose();
                 JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
@@ -379,7 +379,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
                 promotionSquare.revalidate();
 
             });
-            imperatriceButton.addActionListener(e1 -> {
+            imperatriceButton.addActionListener(e16 -> {
                 pawn.promotePawn(pawn, rowY, colX, "Imperatrice", board.getTileBoard());
                 promotionDialog.dispose();
                 JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
@@ -391,7 +391,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
                 promotionSquare.revalidate();
 
             });
-            sauterelleButton.addActionListener(e1 -> {
+            sauterelleButton.addActionListener(e17 -> {
                 pawn.promotePawn(pawn, rowY, colX, "Sauterelle", board.getTileBoard());
                 promotionDialog.dispose();
                 JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
@@ -403,7 +403,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
                 promotionSquare.revalidate();
 
             });
-            noctambuleButton.addActionListener(e1 -> {
+            noctambuleButton.addActionListener(e18 -> {
                 pawn.promotePawn(pawn, rowY, colX, "Noctambule", board.getTileBoard());
                 promotionDialog.dispose();
                 JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
