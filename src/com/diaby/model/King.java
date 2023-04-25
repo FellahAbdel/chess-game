@@ -252,7 +252,7 @@ public class King extends ChessPiece {
                 }
                 if (!isInCheck) {
                     ChessPiece arrivalCase = board[startYRow][startXCol + 2];
-                    if (arrivalCase == null || arrivalCase.isWhite() != this.isWhite()) {
+                    if (arrivalCase == null || arrivalCase.getColor() != this.getColor()) {
                         // Try the move and check if king is in check
                         ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
                         testBoard[startYRow][startXCol + 2] = testBoard[startYRow][startXCol];
@@ -276,7 +276,7 @@ public class King extends ChessPiece {
                 }
                 if (!isInCheck) {
                     ChessPiece arrivalCase = board[startYRow][startXCol - 2];
-                    if (arrivalCase == null || arrivalCase.isWhite() != this.isWhite()) {
+                    if (arrivalCase == null || arrivalCase.getColor() != this.getColor()) {
                         // Try the move and check if king is in check
                         ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
                         testBoard[startYRow][startXCol - 2] = testBoard[startYRow][startXCol];

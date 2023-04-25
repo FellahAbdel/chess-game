@@ -219,7 +219,8 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
                 } else if (selectedPiece instanceof Pawn && (rowY == 0 || rowY == 7)) {  // Promotion du pion en reine
                     promotionView(selectedPiece, rowY, colX);
-                }else if (selectedPiece instanceof King && Math.abs(rowY - selectedPiece.getRow()) == 2) {// Roque
+                }
+                else if (selectedPiece instanceof King && Math.abs(colX - selectedPiece.getCol()) == 2) {// Roque
                     // Roque court
                     if (colX > selectedPiece.getCol()  ) {
 
@@ -251,10 +252,12 @@ public class ChessBoardView extends JFrame implements MouseListener {
                     JPanel capturedSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
                     removeSquare(capturedSquare);
                 }
+
+                board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
+                selectedPiece = null;
             }
-            board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
-            selectedPiece = null;
         }
+
         // Mise à jour de l'affichage
         drawGrid();
     }
