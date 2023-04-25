@@ -7,8 +7,14 @@ import java.util.ArrayList;
 
 
 public class Bishop extends ChessPiece {
+    private boolean hasMoved;
     public Bishop(String imageName, Color color, int row, int col) {
         super("Bishop",imageName, color, row, col);
+        this.hasMoved = false;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
     }
 
     @Override
