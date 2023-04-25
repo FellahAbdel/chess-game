@@ -10,6 +10,10 @@ public class Knight extends ChessPiece {
         super("Knight", imageName, color, row, col);
     }
 
+    public Knight(ChessPiece piece) {
+        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+    }
+
     @Override
     public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
         // Vérifie si le déplacement forme un L

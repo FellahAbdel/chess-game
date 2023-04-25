@@ -11,6 +11,10 @@ public class Pawn extends ChessPiece {
         justMovedDouble = false;
     }
 
+    public Pawn(ChessPiece piece) {
+        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+    }
+
     public boolean getHasMoved() {
         return hasMoved;
     }

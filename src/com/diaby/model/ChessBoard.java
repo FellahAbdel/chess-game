@@ -41,6 +41,32 @@ public class ChessBoard {
             tileBoard[6][j] = new Pawn("pion_n.png",Color.BLACK, 6, j);
         }
     }
+    public static ChessPiece[][] copyBoard(ChessPiece[][] board) {
+        ChessPiece[][] copy = new ChessPiece[8][8];
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                ChessPiece piece = board[row][col];
+                if (piece != null ) {
+                    ChessPiece newPiece;
+                    if (piece instanceof Pawn) {
+                        newPiece = new Pawn(piece);
+                    } else if (piece instanceof Rook) {
+                        newPiece = new Rook(piece);
+                    } else if (piece instanceof Knight) {
+                        newPiece = new Knight(piece);
+                    } else if (piece instanceof Bishop) {
+                        newPiece = new Bishop(piece);
+                    } else if (piece instanceof Queen) {
+                        newPiece = new Queen(piece);
+                    } else {
+                        newPiece = new King(piece);
+                    }
+                    copy[row][col] = newPiece;
+                }
+            }
+        }
+        return copy;
+    }
 
     public ChessPiece[][] getTileBoard() {
         return tileBoard;

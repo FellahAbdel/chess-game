@@ -11,6 +11,10 @@ public class Bishop extends ChessPiece {
         super("Bishop",imageName, color, row, col);
     }
 
+    public Bishop(ChessPiece piece) {
+        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+    }
+
     @Override
     public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = PossiblesMoves(startYRow,startXCol,board);

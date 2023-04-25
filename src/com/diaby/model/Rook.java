@@ -15,6 +15,10 @@ public class Rook extends ChessPiece {
         hasMoved = false;
     }
 
+    public Rook(ChessPiece piece) {
+        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+    }
+
     public boolean getHasMoved() {
         return hasMoved;
     }
