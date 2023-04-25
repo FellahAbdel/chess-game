@@ -4,29 +4,14 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class King extends ChessPiece {
-    private boolean castlingDone = false;
-    private boolean hasMoved;
 
-    public King(String imageName,Color color, int row, int col) {
+    public King(String imageName, Color color, int row, int col) {
         super("King", imageName, color, row, col);
         hasMoved = false;
     }
 
-
-    public boolean isCastlingDone() {
-        return this.castlingDone;
-    }
-
-    public void setCastlingDone(boolean done) {
-        this.castlingDone = done;
-    }
-
-    public boolean getHasMoved() {
-        return hasMoved;
-    }
-
-    public void setHasMoved(boolean hasMoved) {
-        this.hasMoved = hasMoved;
+    public King(ChessPiece piece) {
+        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
     }
 
     @Override
@@ -34,8 +19,7 @@ public class King extends ChessPiece {
         // Vérifie si le déplacement se fait d'une case dans n'importe quelle direction
         int deltaX = Math.abs(endX - startX);
         int deltaY = Math.abs(endY - startY);
-        if (deltaX <= 1 && deltaY <= 1)
-        {
+        if (deltaX <= 1 && deltaY <= 1) {
             // check if the King is not moving to a threatened position
             if (isPositionThreatened(board, endX, endY, this.isWhite())) {
                 return true;
@@ -125,71 +109,119 @@ public class King extends ChessPiece {
 
         // Check moves to the right
         if (startXCol + 1 < 12) {
-            ChessPiece piece = board[startYRow][startXCol+1];
+            ChessPiece piece = board[startYRow][startXCol + 1];
             if (piece == null || piece.isWhite() != this.isWhite()) {
-                moves.add(new int[]{startYRow, startXCol+1});
+                // Try the move and check if king is in check
+                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
+                testBoard[startYRow][startXCol + 1] = testBoard[startYRow][startXCol];
+                testBoard[startYRow][startXCol] = null;
+                if (!isInCheck(this.isWhite(), testBoard)) {
+                    moves.add(new int[]{startYRow, startXCol + 1});
+                }
             }
         }
 
         // Check moves to the left
         if (startXCol - 1 >= 0) {
-            ChessPiece piece = board[startYRow][startXCol-1];
+            ChessPiece piece = board[startYRow][startXCol - 1];
             if (piece == null || piece.isWhite() != this.isWhite()) {
-                moves.add(new int[]{startYRow, startXCol-1});
+                // Try the move and check if king is in check
+                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
+                testBoard[startYRow][startXCol - 1] = testBoard[startYRow][startXCol];
+                testBoard[startYRow][startXCol] = null;
+                if (!isInCheck(this.isWhite(), testBoard)) {
+                    moves.add(new int[]{startYRow, startXCol - 1});
+                }
             }
         }
 
         // Check moves to the bottom
         if (startYRow + 1 < 8) {
-            ChessPiece piece = board[startYRow+1][startXCol];
+            ChessPiece piece = board[startYRow + 1][startXCol];
             if (piece == null || piece.isWhite() != this.isWhite()) {
-                moves.add(new int[]{startYRow+1, startXCol});
+                // Try the move and check if king is in check
+                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
+                testBoard[startYRow + 1][startXCol] = testBoard[startYRow][startXCol];
+                testBoard[startYRow][startXCol] = null;
+                if (!isInCheck(this.isWhite(), testBoard)) {
+                    moves.add(new int[]{startYRow + 1, startXCol});
+                }
             }
         }
 
         // Check moves to the top
         if (startYRow - 1 >= 0) {
-            ChessPiece piece = board[startYRow-1][startXCol];
+            ChessPiece piece = board[startYRow - 1][startXCol];
             if (piece == null || piece.isWhite() != this.isWhite()) {
-                moves.add(new int[]{startYRow-1, startXCol});
+                // Try the move and check if king is in check
+                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
+                testBoard[startYRow - 1][startXCol] = testBoard[startYRow][startXCol];
+                testBoard[startYRow][startXCol] = null;
+                if (!isInCheck(this.isWhite(), testBoard)) {
+                    moves.add(new int[]{startYRow - 1, startXCol});
+                }
             }
         }
 
         // Check diagonal moves to the top-right
         if (startYRow - 1 >= 0 && startXCol + 1 < 8) {
-            ChessPiece piece = board[startYRow-1][startXCol+1];
+            ChessPiece piece = board[startYRow - 1][startXCol + 1];
             if (piece == null || piece.isWhite() != this.isWhite()) {
-                moves.add(new int[]{startYRow-1, startXCol+1});
+                // Try the move and check if king is in check
+                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
+                testBoard[startYRow - 1][startXCol + 1] = testBoard[startYRow][startXCol];
+                testBoard[startYRow][startXCol] = null;
+                if (!isInCheck(this.isWhite(), testBoard)) {
+                    moves.add(new int[]{startYRow - 1, startXCol + 1});
+                }
             }
         }
 
         // Check diagonal moves to the top-left
         if (startYRow - 1 >= 0 && startXCol - 1 >= 0) {
-            ChessPiece piece = board[startYRow-1][startXCol-1];
+            ChessPiece piece = board[startYRow - 1][startXCol - 1];
             if (piece == null || piece.isWhite() != this.isWhite()) {
-                moves.add(new int[]{startYRow-1, startXCol-1});
+                // Try the move and check if king is in check
+                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
+                testBoard[startYRow - 1][startXCol - 1] = testBoard[startYRow][startXCol];
+                testBoard[startYRow][startXCol] = null;
+                if (!isInCheck(this.isWhite(), testBoard)) {
+                    moves.add(new int[]{startYRow - 1, startXCol - 1});
+                }
+
             }
         }
 
         // Check diagonal moves to the bottom-right
         if (startYRow + 1 < 8 && startXCol + 1 < 12) {
-            ChessPiece piece = board[startYRow+1][startXCol+1];
+            ChessPiece piece = board[startYRow + 1][startXCol + 1];
             if (piece == null || piece.isWhite() != this.isWhite()) {
-                moves.add(new int[]{startYRow+1, startXCol+1});
+                // Try the move and check if king is in check
+                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
+                testBoard[startYRow + 1][startXCol + 1] = testBoard[startYRow][startXCol];
+                testBoard[startYRow][startXCol] = null;
+                if (!isInCheck(this.isWhite(), testBoard)) {
+                    moves.add(new int[]{startYRow + 1, startXCol + 1});
+                }
             }
         }
 
         // Check diagonal moves to the bottom-left
         if (startYRow + 1 < 8 && startXCol - 1 >= 0) {
-            ChessPiece piece = board[startYRow+1][startXCol-1];
+            ChessPiece piece = board[startYRow + 1][startXCol - 1];
             if (piece == null || piece.isWhite() != this.isWhite()) {
-                moves.add(new int[]{startYRow+1, startXCol-1});
+                // Try the move and check if king is in check
+                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
+                testBoard[startYRow + 1][startXCol - 1] = testBoard[startYRow][startXCol];
+                testBoard[startYRow][startXCol] = null;
+                if (!isInCheck(this.isWhite(), testBoard)) {
+                    moves.add(new int[]{startYRow + 1, startXCol - 1});
+                }
+
             }
         }
-
         return moves;
     }
-
 
     public boolean isInCheck(boolean isWhiteKing, ChessPiece[][] board) {
         // Find the king's position
