@@ -284,7 +284,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
         // On efface l'évidence.
     }
 
-    public static void main(String[] args) {
+    public void displayBoard(){
         // Definir et afficher la fenetre graphique correspondant au damier
         JFrame frame = new ChessBoardView();
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE );
@@ -292,6 +292,6 @@ public class ChessBoardView extends JFrame implements MouseListener {
         frame.setResizable(false);
         frame.setLocationRelativeTo( null );
         frame.setVisible(true);
-}
+    }
 }
 
