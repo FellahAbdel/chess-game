@@ -220,4 +220,7 @@ public class ChessBoard {
     }
 
 
+    public boolean isGameOver() {
+        return false;
+    }
 }
