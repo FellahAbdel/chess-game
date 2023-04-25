@@ -15,6 +15,11 @@ public class Rook extends ChessPiece {
         hasMoved = false;
     }
 
+    public Rook(ChessPiece piece) {
+        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+
+    }
+
     public boolean getHasMoved() {
         return hasMoved;
     }
@@ -46,7 +51,7 @@ public class Rook extends ChessPiece {
         ArrayList<int[]> moves = new ArrayList<>();
 
         // Check moves to the right
-        for (int i = startXCol + 1; i < 8; i++) {
+        for (int i = startXCol + 1; i < 12; i++) {
             if (board[startYRow][i] == null) {
                 moves.add(new int[]{startYRow, i});
             } else if (board[startYRow][i].isWhite() != this.isWhite()) {
@@ -95,6 +100,7 @@ public class Rook extends ChessPiece {
 
         return moves;
     }
+
 
 
     public String getSymbol(){

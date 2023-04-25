@@ -9,6 +9,7 @@ public abstract class ChessPiece {
     protected Color color; // couleur de la pièce (blanc ou noir)
     private int row; // ligne actuelle de la pièce sur le plateau
     private int col; // colonne actuelle de la pièce sur le plateau
+    protected boolean hasMoved; // indique si le pion a déjà été déplacé ou non
 
     private boolean captured = false;
     public ChessPiece(String name,String imageName, Color color, int row , int col) {
@@ -18,6 +19,7 @@ public abstract class ChessPiece {
         this.col = col ;
         this.imageName = imageName;
         captured = false;
+        hasMoved = false;
     }
 
     public String getPieceName (){
@@ -55,6 +57,14 @@ public abstract class ChessPiece {
         return this.getColor() == Color.WHITE;
     }
     public boolean isBlack(){return  this.getColor() == Color.BLACK;}
+
+    public boolean getHasMoved() {
+        return hasMoved;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
     /**
      * Vérifie si le mouvement d'une pièce est valide.
      *

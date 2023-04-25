@@ -10,6 +10,11 @@ public class Imperatrice extends ChessPiece {
         super("Imperatrice", imageName, color, row, col);
     }
 
+    public Imperatrice(ChessPiece piece) {
+        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+
+    }
+
     @Override
     public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
         // Calcul de la distance entre les cases de départ et d'arrivée

@@ -9,6 +9,11 @@ public class Noctambule extends ChessPiece {
         super("Noctambule", imageName, color, row, col);
     }
 
+    public Noctambule(ChessPiece piece) {
+        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+
+    }
+
     @Override
     public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
         // Vérifier si le déplacement est un prolongement du mouvement du cavalier en ligne droite

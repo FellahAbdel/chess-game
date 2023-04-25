@@ -8,6 +8,11 @@ public class Queen extends ChessPiece {
         super("Queen", imageName,color, row, col);
     }
 
+    public Queen(ChessPiece piece) {
+        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+
+    }
+
     @Override
     public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = PossiblesMoves(startYRow,startXCol,board);
@@ -31,49 +36,57 @@ public class Queen extends ChessPiece {
 
         // generate moves like bishop
         // Upper Left Diagonal
-        for (int i = startYRow - 1, j = startXCol - 1; i >= 0 && j >= 0; i--, j--) {
-            if (board[i][j] == null) {
+        for(int i=startYRow-1, j=startXCol-1; i>=0 && j>=0; i--, j--){
+            if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
-            } else if (board[i][j].isWhite() != this.isWhite()) {
+            }
+            else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
                 break;
-            } else {
+            }
+            else {
                 break;
             }
         }
 
         // Upper Right Diagonal
-        for (int i = startYRow - 1, j = startXCol + 1; i >= 0 && j < 8; i--, j++) {
-            if (board[i][j] == null) {
+        for(int i=startYRow-1, j=startXCol+1; i>=0 && j<12; i--, j++){
+            if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
-            } else if (board[i][j].isWhite() != this.isWhite()) {
+            }
+            else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
                 break;
-            } else {
+            }
+            else {
                 break;
             }
         }
 
         // Lower Left Diagonal
-        for (int i = startYRow + 1, j = startXCol - 1; i < 8 && j >= 0; i++, j--) {
-            if (board[i][j] == null) {
+        for(int i=startYRow+1, j=startXCol-1; i<8 && j>=0; i++, j--){
+            if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
-            } else if (board[i][j].isWhite() != this.isWhite()) {
+            }
+            else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
                 break;
-            } else {
+            }
+            else {
                 break;
             }
         }
 
         // Lower Right Diagonal
-        for (int i = startYRow + 1, j = startXCol + 1; i < 8 && j < 8; i++, j++) {
-            if (board[i][j] == null) {
+        for(int i=startYRow+1, j=startXCol+1; i<8 && j<12; i++, j++){
+            if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
-            } else if (board[i][j].isWhite() != this.isWhite()) {
+            }
+            else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
                 break;
-            } else {
+            }
+            else {
                 break;
             }
         }
@@ -81,7 +94,7 @@ public class Queen extends ChessPiece {
         // generate moves like rook
 
         // Check moves to the right
-        for (int i = startXCol + 1; i < 8; i++) {
+        for (int i = startXCol + 1; i < 12; i++) {
             if (board[startYRow][i] == null) {
                 moves.add(new int[]{startYRow, i});
             } else if (board[startYRow][i].isWhite() != this.isWhite()) {

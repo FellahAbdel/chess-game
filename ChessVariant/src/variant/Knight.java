@@ -8,6 +8,11 @@ public class Knight extends ChessPiece {
         super("Knight", imageName, color, row, col);
     }
 
+    public Knight(ChessPiece piece) {
+        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+
+    }
+
     @Override
     public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
         // Vérifie si le déplacement forme un L
@@ -28,12 +33,11 @@ public class Knight extends ChessPiece {
         // Two steps up
         if(startYRow-2 >= 0){
             // One step to the left
-
             if(startXCol-1 >= 0 && (board[startYRow-2][startXCol-1] == null || board[startYRow-2][startXCol-1].isWhite() != this.isWhite())){
                 moves.add(new int[]{startYRow-2, startXCol-1});
             }
             // One step to the right
-            if(startXCol+1 < 8 && (board[startYRow-2][startXCol+1] == null || board[startYRow-2][startXCol+1].isWhite() != this.isWhite())){
+            if(startXCol+1 < 12 && (board[startYRow-2][startXCol+1] == null || board[startYRow-2][startXCol+1].isWhite() != this.isWhite())){
                 moves.add(new int[]{startYRow-2, startXCol+1});
             }
         }
@@ -45,7 +49,7 @@ public class Knight extends ChessPiece {
                 moves.add(new int[]{startYRow+2, startXCol-1});
             }
             // One step to the right
-            if(startXCol+1 < 8 && (board[startYRow+2][startXCol+1] == null || board[startYRow+2][startXCol+1].isWhite() != this.isWhite())){
+            if(startXCol+1 < 12 && (board[startYRow+2][startXCol+1] == null || board[startYRow+2][startXCol+1].isWhite() != this.isWhite())){
                 moves.add(new int[]{startYRow+2, startXCol+1});
             }
         }
@@ -63,7 +67,7 @@ public class Knight extends ChessPiece {
         }
 
         // Two steps to the right
-        if(startXCol+2 < 8){
+        if(startXCol+2 < 12){
             // One step up
             if(startYRow-1 >= 0 && (board[startYRow-1][startXCol+2] == null || board[startYRow-1][startXCol+2].isWhite() != this.isWhite())){
                 moves.add(new int[]{startYRow-1, startXCol+2});
@@ -76,6 +80,7 @@ public class Knight extends ChessPiece {
 
         return moves;
     }
+
 
 
     public String getSymbol(){
