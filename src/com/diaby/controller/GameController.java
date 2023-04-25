@@ -1,4 +1,5 @@
-//package com.diaby;
+package com.diaby.controller;
+// package com.diaby;
 //
 //public class GameController {
 //    protected ChessBoard board;
@@ -55,3 +56,29 @@
 //    }
 //}
 //
+
+import com.diaby.model.ChessBoard;
+import com.diaby.view.ChessBoardView;
+
+public class GameController {
+
+    private ChessBoard chessBoard;
+    private ChessBoardView chessBoardView;
+
+    public GameController() {
+        /*chessBoard = new ChessBoard();*/
+        chessBoardView = new ChessBoardView();
+    }
+
+    public void startGame() {
+        chessBoardView.displayBoard();
+        ChessBoard chessBoard = chessBoardView.getBoard();
+        while (!chessBoard.isGameOver()) {
+            // TODO: Implement game logic here
+        }
+        chessBoardView.displayGameOver();
+    }
+
+    // TODO: Add additional methods for handling user input and game logic
+
+}
