@@ -186,8 +186,17 @@ public class King extends ChessPiece {
                     isInCheck = true;
                 }
                 if (!isInCheck) {
+                    ChessPiece kingTempPos = board[startYRow][startXCol + 2];
+                    if (kingTempPos == null || kingTempPos.isWhite() != this.isWhite()) {
+                        // Try the move and check if king is in check
+                        ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
+                        testBoard[startYRow][startXCol + 2] = testBoard[startYRow][startXCol];
+                        testBoard[startYRow][startXCol] = null;
+                        if (!isInCheck(this.isWhite(), testBoard)) {
+                            moves.add(new int[]{startYRow , startXCol + 2 });
+                        }
 
-                    moves.add(new int[]{startYRow, startXCol + 2});
+                    }
                 }
             }
         }
@@ -202,7 +211,17 @@ public class King extends ChessPiece {
                     isInCheck = true;
                 }
                 if (!isInCheck) {
-                    moves.add(new int[] {startYRow, startXCol - 2});
+                    ChessPiece kingTempPos = board[startYRow][startXCol - 2];
+                    if (kingTempPos == null || kingTempPos.isWhite() != this.isWhite()) {
+                        // Try the move and check if king is in check
+                        ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
+                        testBoard[startYRow][startXCol - 2] = testBoard[startYRow][startXCol];
+                        testBoard[startYRow][startXCol] = null;
+                        if (!isInCheck(this.isWhite(), testBoard)) {
+                            moves.add(new int[]{startYRow , startXCol - 2 });
+                        }
+
+                    }
                 }
             }
         }
