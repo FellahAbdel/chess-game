@@ -131,11 +131,7 @@ public class King extends ChessPiece {
         if (startXCol + 1 < 8) {
             ChessPiece piece = board[startYRow][startXCol + 1];
             if (piece == null || piece.getColor() != this.getColor()) {
-                // Try the move and check if king is in check
-                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
-                testBoard[startYRow][startXCol + 1] = testBoard[startYRow][startXCol];
-                testBoard[startYRow][startXCol] = null;
-                if (!isInCheck(this.isWhite(), testBoard)) {
+                {
                     moves.add(new int[]{startYRow, startXCol + 1});
                 }
             }
@@ -145,11 +141,7 @@ public class King extends ChessPiece {
         if (startXCol - 1 >= 0) {
             ChessPiece piece = board[startYRow][startXCol - 1];
             if (piece == null || piece.getColor() != this.getColor()) {
-                // Try the move and check if king is in check
-                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
-                testBoard[startYRow][startXCol - 1] = testBoard[startYRow][startXCol];
-                testBoard[startYRow][startXCol] = null;
-                if (!isInCheck(this.isWhite(), testBoard)) {
+                {
                     moves.add(new int[]{startYRow, startXCol - 1});
                 }
             }
@@ -159,11 +151,7 @@ public class King extends ChessPiece {
         if (startYRow + 1 < 8) {
             ChessPiece piece = board[startYRow + 1][startXCol];
             if (piece == null || piece.getColor() != this.getColor()) {
-                // Try the move and check if king is in check
-                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
-                testBoard[startYRow + 1][startXCol] = testBoard[startYRow][startXCol];
-                testBoard[startYRow][startXCol] = null;
-                if (!isInCheck(this.isWhite(), testBoard)) {
+                {
                     moves.add(new int[]{startYRow + 1, startXCol});
                 }
             }
@@ -173,11 +161,7 @@ public class King extends ChessPiece {
         if (startYRow - 1 >= 0) {
             ChessPiece piece = board[startYRow - 1][startXCol];
             if (piece == null || piece.getColor() != this.getColor()) {
-                // Try the move and check if king is in check
-                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
-                testBoard[startYRow - 1][startXCol] = testBoard[startYRow][startXCol];
-                testBoard[startYRow][startXCol] = null;
-                if (!isInCheck(this.isWhite(), testBoard)) {
+                {
                     moves.add(new int[]{startYRow - 1, startXCol});
                 }
             }
@@ -187,11 +171,7 @@ public class King extends ChessPiece {
         if (startYRow - 1 >= 0 && startXCol + 1 < 8) {
             ChessPiece piece = board[startYRow - 1][startXCol + 1];
             if (piece == null || piece.getColor() != this.getColor()) {
-                // Try the move and check if king is in check
-                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
-                testBoard[startYRow - 1][startXCol + 1] = testBoard[startYRow][startXCol];
-                testBoard[startYRow][startXCol] = null;
-                if (!isInCheck(this.isWhite(), testBoard)) {
+               {
                     moves.add(new int[]{startYRow - 1, startXCol + 1});
                 }
             }
@@ -201,11 +181,7 @@ public class King extends ChessPiece {
         if (startYRow - 1 >= 0 && startXCol - 1 >= 0) {
             ChessPiece piece = board[startYRow - 1][startXCol - 1];
             if (piece == null || piece.getColor() != this.getColor()) {
-                // Try the move and check if king is in check
-                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
-                testBoard[startYRow - 1][startXCol - 1] = testBoard[startYRow][startXCol];
-                testBoard[startYRow][startXCol] = null;
-                if (!isInCheck(this.isWhite(), testBoard)) {
+                 {
                     moves.add(new int[]{startYRow - 1, startXCol - 1});
                 }
 
@@ -216,11 +192,7 @@ public class King extends ChessPiece {
         if (startYRow + 1 < 8 && startXCol + 1 < 8) {
             ChessPiece piece = board[startYRow + 1][startXCol + 1];
             if (piece == null || piece.getColor() != this.getColor()) {
-                // Try the move and check if king is in check
-                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
-                testBoard[startYRow + 1][startXCol + 1] = testBoard[startYRow][startXCol];
-                testBoard[startYRow][startXCol] = null;
-                if (!isInCheck(this.isWhite(), testBoard)) {
+               {
                     moves.add(new int[]{startYRow + 1, startXCol + 1});
                 }
             }
@@ -230,11 +202,7 @@ public class King extends ChessPiece {
         if (startYRow + 1 < 8 && startXCol - 1 >= 0) {
             ChessPiece piece = board[startYRow + 1][startXCol - 1];
             if (piece == null || piece.getColor() != this.getColor()) {
-                // Try the move and check if king is in check
-                ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
-                testBoard[startYRow + 1][startXCol - 1] = testBoard[startYRow][startXCol];
-                testBoard[startYRow][startXCol] = null;
-                if (!isInCheck(this.isWhite(), testBoard)) {
+                {
                     moves.add(new int[]{startYRow + 1, startXCol - 1});
                 }
 
@@ -250,17 +218,8 @@ public class King extends ChessPiece {
                 if (isInCheck(piece.isWhite(), board)) {
                     isInCheck = true;
                 }
-                if (!isInCheck) {
-                    ChessPiece arrivalCase = board[startYRow][startXCol + 2];
-                    if (arrivalCase == null || arrivalCase.getColor() != this.getColor()) {
-                        // Try the move and check if king is in check
-                        ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
-                        testBoard[startYRow][startXCol + 2] = testBoard[startYRow][startXCol];
-                        testBoard[startYRow][startXCol] = null;
-                        if (!isInCheck(this.isWhite(), testBoard)) {
-                            moves.add(new int[]{startYRow, startXCol + 2});
-                        }
-                    }
+                if (!isInCheck){
+                    moves.add(new int[]{startYRow, startXCol + 2});
                 }
             }
         }
@@ -275,16 +234,7 @@ public class King extends ChessPiece {
                     isInCheck = true;
                 }
                 if (!isInCheck) {
-                    ChessPiece arrivalCase = board[startYRow][startXCol - 2];
-                    if (arrivalCase == null || arrivalCase.getColor() != this.getColor()) {
-                        // Try the move and check if king is in check
-                        ChessPiece[][] testBoard = ChessBoard.copyBoard(board);
-                        testBoard[startYRow][startXCol - 2] = testBoard[startYRow][startXCol];
-                        testBoard[startYRow][startXCol] = null;
-                        if (!isInCheck(this.isWhite(), testBoard)) {
-                            moves.add(new int[] {startYRow, startXCol - 2});
-                        }
-                    }
+                    moves.add(new int[] {startYRow, startXCol - 2});
                 }
             }
         }
