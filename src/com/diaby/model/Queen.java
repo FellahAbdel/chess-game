@@ -5,13 +5,13 @@ import java.util.ArrayList;
 
 public class Queen extends ChessPiece {
 
-    public Queen(String imageName,Color color, int row, int col) {
-        super("Queen", imageName,color, row, col);
+    public Queen(Color color, int row, int col,boolean isWhiteTurn) {
+        super("Queen",color, row, col,isWhiteTurn);
     }
 
 
     public Queen(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
     }
 
     @Override
@@ -137,7 +137,4 @@ public class Queen extends ChessPiece {
         return moves;
     }
 
-    public String getSymbol(){
-        return (getColor() == Color.WHITE ? "B" : "N");
-    }
 }
