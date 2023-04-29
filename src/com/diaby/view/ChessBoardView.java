@@ -232,42 +232,22 @@ public class ChessBoardView extends JFrame implements MouseListener {
             int componentIndex = sourceRow * SIZE_ROW_BOARD + sourceCol;
             JPanel oldSquare = (JPanel) chessBoard.getComponent(componentIndex);
             this.removeSquare(oldSquare);
-            if(!isWhiteTurn)
-            {
-                // Verification pour la prise en passant.
-                if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null) {
-                    int capturedPieceRow = !sourcePiece.isWhite() ? rowY - 1 : rowY + 1 ;
-                    int capturedSquareIndex = capturedPieceRow * SIZE_ROW_BOARD + colX ;
-                    JPanel capturedSquare = (JPanel) chessBoard.getComponent(capturedSquareIndex);
-                    this.removeSquare(capturedSquare);
-                }
-
-                // Verification pour la prise en passant.
-                if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null) {
-                    int capturedPieceRow = sourcePiece.isWhite() ? rowY - 1 : rowY + 1 ;
-                    int capturedSquareIndex = capturedPieceRow * SIZE_ROW_BOARD + colX ;
-                    JPanel capturedSquare = (JPanel) chessBoard.getComponent(capturedSquareIndex);
-                    this.removeSquare(capturedSquare);
-                }
-
+            // Verification pour la prise en passant.
+            if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null) {
+                int capturedPieceRow = !sourcePiece.isWhite() ? rowY - 1 : rowY + 1 ;
+                int capturedSquareIndex = capturedPieceRow * SIZE_ROW_BOARD + colX ;
+                JPanel capturedSquare = (JPanel) chessBoard.getComponent(capturedSquareIndex);
+                this.removeSquare(capturedSquare);
             }
-            if(isWhiteTurn)
-            {
-                // Verification pour la prise en passant.
-                if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null) {
-                    int capturedPieceRow = !sourcePiece.isWhite() ? rowY - 1 : rowY + 1 ;
-                    int capturedSquareIndex = capturedPieceRow * SIZE_ROW_BOARD + colX ;
-                    JPanel capturedSquare = (JPanel) chessBoard.getComponent(capturedSquareIndex);
-                    this.removeSquare(capturedSquare);
-                }
-                // Verification pour la prise en passant.
-                if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null) {
-                    int capturedPieceRow = sourcePiece.isWhite() ? rowY - 1 : rowY + 1 ;
-                    int capturedSquareIndex = capturedPieceRow * SIZE_ROW_BOARD + colX ;
-                    JPanel capturedSquare = (JPanel) chessBoard.getComponent(capturedSquareIndex);
-                    this.removeSquare(capturedSquare);
-                }
+
+            // Verification pour la prise en passant.
+            if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null) {
+                int capturedPieceRow = sourcePiece.isWhite() ? rowY - 1 : rowY + 1 ;
+                int capturedSquareIndex = capturedPieceRow * SIZE_ROW_BOARD + colX ;
+                JPanel capturedSquare = (JPanel) chessBoard.getComponent(capturedSquareIndex);
+                this.removeSquare(capturedSquare);
             }
+
             if(sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece != null && sourcePiece.getColor() != selectedPiece.getColor()) {
                 JPanel capturedSquare = (JPanel) chessBoard.getComponent(selectedComponentIndex);
                 this.removeSquare(capturedSquare);
