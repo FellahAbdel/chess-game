@@ -1,18 +1,18 @@
 package com.diaby.model;
+
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Pawn extends ChessPiece {
     private boolean hasMoved; // indique si le pion a déjà été déplacé ou non
-    private boolean justMovedDouble; // flag pour indiquer si le pion vient de faire un double pas
-    public Pawn(String imageName,Color color, int row, int col) {
-        super("Pawn",imageName ,color, row, col);
+
+    public Pawn(Color color, int row, int col,boolean isWhiteTurn) {
+        super("Pawn",color, row, col,isWhiteTurn);
         hasMoved = false;
-        justMovedDouble = false;
     }
 
     public Pawn(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
     }
 
     public boolean getHasMoved() {
@@ -23,13 +23,7 @@ public class Pawn extends ChessPiece {
         this.hasMoved = hasMoved;
     }
 
-    public boolean getJustMovedDouble() {
-        return justMovedDouble;
-    }
 
-    public void setJustMovedDouble(boolean justMovedDouble) {
-        this.justMovedDouble = justMovedDouble;
-    }
 
     @Override
     public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
@@ -70,41 +64,36 @@ public class Pawn extends ChessPiece {
         ChessPiece newPiece;
         switch (pieceType) {
             case "Queen":
-                if (pawn.isWhite()) {
-                    newPiece = new Queen("reine_b.png", color, row, col);
-                } else {
-                    newPiece = new Queen("reine_n.png", color, row, col);
-                }
+                newPiece = new Queen(color, row, col, pawn.getWhiteTurn());
                 break;
             case "Rook":
-                if (pawn.isWhite()) {
-                    newPiece = new Rook("tour_b.png", color, row, col);
-                } else {
-                    newPiece = new Rook("tour_n.png", color, row, col);
-                }
+                newPiece = new Rook(color, row, col, pawn.getWhiteTurn());
                 break;
             case "Bishop":
-                if (pawn.isWhite()) {
-                    newPiece = new Bishop("fou_b.png", color, row, col);
-                } else {
-                    newPiece = new Bishop("fou_n.png", color, row, col);
-                }
+                newPiece = new Bishop(color, row, col, pawn.getWhiteTurn());
                 break;
             case "Knight":
-                if (pawn.isWhite()) {
-                    newPiece = new Knight("cavalier_b.png", color, row, col);
-                } else {
-                    newPiece = new Knight("cavalier_n.png", color, row, col);
-                }
+                newPiece = new Knight(color, row, col, pawn.getWhiteTurn());
                 break;
             default:
                 throw new IllegalArgumentException("Invalid piece type");
         }
         board[row][col] = newPiece;
     }
-
     public ArrayList<int[]> possiblesMoves(int startXCol, int startYRow, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
+
+        if(this.getWhiteTurn())
+        {
+            moves = possiblesMovesWhiteTurnTrue(startXCol,startYRow,board,moves);
+        }else{
+            moves = possiblesMovesWhiteTurnFalse(startXCol,startYRow,board,moves);
+        }
+
+        return moves;
+    }
+
+    public ArrayList<int[]> possiblesMovesWhiteTurnFalse(int startXCol, int startYRow, ChessPiece[][] board, ArrayList<int[]> moves) {
 
         if (this.isWhite()) {
 
@@ -161,9 +150,61 @@ public class Pawn extends ChessPiece {
         return moves;
     }
 
+    public ArrayList<int[]> possiblesMovesWhiteTurnTrue(int startXCol, int startYRow, ChessPiece[][] board, ArrayList<int[]> moves) {
 
+        if (!this.isWhite()) {
 
-    public String getSymbol(){
-        return (getColor() == Color.WHITE ? "B" : "N");
+            // Check one step forward
+            if (startXCol < 7 && board[startXCol + 1][startYRow] == null) {
+                moves.add(new int[]{startXCol + 1, startYRow});
+            }
+            // Check two steps forward
+            if (startXCol == 1 && board[startXCol + 1][startYRow] == null && board[startXCol + 2][startYRow] == null) {
+                moves.add(new int[]{startXCol + 2, startYRow});
+            }
+            // Check diagonal captures
+            if (startXCol < 6 && startYRow > 0 && board[startXCol + 1][startYRow - 1] != null && board[startXCol + 1][startYRow - 1].isWhite()) {
+                moves.add(new int[]{startXCol + 1, startYRow - 1});
+            }
+            if (startXCol < 6 && startYRow < 7 && board[startXCol + 1][startYRow + 1] != null && board[startXCol + 1][startYRow + 1].isWhite()) {
+                moves.add(new int[]{startXCol + 1, startYRow + 1});
+            }
+            // Check en passant capture
+            if (startXCol == 4 && startYRow > 0 && board[startXCol][startYRow - 1] != null && board[startXCol][startYRow - 1].isWhite()
+                    && board[startXCol + 1][startYRow - 1] == null && board[startXCol][startYRow - 1] instanceof Pawn) {
+                moves.add(new int[]{startXCol + 1, startYRow - 1});
+            }
+            if (startXCol == 4 && startYRow < 7 && board[startXCol][startYRow + 1] != null && board[startXCol][startYRow + 1].isWhite()
+                    && board[startXCol + 1][startYRow + 1] == null && board[startXCol][startYRow + 1] instanceof Pawn) {
+                moves.add(new int[]{startXCol + 1, startYRow + 1});
+            }
+        } else {
+            // Check one step forward
+            if (startXCol > 0 && board[startXCol - 1][startYRow] == null) {
+                moves.add(new int[]{startXCol - 1, startYRow});
+            }
+            // Check two steps forward
+            if (startXCol == 6 && board[startXCol - 1][startYRow] == null && board[startXCol - 2][startYRow] == null) {
+                moves.add(new int[]{startXCol - 2, startYRow});
+            }
+            // Check diagonal captures
+            if (startXCol > 1 && startYRow > 0 && board[startXCol - 1][startYRow - 1] != null && !board[startXCol - 1][startYRow - 1].isWhite()) {
+                moves.add(new int[]{startXCol - 1, startYRow - 1});
+            }
+            if (startXCol > 1 && startYRow < 7 && board[startXCol - 1][startYRow + 1] != null && !board[startXCol - 1][startYRow + 1].isWhite()) {
+                moves.add(new int[]{startXCol - 1, startYRow + 1});
+            }
+            // Check en passant capture
+            if (startXCol == 3 && startYRow > 0 && board[startXCol][startYRow - 1] != null && !board[startXCol][startYRow - 1].isWhite()
+                    && board[startXCol - 1][startYRow - 1] == null && board[startXCol][startYRow - 1] instanceof Pawn) {
+                moves.add(new int[]{startXCol - 1, startYRow - 1});
+            }
+            if (startXCol == 3 && startYRow < 7 && board[startXCol][startYRow + 1] != null && !board[startXCol][startYRow + 1].isWhite()
+                    && board[startXCol - 1][startYRow + 1] == null && board[startXCol][startYRow + 1] instanceof Pawn) {
+                moves.add(new int[]{startXCol - 1, startYRow + 1});
+            }
+        }
+        return moves;
     }
+
 }
