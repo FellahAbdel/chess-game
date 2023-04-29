@@ -1,45 +1,74 @@
 package com.diaby.model;
 
-//import javax.swing.text.Position;
-
 import java.awt.*;
 import java.util.ArrayList;
 
 public class ChessBoard {
     private ChessPiece[][] tileBoard;
     public boolean[][] highLightCase = new boolean[8][8];
+
     public ChessBoard() {
         tileBoard = new ChessPiece[8][8];
-        this.initialize();
 
     }
 
-    private void initialize() {
-        // Initialiser les pièces blanches
-        tileBoard[0][0] = new Rook("tour_b.png", Color.WHITE, 0, 0);
-        tileBoard[0][1] = new Knight("cavalier_b.png",Color.WHITE, 0, 1);
-        tileBoard[0][2] = new Bishop("fou_b.png",Color.WHITE, 0, 2);
-        tileBoard[0][3] = new Queen("reine_b.png",Color.WHITE, 0, 3);
-        tileBoard[0][4] = new King("roi_b.png",Color.WHITE, 0, 4);
-        tileBoard[0][5] = new Bishop("fou_b.png",Color.WHITE, 0, 5);
-        tileBoard[0][6] = new Knight("cavalier_b.png",Color.WHITE, 0, 6);
-        tileBoard[0][7] = new Rook("tour_b.png",Color.WHITE, 0, 7);
-        for (int j = 0; j < 8; j++) {
-            tileBoard[1][j] = new Pawn("pion_b.png",Color.WHITE, 1, j);
+    public void initialize(boolean isWhiteTurn) {
+
+        if(isWhiteTurn)
+        {
+            // Initialiser les pièces blanches
+            tileBoard[0][0] = new Rook(Color.BLACK, 0, 0, true);
+            tileBoard[0][1] = new Knight(Color.BLACK, 0, 1,true);
+            tileBoard[0][2] = new Bishop(Color.BLACK, 0, 2,true);
+            tileBoard[0][3] = new Queen(Color.BLACK, 0, 3,true);
+            tileBoard[0][4] = new King(Color.BLACK, 0, 4,true);
+            tileBoard[0][5] = new Bishop(Color.BLACK, 0, 5,true);
+            tileBoard[0][6] = new Knight(Color.BLACK, 0, 6,true);
+            tileBoard[0][7] = new Rook(Color.BLACK, 0, 7,true);
+            for (int j = 0; j < 8; j++) {
+                tileBoard[1][j] = new Pawn(Color.BLACK, 1, j,true);
+            }
+
+            // Initialiser les pièces noires
+            tileBoard[7][0] = new Rook(Color.WHITE, 7, 0,true);
+            tileBoard[7][1] = new Knight(Color.WHITE, 7, 1,true);
+            tileBoard[7][2] = new Bishop(Color.WHITE, 7, 2,true);
+            tileBoard[7][3] = new Queen(Color.WHITE, 7, 3,true);
+            tileBoard[7][4] = new King(Color.WHITE, 7, 4,true);
+            tileBoard[7][5] = new Bishop(Color.WHITE, 7, 5,true);
+            tileBoard[7][6] = new Knight(Color.WHITE, 7, 6,true);
+            tileBoard[7][7] = new Rook(Color.WHITE, 7, 7,true);
+            for (int j = 0; j < 8; j++) {
+                tileBoard[6][j] = new Pawn(Color.WHITE, 6, j,true);
+            }
+        } else {
+            // Initialiser les pièces blanches
+            tileBoard[0][0] = new Rook(Color.WHITE, 0, 0,false);
+            tileBoard[0][1] = new Knight(Color.WHITE, 0, 1,false);
+            tileBoard[0][2] = new Bishop(Color.WHITE, 0, 2,false);
+            tileBoard[0][3] = new Queen(Color.WHITE, 0, 3,false);
+            tileBoard[0][4] = new King(Color.WHITE, 0, 4,false);
+            tileBoard[0][5] = new Bishop(Color.WHITE, 0, 5,false);
+            tileBoard[0][6] = new Knight(Color.WHITE, 0, 6,false);
+            tileBoard[0][7] = new Rook(Color.WHITE, 0, 7,false);
+            for (int j = 0; j < 8; j++) {
+                tileBoard[1][j] = new Pawn(Color.WHITE, 1, j,false);
+            }
+
+            // Initialiser les pièces noires
+            tileBoard[7][0] = new Rook(Color.BLACK, 7, 0,false);
+            tileBoard[7][1] = new Knight(Color.BLACK, 7, 1,false);
+            tileBoard[7][2] = new Bishop(Color.BLACK, 7, 2,false);
+            tileBoard[7][3] = new Queen(Color.BLACK, 7, 3,false);
+            tileBoard[7][4] = new King(Color.BLACK, 7, 4,false);
+            tileBoard[7][5] = new Bishop(Color.BLACK, 7, 5,false);
+            tileBoard[7][6] = new Knight(Color.BLACK, 7, 6,false);
+            tileBoard[7][7] = new Rook(Color.BLACK, 7, 7,false);
+            for (int j = 0; j < 8; j++) {
+                tileBoard[6][j] = new Pawn(Color.BLACK, 6, j,false);
+            }
         }
 
-        // Initialiser les pièces noires
-        tileBoard[7][0] = new Rook("tour_n.png",Color.BLACK, 7, 0);
-        tileBoard[7][1] = new Knight("cavalier_n.png",Color.BLACK, 7, 1);
-        tileBoard[7][2] = new Bishop("fou_n.png",Color.BLACK, 7, 2);
-        tileBoard[7][3] = new Queen("reine_n.png",Color.BLACK, 7, 3);
-        tileBoard[7][4] = new King("roi_n.png",Color.BLACK, 7, 4);
-        tileBoard[7][5] = new Bishop("fou_n.png",Color.BLACK, 7, 5);
-        tileBoard[7][6] = new Knight("cavalier_n.png",Color.BLACK, 7, 6);
-        tileBoard[7][7] = new Rook("tour_n.png",Color.BLACK, 7, 7);
-        for (int j = 0; j < 8; j++) {
-            tileBoard[6][j] = new Pawn("pion_n.png",Color.BLACK, 6, j);
-        }
     }
     public static ChessPiece[][] copyBoard(ChessPiece[][] board) {
         ChessPiece[][] copy = new ChessPiece[8][8];
@@ -93,32 +122,6 @@ public class ChessBoard {
         tileBoard[row][col] = null ;
     }
 
-    public int getNbOfWhitePiece() {
-        ArrayList<ChessPiece> pieces = new ArrayList<>();
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                ChessPiece piece = tileBoard[row][col];
-                if (piece != null && piece.isWhite()) {
-                    pieces.add(piece);
-                }
-            }
-        }
-        return pieces.size();
-    }
-
-    public int getNbOfBlackPiece() {
-        ArrayList<ChessPiece> pieces = new ArrayList<>();
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                ChessPiece piece = tileBoard[row][col];
-                if (piece != null && !piece.isWhite()) {
-                    pieces.add(piece);
-                }
-            }
-        }
-        return pieces.size();
-    }
-
     public boolean isOccupied(int row, int col) {
         return tileBoard[row][col] != null;
     }
@@ -158,18 +161,11 @@ public class ChessBoard {
         {
             endPiece.setCaptured();
             removePieceAt(endRow, endCol);
-            setPieceAt(endRow, endCol, startPiece);
-            setPieceAt(startRow, startCol, null);
-            startPiece.setRow(endRow);
-            startPiece.setCol(endCol);
         }
-        else
-        {
-            setPieceAt(endRow, endCol, startPiece);
-            setPieceAt(startRow, startCol, null);
-            startPiece.setRow(endRow);
-            startPiece.setCol(endCol);
-        }
+        setPieceAt(endRow, endCol, startPiece);
+        setPieceAt(startRow, startCol, null);
+        startPiece.setRow(endRow);
+        startPiece.setCol(endCol);
 
     }
 
@@ -185,12 +181,24 @@ public class ChessBoard {
         }
 
         // capture en passant
-        if ( startPiece instanceof Pawn && endCol != startCol && endPiece == null) {
-            int capturedPieceRow = startPiece.isWhite() ? endRow - 1 : endRow + 1;
-            ChessPiece capturedPiece = getPieceAt(capturedPieceRow, endCol);
-            capturedPiece.setCaptured();
-            removePieceAt(capturedPieceRow, endCol);
+        if(!startPiece.getWhiteTurn())
+        {
+            if ( startPiece instanceof Pawn && endCol != startCol && endPiece == null) {
+                int capturedPieceRow = startPiece.isWhite() ? endRow - 1 : endRow + 1;
+                ChessPiece capturedPiece = getPieceAt(capturedPieceRow, endCol);
+                capturedPiece.setCaptured();
+                removePieceAt(capturedPieceRow, endCol);
+            }
         }
+        else{
+            if ( startPiece instanceof Pawn && endCol != startCol && endPiece == null) {
+                int capturedPieceRow = !startPiece.isWhite() ? endRow - 1 : endRow + 1;
+                ChessPiece capturedPiece = getPieceAt(capturedPieceRow, endCol);
+                capturedPiece.setCaptured();
+                removePieceAt(capturedPieceRow, endCol);
+            }
+        }
+
 
         move(startRow, startCol, endRow, endCol);
         // Mise à hasMoved = true, une fois le déplacement effectué pour le roi et la tour.
@@ -202,24 +210,4 @@ public class ChessBoard {
         return true;
     }
 
-
-
-
-    public void printBoard() {
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                ChessPiece piece = getPieceAt(row, col);
-                if (piece == null) {
-                    System.out.print("- ");
-                } else {
-                    System.out.print(piece.getImageName() + " ");
-                }
-            }
-            System.out.println();
-        }
-    }
-
-    public boolean isGameOver() {
-        return true;
-    }
 }
