@@ -1,18 +1,16 @@
 package com.diaby.model;
 
-//import javax.swing.*;
-
 import java.awt.*;
 import java.util.ArrayList;
 
 
 public class Bishop extends ChessPiece {
-    public Bishop(String imageName, Color color, int row, int col) {
-        super("Bishop",imageName, color, row, col);
+    public Bishop(Color color, int row, int col, boolean isWhiteTurn) {
+        super("Bishop",color, row, col, isWhiteTurn);
     }
 
     public Bishop(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+        super(piece.getPieceName(),piece.getColor(), piece.getRow(), piece.getCol(),piece.getWhiteTurn());
     }
 
     @Override
@@ -98,10 +96,4 @@ public class Bishop extends ChessPiece {
         return moves;
     }
 
-
-
-    @Override
-    public String getSymbol(){
-        return (getColor() == Color.WHITE ? "B" : "N");
-    }
 }
