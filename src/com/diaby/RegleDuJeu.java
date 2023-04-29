@@ -2,7 +2,8 @@ package com.diaby;
 import com.diaby.model.*;
 public class RegleDuJeu {
 
-    public static boolean estPat(King king, ChessBoard board) {
+    public static boolean estPat(boolean isWhite, ChessBoard board) {
+        King king = board.getKing(isWhite);
         // Vérifie si le roi est en échec
         if (king.isInCheck(king.isWhite(), board.getTileBoard())) {
             return false;
@@ -24,34 +25,11 @@ public class RegleDuJeu {
         return true;
     }
 
-    public static boolean estEchecEtMat(ChessPiece piece, ChessBoard board) {
+    public static boolean estEchecEtMat(boolean isWhite, ChessPiece[][] board, ChessBoard chess) {
         // Vérifie si le joueur est en échec et mat
-        King roi = board.getKing(piece.isWhite());
+        King roi = chess.getKing(isWhite);
 
-        if (!roi.isInCheck(roi.isWhite(), board.getTileBoard())) {
-            return false;
-        }
-
-        int row , col;
-        for (int ligne = 0; ligne < 8; ligne++) {
-            for (int colonne = 0; colonne < 8; colonne++) {
-                ChessPiece pieceCourante = board.getPieceAt(ligne, colonne);
-
-                if (pieceCourante != null && pieceCourante.getColor() == piece.getColor()) {
-                    for (int nouvelleLigne = 0; nouvelleLigne < 8; nouvelleLigne++) {
-                        for (int nouvelleColonne = 0; nouvelleColonne < 8; nouvelleColonne++) {
-                            row = pieceCourante.getRow();
-                            col= pieceCourante.getCol();
-                            if (pieceCourante.isValidMove(row,col, nouvelleLigne, nouvelleColonne, board.getTileBoard())) {
-                                return false;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return true;
+        return roi.isInCheck(roi.isWhite(), board) && roi.possiblesMoves(roi.getRow(), roi.getCol(), board).isEmpty();
     }
 
 }
