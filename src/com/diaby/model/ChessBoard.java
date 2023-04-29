@@ -9,7 +9,6 @@ public class ChessBoard {
 
     public ChessBoard() {
         tileBoard = new ChessPiece[8][8];
-
     }
 
     public void initialize(boolean isWhiteTurn) {
