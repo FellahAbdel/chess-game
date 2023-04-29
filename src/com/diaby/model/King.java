@@ -1,31 +1,19 @@
 package com.diaby.model;
 
-import com.diaby.view.ChessBoardView;
-
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class King extends ChessPiece {
-    private boolean castlingDone = false;
     private boolean hasMoved;
 
-    public King(String imageName,Color color, int row, int col) {
-        super("King", imageName, color, row, col);
+    public King(Color color, int row, int col,boolean isWhiteTurn) {
+        super("King",color, row, col,isWhiteTurn);
         hasMoved = false;
     }
 
     public King(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
-    }
-
-
-    public boolean isCastlingDone() {
-        return this.castlingDone;
-    }
-
-    public void setCastlingDone(boolean done) {
-        this.castlingDone = done;
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
     }
 
     public boolean getHasMoved() {
@@ -61,7 +49,6 @@ public class King extends ChessPiece {
 
     public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
-        King king = (King) board[startYRow][startXCol];
         // Check moves to the right
         if (startXCol + 1 < 8) {
             ChessPiece piece = board[startYRow][startXCol + 1];
@@ -262,10 +249,6 @@ public class King extends ChessPiece {
 
         // The king is not in check
         return false;
-    }
-
-    public String getSymbol() {
-        return (getColor() == Color.WHITE ? "B" : "N");
     }
 
 }
