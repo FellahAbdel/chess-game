@@ -1,22 +1,19 @@
 package com.diaby.model;
 
-//import javax.swing.*;
-//import javax.swing.text.Position;
-
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Rook extends ChessPiece {
     private boolean hasMoved; // indique si le pion a déjà été déplacé ou non
 
-    public Rook(String imageName,Color color, int row, int col)
+    public Rook(Color color, int row, int col,boolean isWhiteTurn)
     {
-        super("Rook", imageName,color, row, col);
+        super("Rook",color, row, col,isWhiteTurn);
         hasMoved = false;
     }
 
     public Rook(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
     }
 
     public boolean getHasMoved() {
@@ -101,10 +98,5 @@ public class Rook extends ChessPiece {
         }
 
         return moves;
-    }
-
-
-    public String getSymbol(){
-        return (getColor() == Color.WHITE ? "B" : "N");
     }
 }
