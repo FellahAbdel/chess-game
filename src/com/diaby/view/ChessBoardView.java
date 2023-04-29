@@ -31,6 +31,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
     private ChessPiece sourcePiece;
     private boolean isWhiteTurn ;
+    private int turn = 1;
 
     public ChessBoardView(boolean isWhiteTurn) {
         this.isWhiteTurn = isWhiteTurn;
@@ -212,9 +213,6 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
             sourcePiece = selectedPiece ;
 
-            // Passer au joueur suivant
-            isWhiteTurn = sourcePiece.getColor() != Color.WHITE;
-
             if (RegleDuJeu.estPat(isWhiteTurn, board)) {
                 JOptionPane.showMessageDialog(mainPanel, "Fin du jeu c'est un pat");
                 dispose();
@@ -293,6 +291,8 @@ public class ChessBoardView extends JFrame implements MouseListener {
             }
 
             board.movePiece(sourceRow, sourceCol, rowY, colX);
+            // On passe au joueur suivant que si et seulement si le joueur courant a fini son mouvement.
+            isWhiteTurn = sourcePiece.getColor() != Color.WHITE;
         }
 
         // Mise à jour de l'affichage
