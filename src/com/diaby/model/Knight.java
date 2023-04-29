@@ -1,17 +1,15 @@
 package com.diaby.model;
 import java.util.ArrayList;
 
-//import javax.swing.*;
-
 import java.awt.*;
 
 public class Knight extends ChessPiece {
-    public Knight(String imageName,Color color, int row, int col) {
-        super("Knight", imageName, color, row, col);
+    public Knight(Color color, int row, int col,boolean isWhiteTurn) {
+        super("Knight", color, row, col,isWhiteTurn);
     }
 
     public Knight(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
     }
 
     @Override
@@ -83,8 +81,4 @@ public class Knight extends ChessPiece {
         return moves;
     }
 
-
-    public String getSymbol(){
-        return (getColor() == Color.WHITE ? "B" : "N");
-    }
 }
