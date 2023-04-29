@@ -5,26 +5,29 @@ import java.util.ArrayList;
 
 public abstract class ChessPiece {
     private String pieceName; // nom de la pièce
-    private String imageName;
+
     protected Color color; // couleur de la pièce (blanc ou noir)
     private int row; // ligne actuelle de la pièce sur le plateau
     private int col; // colonne actuelle de la pièce sur le plateau
 
-    private boolean captured = false;
-    public ChessPiece(String name,String imageName, Color color, int row , int col) {
+    private boolean isWhiteTurn;
+
+    private boolean captured ;
+    public ChessPiece(String name,Color color, int row , int col, boolean isWhiteTurn) {
         this.pieceName = name;
         this.color = color;
         this.row = row ;
         this.col = col ;
-        this.imageName = imageName;
         captured = false;
+        this.isWhiteTurn = isWhiteTurn;
+    }
+
+    public boolean getWhiteTurn() {
+        return isWhiteTurn;
     }
 
     public String getPieceName (){
         return pieceName;
-    }
-    public String getImageName() {
-        return imageName;
     }
 
     public Color getColor() {
@@ -54,7 +57,6 @@ public abstract class ChessPiece {
     public boolean isWhite() {
         return this.getColor() == Color.WHITE;
     }
-    public boolean isBlack(){return  this.getColor() == Color.BLACK;}
     /**
      * Vérifie si le mouvement d'une pièce est valide.
      *
@@ -79,29 +81,8 @@ public abstract class ChessPiece {
     public boolean canMove(int rowY, int colX, ChessPiece[][] board) {
 
         ArrayList<int[]> moves = possiblesMoves(rowY,colX,board);
-        // Vérifie si il a des mouvements valides
-        return moves.size() != 0;
+        // Vérifie s'il a des mouvements valides
+        return moves.isEmpty();
     }
 
-
-    public ArrayList<ChessPiece> getPieces(ChessPiece[][] board) {
-        ArrayList<ChessPiece> piecesList = new ArrayList<>();
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                ChessPiece piece = board[row][col];
-                if (piece != null) {
-                    piecesList.add(piece);
-                }
-            }
-        }
-        return piecesList;
-    }
-
-    public abstract String getSymbol();
-
-
-    @Override
-    public String toString() {
-        return color + " " + pieceName;
-    }
 }
