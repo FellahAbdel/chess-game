@@ -1,4 +1,8 @@
-package variant;
+package variant.view;
+
+import variant.model.ChessBoard;
+import variant.model.ChessPiece;
+import variant.model.Pawn;
 
 import javax.swing.*;
 import java.awt.*;
@@ -107,7 +111,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
         squareToRemove.repaint();
         squareToRemove.revalidate();
     }
-    private void promoteInto(JDialog promotionDialog, Pawn pawn, int rowY, int colX,String pieceType, String imageName){
+    private void promoteInto(JDialog promotionDialog, Pawn pawn, int rowY, int colX, String pieceType, String imageName){
         pawn.promotePawn(pawn, rowY, colX, pieceType, board.getTileBoard());
         promotionDialog.dispose();
         JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);

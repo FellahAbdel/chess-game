@@ -239,14 +239,18 @@ public class King extends ChessPiece {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 12; col++) {
                 ChessPiece piece = board[row][col];
-                if (piece != null && piece.isWhite() != isWhiteKing) {
-                    ArrayList<int[]> moves = piece.PossiblesMoves(row, col, board);
-                    for (int[] move : moves) {
-                        if (kingPos != null && move[0] == kingPos[0] && move[1] == kingPos[1]) {
-                            return true;
+                if(!(piece instanceof King) )
+                {
+                    if (piece != null && piece.isWhite() != isWhiteKing) {
+                        ArrayList<int[]> moves = piece.PossiblesMoves(row, col, board);
+                        for (int[] move : moves) {
+                            if (kingPos != null && move[0] == kingPos[0] && move[1] == kingPos[1]) {
+                                return true;
+                            }
                         }
                     }
                 }
+
             }
         }
 
