@@ -1,38 +1,80 @@
-package variant;
+package variant.model;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Knight extends ChessPiece {
-    public Knight(String imageName,Color color, int row, int col) {
-        super("Knight", imageName, color, row, col);
+
+public class Imperatrice extends ChessPiece {
+
+    public Imperatrice(Color color, int row, int col,boolean isWhiteTurn) {
+        super("Imperatrice", color, row, col, isWhiteTurn);
     }
 
-    public Knight(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+    public Imperatrice(ChessPiece piece) {
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
 
     }
 
     @Override
-    public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
-        // Vérifie si le déplacement forme un L
-        int deltaX = Math.abs(endXCol - startXCol);
-        int deltaY = Math.abs(endYRow - startYRow);
-        if ((deltaX == 1 && deltaY == 2) || (deltaX == 2 && deltaY == 1)) {
-            // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
-            if (board[endYRow][endXCol] == null || !board[endYRow][endXCol].getColor().equals(getColor())) {
-                return true;
+    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
+        ArrayList<int[]> moves = new ArrayList<>();
+
+        // Ajout des mouvements de la pièce comme une Tour
+
+        // Check moves to the right
+        for (int i = startXCol + 1; i < 12; i++) {
+            if (board[startYRow][i] == null) {
+                moves.add(new int[]{startYRow, i});
+            } else if (board[startYRow][i].isWhite() != this.isWhite()) {
+                moves.add(new int[]{startYRow, i});
+                break;
+            } else {
+                break;
             }
         }
 
-        return false;
-    }
+        // Check moves to the left
+        for (int i = startXCol - 1; i >= 0; i--) {
+            if (board[startYRow][i] == null) {
+                moves.add(new int[]{startYRow, i});
+            } else if (board[startYRow][i].isWhite() != this.isWhite()) {
+                moves.add(new int[]{startYRow, i});
+                break;
+            } else {
+                break;
+            }
+        }
 
-    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
-        ArrayList<int[]> moves = new ArrayList<>();
+        // Check moves to the bottom
+        for (int i = startYRow + 1; i < 8; i++) {
+            if (board[i][startXCol] == null) {
+                moves.add(new int[]{i, startXCol});
+            } else if (board[i][startXCol].isWhite() != this.isWhite()) {
+                moves.add(new int[]{i, startXCol});
+                break;
+            } else {
+                break;
+            }
+        }
+
+        // Check moves to the top
+        for (int i = startYRow - 1; i >= 0; i--) {
+            if (board[i][startXCol] == null) {
+                moves.add(new int[]{i, startXCol});
+            } else if (board[i][startXCol].isWhite() != this.isWhite()) {
+                moves.add(new int[]{i, startXCol});
+                break;
+            } else {
+                break;
+            }
+        }
+
+
+        // Ajout des mouvements de la pièce comme un cavalier
         // Two steps up
         if(startYRow-2 >= 0){
             // One step to the left
+
             if(startXCol-1 >= 0 && (board[startYRow-2][startXCol-1] == null || board[startYRow-2][startXCol-1].isWhite() != this.isWhite())){
                 moves.add(new int[]{startYRow-2, startXCol-1});
             }
@@ -80,10 +122,5 @@ public class Knight extends ChessPiece {
 
         return moves;
     }
-
-
-
-    public String getSymbol(){
-        return (getColor() == Color.WHITE ? "B" : "N");
-    }
 }
+

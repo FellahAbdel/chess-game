@@ -1,32 +1,35 @@
-package variant;
+package variant.model;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class ChessPiece {
     private String pieceName; // nom de la pièce
-    private String imageName;
+
+    private boolean isWhiteTurn ;
+
     protected Color color; // couleur de la pièce (blanc ou noir)
     private int row; // ligne actuelle de la pièce sur le plateau
     private int col; // colonne actuelle de la pièce sur le plateau
     protected boolean hasMoved; // indique si le pion a déjà été déplacé ou non
 
     private boolean captured = false;
-    public ChessPiece(String name,String imageName, Color color, int row , int col) {
+    public ChessPiece(String name, Color color, int row , int col, boolean isWhiteTurn) {
         this.pieceName = name;
         this.color = color;
         this.row = row ;
         this.col = col ;
-        this.imageName = imageName;
+        this.isWhiteTurn = isWhiteTurn;
         captured = false;
         hasMoved = false;
     }
 
+    public boolean getWhiteTurn() {
+        return isWhiteTurn;
+    }
+
     public String getPieceName (){
         return pieceName;
-    }
-    public String getImageName() {
-        return imageName;
     }
 
     public Color getColor() {
@@ -56,7 +59,6 @@ public abstract class ChessPiece {
     public boolean isWhite() {
         return this.getColor() == Color.WHITE;
     }
-    public boolean isBlack(){return  this.getColor() == Color.BLACK;}
 
     public boolean getHasMoved() {
         return hasMoved;
@@ -65,17 +67,6 @@ public abstract class ChessPiece {
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
     }
-    /**
-     * Vérifie si le mouvement d'une pièce est valide.
-     *
-     * @param startYRow la position en x de la pièce avant le mouvement.
-     * @param startXCol la position en y de la pièce avant le mouvement.
-     * @param endXCol la position en x de la pièce après le mouvement.
-     * @param endYRow la position en y de la pièce après le mouvement.
-     * @param board le tableau de pièces représentant l'état actuel du plateau.
-     * @return true si le mouvement est valide, false sinon.
-     */
-    public abstract boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board);
 
     public abstract ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board);
     /**
@@ -93,25 +84,4 @@ public abstract class ChessPiece {
         return moves.size() != 0;
     }
 
-
-    public ArrayList<ChessPiece> getPieces(ChessPiece[][] board) {
-        ArrayList<ChessPiece> piecesList = new ArrayList<>();
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                ChessPiece piece = board[row][col];
-                if (piece != null) {
-                    piecesList.add(piece);
-                }
-            }
-        }
-        return piecesList;
-    }
-
-    public abstract String getSymbol();
-
-
-    @Override
-    public String toString() {
-        return color + " " + pieceName;
-    }
 }

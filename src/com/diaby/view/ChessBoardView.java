@@ -31,7 +31,6 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
     private ChessPiece sourcePiece;
     private boolean isWhiteTurn ;
-    private int turn = 1;
 
     public ChessBoardView(boolean isWhiteTurn) {
         this.isWhiteTurn = isWhiteTurn;
@@ -101,12 +100,6 @@ public class ChessBoardView extends JFrame implements MouseListener {
         }
     }
 
-    private void removeSquare(JPanel oldSquare){
-        oldSquare.removeAll();
-        oldSquare.repaint();
-        oldSquare.revalidate();
-    }
-
     private void promoteInto(JDialog promotionDialog, Pawn pawn, int rowY, int colX,String pieceType, String imageName){
         pawn.promotePawn(pawn, rowY, colX, pieceType, board.getTileBoard());
         promotionDialog.dispose();
@@ -152,11 +145,8 @@ public class ChessBoardView extends JFrame implements MouseListener {
         promotionDialog.add(knightButton);
 
         queenButton.addActionListener(e1 -> this.promoteInto(promotionDialog, pawn, rowY, colX, "Queen", queen));
-
         rookButton.addActionListener(e12 -> this.promoteInto(promotionDialog, pawn, rowY, colX, "Rook", rook));
-
         bishopButton.addActionListener(e13 -> this.promoteInto(promotionDialog, pawn, rowY, colX, "Bishop", bishop));
-
         knightButton.addActionListener(e14 -> this.promoteInto(promotionDialog, pawn, rowY, colX, "Knight", knight));
 
         // fermeture une fois le clique capturé
@@ -175,11 +165,15 @@ public class ChessBoardView extends JFrame implements MouseListener {
         // Déplace le roi
         board.movePiece(sourceRow, sourceCol, rowY, colX);
         // Mise à jour de l'interface graphique.
-        JPanel oldKingSquare = (JPanel) chessBoard.getComponent(rowY * SIZE_ROW_BOARD + 4);
-        JPanel oldRookSquare = (JPanel) chessBoard.getComponent(rowY * SIZE_ROW_BOARD + n);
+        removeSquare(rowY,4);
+        removeSquare(rowY,n);
+    }
 
-        this.removeSquare(oldKingSquare);
-        this.removeSquare(oldRookSquare);
+    private void removeSquare(int rowY, int colX){
+        JPanel squareToRemove = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
+        squareToRemove.removeAll();
+        squareToRemove.repaint();
+        squareToRemove.revalidate();
     }
 
     /**
@@ -192,13 +186,10 @@ public class ChessBoardView extends JFrame implements MouseListener {
         int colX = e.getX() / (ChessBoardView.SIZE_CASE_X);
         int rowY = e.getY() / (ChessBoardView.SIZE_CASE_Y);
 
-        int selectedComponentIndex = rowY * SIZE_COLUMN_BOARD + colX ;
-
-
         ChessPiece selectedPiece = board.getPieceAt(rowY, colX);
         // Pièce non null et non mis en evidence (Pour ne pas qu'en cliquant sur la piece adverse au lieu de la
         // bouffer on affiche les mouvements possibles de la pièce adverse).
-        if(selectedPiece != null && !board.highLightCase[rowY][colX] && selectedPiece.isWhite() == isWhiteTurn){
+        if(selectedPiece != null && !board.highLightCase[rowY][colX] ){
             // On clique sur l'un des pions.
             // Liste des coordonnées possibles du joueur.
             ArrayList<int[]> moves = selectedPiece.possiblesMoves(rowY, colX, board.getTileBoard());
@@ -213,12 +204,12 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
             sourcePiece = selectedPiece ;
 
-            if (RegleDuJeu.estPat(isWhiteTurn, board)) {
+            if (RegleDuJeu.isADraw(isWhiteTurn, board)) {
                 JOptionPane.showMessageDialog(mainPanel, "Fin du jeu c'est un pat");
                 dispose();
             }
 
-            if (RegleDuJeu.estEchecEtMat(isWhiteTurn, board.getTileBoard(), board)) {
+            if (RegleDuJeu.isCheckMate(isWhiteTurn, board.getTileBoard(), board)) {
                 JOptionPane.showMessageDialog(mainPanel, "Fin du jeu, échec et mat pour : " + isWhiteTurn);
                 dispose();
             }
@@ -229,28 +220,19 @@ public class ChessBoardView extends JFrame implements MouseListener {
             // C'est là qu'on fait les tests de déplacements.
             int sourceRow = sourcePiece.getRow();
             int sourceCol = sourcePiece.getCol();
-            int componentIndex = sourceRow * SIZE_ROW_BOARD + sourceCol;
-            JPanel oldSquare = (JPanel) chessBoard.getComponent(componentIndex);
-            this.removeSquare(oldSquare);
+            removeSquare(sourceRow,sourceCol);
             // Verification pour la prise en passant.
             if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null) {
                 int capturedPieceRow = !sourcePiece.isWhite() ? rowY - 1 : rowY + 1 ;
-                int capturedSquareIndex = capturedPieceRow * SIZE_ROW_BOARD + colX ;
-                JPanel capturedSquare = (JPanel) chessBoard.getComponent(capturedSquareIndex);
-                this.removeSquare(capturedSquare);
+                removeSquare(capturedPieceRow,colX);
             }
-
             // Verification pour la prise en passant.
             if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null) {
                 int capturedPieceRow = sourcePiece.isWhite() ? rowY - 1 : rowY + 1 ;
-                int capturedSquareIndex = capturedPieceRow * SIZE_ROW_BOARD + colX ;
-                JPanel capturedSquare = (JPanel) chessBoard.getComponent(capturedSquareIndex);
-                this.removeSquare(capturedSquare);
+                removeSquare(capturedPieceRow,colX);
             }
-
             if(sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece != null && sourcePiece.getColor() != selectedPiece.getColor()) {
-                JPanel capturedSquare = (JPanel) chessBoard.getComponent(selectedComponentIndex);
-                this.removeSquare(capturedSquare);
+                removeSquare(rowY,colX);
             } else if(sourcePiece instanceof Pawn && (rowY == 0 || rowY == 7)){
                 promotionView(sourcePiece, rowY, colX);
             } else if (sourcePiece instanceof King && sourceRow == rowY && Math.abs(sourceCol - colX) == 2){
@@ -261,13 +243,12 @@ public class ChessBoardView extends JFrame implements MouseListener {
                     this.castling(sourceRow, sourceCol, rowY, colX, 7, 5, 7);
                 }// Roque long.
                 else if(colX < sourceCol){
-                    this.castling(sourceRow, sourceCol, rowY, colX, 0, 3, 0);
+                    castling(sourceRow, sourceCol, rowY, colX, 0, 3, 0);
                 }
             } else if ( selectedPiece != null && board.isOccupied(rowY, colX) && selectedPiece.getColor() != sourcePiece.getColor()){
                 // Il y a une pièce adverse à la destination.
-                board.movePiece(sourceRow, sourceCol, rowY, colX);
-                JPanel capturedSquare = (JPanel) chessBoard.getComponent(selectedComponentIndex);
-                this.removeSquare(capturedSquare);
+//                board.movePiece(sourceRow, sourceCol, rowY, colX);
+                removeSquare(rowY,colX);
             }
 
             board.movePiece(sourceRow, sourceCol, rowY, colX);

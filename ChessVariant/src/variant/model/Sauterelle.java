@@ -1,19 +1,18 @@
-package variant;
+package variant.model;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Sauterelle extends ChessPiece {
-    public Sauterelle( String imageName, Color color, int row, int col) {
-        super("Sauterelle", imageName, color, row, col);
+    public Sauterelle(Color color, int row, int col,boolean isWhiteTurn) {
+        super("Sauterelle", color, row, col,isWhiteTurn);
     }
 
     public Sauterelle(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
 
     }
 
-    @Override
     public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
         // Vérifier si la case de destination est sur la même ligne, colonne ou diagonale que la case de départ
         if (startYRow == endYRow || startXCol == endXCol || Math.abs(startYRow - endYRow) == Math.abs(startXCol - endXCol)) {
@@ -45,11 +44,6 @@ public class Sauterelle extends ChessPiece {
         }
 
         return possibleMoves;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "Sa";
     }
 
     /**

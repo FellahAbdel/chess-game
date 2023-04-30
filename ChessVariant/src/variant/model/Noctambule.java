@@ -1,28 +1,17 @@
-package variant;
+package variant.model;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Noctambule extends ChessPiece {
 
-    public Noctambule( String imageName, Color color, int row, int col) {
-        super("Noctambule", imageName, color, row, col);
+    public Noctambule(Color color, int row, int col,boolean isWhiteTurn) {
+        super("Noctambule", color, row, col, isWhiteTurn);
     }
 
     public Noctambule(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(),piece.getWhiteTurn());
 
-    }
-
-    @Override
-    public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
-        // Vérifier si le déplacement est un prolongement du mouvement du cavalier en ligne droite
-        int deltaY = Math.abs(endYRow - startYRow);
-        int deltaX = Math.abs(endXCol - startXCol);
-
-        return (deltaY == 2 && deltaX == 1) || (deltaY == 1 && deltaX == 2) ||
-                ((deltaY > 2 && deltaX == 0) || (deltaX > 2 && deltaY == 0)) &&
-                        isPathClear(startYRow, startXCol, endYRow, endXCol, board);
     }
 
     @Override
@@ -36,11 +25,6 @@ public class Noctambule extends ChessPiece {
         addHorizontalAndVerticalMoves(startYRow, startXCol, board, possibleMoves);
 
         return possibleMoves;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "N";
     }
 
     /**

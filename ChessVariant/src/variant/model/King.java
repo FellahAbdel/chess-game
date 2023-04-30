@@ -1,107 +1,17 @@
-package variant;
+package variant.model;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class King extends ChessPiece {
 
-    public King(String imageName, Color color, int row, int col) {
-        super("King", imageName, color, row, col);
+    public King(Color color, int row, int col, boolean isWhiteTurn) {
+        super("King", color, row, col, isWhiteTurn);
         hasMoved = false;
     }
 
     public King(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
-    }
-
-    @Override
-    public boolean isValidMove(int startX, int startY, int endX, int endY, ChessPiece[][] board) {
-        // Vérifie si le déplacement se fait d'une case dans n'importe quelle direction
-        int deltaX = Math.abs(endX - startX);
-        int deltaY = Math.abs(endY - startY);
-        if (deltaX <= 1 && deltaY <= 1) {
-            // check if the King is not moving to a threatened position
-            if (isPositionThreatened(board, endX, endY, this.isWhite())) {
-                return true;
-            }
-            // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
-            if (board[endY][endX] == null || !board[endY][endX].getColor().equals(getColor())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private boolean isPositionThreatened(ChessPiece[][] board, int x, int y, boolean isWhite) {
-        // check if any opposing Knight is threatening the position
-        int[][] knightMoves = {{-1, -2}, {-2, -1}, {-2, 1}, {-1, 2}, {1, 2}, {2, 1}, {2, -1}, {1, -2}};
-        for (int[] move : knightMoves) {
-            int x2 = x + move[0];
-            int y2 = y + move[1];
-            if (isValidPosition(x2, y2)) {
-                ChessPiece piece = board[x2][y2];
-                if (piece instanceof Knight && piece.isWhite() != isWhite) {
-                    return false;
-                }
-            }
-        }
-
-        // check if any opposing Pawn is threatening the position
-        int[][] pawnMoves = isWhite ? new int[][]{{-1, -1}, {-1, 1}} : new int[][]{{1, -1}, {1, 1}};
-        for (int[] move : pawnMoves) {
-            int x2 = x + move[0];
-            int y2 = y + move[1];
-            if (isValidPosition(x2, y2)) {
-                ChessPiece piece = board[x2][y2];
-                if (piece instanceof Pawn && piece.isWhite() != isWhite) {
-                    return false;
-                }
-            }
-        }
-
-        // check if any opposing Rook, Bishop, or Queen is threatening the position
-        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
-        for (int[] direction : directions) {
-            int x2 = x + direction[0];
-            int y2 = y + direction[1];
-            while (isValidPosition(x2, y2)) {
-                ChessPiece piece = board[x2][y2];
-                if (piece != null) {
-                    if (piece.isWhite() == isWhite) {
-                        break;
-                    } else {
-                        if ((piece instanceof Rook || piece instanceof Queen) && (direction[0] == 0 || direction[1] == 0)) {
-                            return false;
-                        } else if ((piece instanceof Bishop || piece instanceof Queen) && direction[0] * direction[1] != 0) {
-                            return false;
-                        }
-                        break;
-                    }
-                }
-                x2 += direction[0];
-                y2 += direction[1];
-            }
-        }
-
-        // check if any opposing King is threatening the position
-        int[][] kingMoves = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
-        for (int[] move : kingMoves) {
-            int x2 = x + move[0];
-            int y2 = y + move[1];
-            if (isValidPosition(x2, y2)) {
-                ChessPiece piece = board[x2][y2];
-                if (piece instanceof King && piece.isWhite() != isWhite) {
-                    return false;
-                }
-            }
-        }
-        // no opposing piece is threatening the position
-        return true;
-    }
-
-    private boolean isValidPosition(int x, int y) {
-        return x >= 0 && x < 8 && y >= 0 && y < 12;
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
     }
 
     public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
@@ -164,7 +74,7 @@ public class King extends ChessPiece {
         }
 
         // Check diagonal moves to the top-right
-        if (startYRow - 1 >= 0 && startXCol + 1 < 8) {
+        if (startYRow - 1 >= 0 && startXCol + 1 < 12) {
             ChessPiece piece = board[startYRow - 1][startXCol + 1];
             if (piece == null || piece.isWhite() != this.isWhite()) {
                 // Try the move and check if king is in check
@@ -239,23 +149,23 @@ public class King extends ChessPiece {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 12; col++) {
                 ChessPiece piece = board[row][col];
-                if (piece != null && piece.isWhite() != isWhiteKing) {
-                    ArrayList<int[]> moves = piece.PossiblesMoves(row, col, board);
-                    for (int[] move : moves) {
-                        if (kingPos != null && move[0] == kingPos[0] && move[1] == kingPos[1]) {
-                            return true;
+                if(!(piece instanceof King) )
+                {
+                    if (piece != null && piece.isWhite() != isWhiteKing) {
+                        ArrayList<int[]> moves = piece.PossiblesMoves(row, col, board);
+                        for (int[] move : moves) {
+                            if (kingPos != null && move[0] == kingPos[0] && move[1] == kingPos[1]) {
+                                return true;
+                            }
                         }
                     }
                 }
+
             }
         }
 
         // The king is not in check
         return false;
-    }
-
-    public String getSymbol() {
-        return (getColor() == Color.WHITE ? "B" : "N");
     }
 
 }
