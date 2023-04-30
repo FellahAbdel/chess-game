@@ -47,61 +47,75 @@ public class Pawn extends ChessPiece {
         board[row][col] = newPiece;
     }
 
-    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
+    public ArrayList<int[]> PossiblesMoves(int startXCol, int startYRow, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
 
-        if (this.isWhite()) {
-
-            // Check one step forward
-            if (startYRow < 7 && board[startYRow + 1][startXCol] == null) {
-                moves.add(new int[]{startYRow + 1, startXCol});
-            }
-            // Check two steps forward
-            if (startYRow == 1 && board[startYRow + 1][startXCol] == null && board[startYRow + 2][startXCol] == null) {
-                moves.add(new int[]{startYRow + 2, startXCol});
-            }
-            // Check diagonal captures
-            if (startYRow < 8 && startXCol > 0 && board[startYRow + 1][startXCol - 1] != null && !board[startYRow + 1][startXCol - 1].isWhite()) {
-                moves.add(new int[]{startYRow + 1, startXCol - 1});
-            }
-            if (startYRow < 8 && startXCol < 11 && board[startYRow + 1][startXCol + 1] != null && !board[startYRow + 1][startXCol + 1].isWhite()) {
-                moves.add(new int[]{startYRow + 1, startXCol + 1});
-            }
-            // Check en passant capture
-            if (startYRow == 4 && startXCol > 0 && board[startYRow][startXCol - 1] != null && !board[startYRow][startXCol - 1].isWhite()
-                    && board[startYRow + 1][startXCol - 1] == null && board[startYRow][startXCol - 1] instanceof Pawn) {
-                moves.add(new int[]{startYRow + 1, startXCol - 1});
-            }
-            if (startYRow == 4 && startXCol < 11 && board[startYRow][startXCol + 1] != null && !board[startYRow][startXCol + 1].isWhite()
-                    && board[startYRow + 1][startXCol + 1] == null && board[startYRow][startXCol + 1] instanceof Pawn) {
-                moves.add(new int[]{startYRow + 1, startXCol + 1});
-            }
+        if (this.getWhiteTurn()) {
+            moves = possiblesMovesWhiteTurnTrue(startXCol, startYRow, board, moves);
         } else {
+            moves = possiblesMovesWhiteTurnFalse(startXCol, startYRow, board, moves);
+        }
+
+        return moves;
+    }
+
+    private void descent(int startXCol, int startYRow, ChessPiece[][] board, ArrayList<int[]> moves, Boolean isWhite) {
+        if (startXCol < 7 && board[startXCol + 1][startYRow] == null) {
+            moves.add(new int[]{startXCol + 1, startYRow});
+        }
+        // Check two steps forward
+        if (startXCol == 1 && board[startXCol + 1][startYRow] == null && board[startXCol + 2][startYRow] == null) {
+            moves.add(new int[]{startXCol + 2, startYRow});
+        }
+        // Check diagonal captures
+        if (startXCol < 8 && startYRow > 0 && board[startXCol + 1][startYRow - 1] != null && board[startXCol + 1][startYRow - 1].isWhite() == isWhite) {
+            moves.add(new int[]{startXCol + 1, startYRow - 1});
+        }
+        if (startXCol < 8 && startYRow < 11 && board[startXCol + 1][startYRow + 1] != null && board[startXCol + 1][startYRow + 1].isWhite() == isWhite) {
+            moves.add(new int[]{startXCol + 1, startYRow + 1});
+        }
+
+    }
+
+    private void climb(int startXCol, int startYRow, ChessPiece[][] board, ArrayList<int[]> moves, Boolean isWhite) {
+        if (startXCol > 0 && board[startXCol - 1][startYRow] == null) {
+            moves.add(new int[]{startXCol - 1, startYRow});
+        }
+        // Check two steps forward
+        if (startXCol == 6 && board[startXCol - 1][startYRow] == null && board[startXCol - 2][startYRow] == null) {
+            moves.add(new int[]{startXCol - 2, startYRow});
+        }
+        // Check diagonal captures
+        if (startXCol > 0 && startYRow > 0 && board[startXCol - 1][startYRow - 1] != null && board[startXCol - 1][startYRow - 1].isWhite() == isWhite) {
+            moves.add(new int[]{startXCol - 1, startYRow - 1});
+        }
+        if (startXCol > 0 && startYRow < 11 && board[startXCol - 1][startYRow + 1] != null && board[startXCol - 1][startYRow + 1].isWhite() == isWhite) {
+            moves.add(new int[]{startXCol - 1, startYRow + 1});
+        }
+
+    }
+
+    public ArrayList<int[]> possiblesMovesWhiteTurnFalse(int startXCol, int startYRow, ChessPiece[][] board,
+                                                         ArrayList<int[]> moves) {
+
+        if (this.isWhite()) {  // Descente blanche.
+            descent(startXCol, startYRow, board, moves, false);
+        } else { // Montée Noir.
             // Check one step forward
-            if (startYRow > 0 && board[startYRow - 1][startXCol] == null) {
-                moves.add(new int[]{startYRow - 1, startXCol});
-            }
-            // Check two steps forward
-            if (startYRow == 6 && board[startYRow - 1][startXCol] == null && board[startYRow - 2][startXCol] == null) {
-                moves.add(new int[]{startYRow - 2, startXCol});
-            }
-            // Check diagonal captures
-            if (startYRow > 0 && startXCol > 0 && board[startYRow - 1][startXCol - 1] != null && board[startYRow - 1][startXCol - 1].isWhite()) {
-                moves.add(new int[]{startYRow - 1, startXCol - 1});
-            }
-            if (startYRow > 0 && startXCol < 11 && board[startYRow - 1][startXCol + 1] != null && board[startYRow - 1][startXCol + 1].isWhite()) {
-                moves.add(new int[]{startYRow - 1, startXCol + 1});
-            }
-            // Check en passant capture
-            if (startYRow == 3 && startXCol > 0 && board[startYRow][startXCol - 1] != null && board[startYRow][startXCol - 1].isWhite()
-                    && board[startYRow - 1][startXCol - 1] == null && board[startYRow][startXCol - 1] instanceof Pawn) {
-                moves.add(new int[]{startYRow - 1, startXCol - 1});
-            }
-            if (startYRow == 3 && startXCol < 11 && board[startYRow][startXCol + 1] != null && board[startYRow][startXCol + 1].isWhite()
-                    && board[startYRow - 1][startXCol + 1] == null && board[startYRow][startXCol + 1] instanceof Pawn) {
-                moves.add(new int[]{startYRow - 1, startXCol + 1});
-            }
+            climb(startXCol, startYRow, board, moves, true);
         }
         return moves;
     }
+
+
+    public ArrayList<int[]> possiblesMovesWhiteTurnTrue(int startXCol, int startYRow, ChessPiece[][] board,
+                                                        ArrayList<int[]> moves) {
+        if (!this.isWhite()) {  // Descente Noire
+            descent(startXCol, startYRow, board, moves, true);
+        } else {  // Montee blanche.
+            climb(startXCol, startYRow, board, moves, false);
+        }
+        return moves;
+    }
+
 }
