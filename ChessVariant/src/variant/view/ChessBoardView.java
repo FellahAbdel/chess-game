@@ -62,8 +62,9 @@ public class ChessBoardView extends JFrame implements MouseListener {
             chessBoard.add(square);
         }
 
-        // Instantciation de l'echiquier
+        // Instanciation de l'échiquier
         board = new ChessBoard();
+        board.initialize(isWhiteTurn);
         // Afiiche la grille
         drawGrid();
     }
@@ -84,8 +85,13 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
                 // Obtention de la piece sur la case et ajout d'une image dans un JLabel
                 ChessPiece piece = board.getPieceAt(row, col);
-                if (piece != null) {
-                    String fileName = "src/com/diaby/model/img/" + piece.getImageName();
+                if (piece != null && piece.getColor() == Color.WHITE) {
+                    String fileName = "src/com/diaby/model/img/" + piece.getPieceName() + "_b.png";
+                    JLabel image = new JLabel(new ImageIcon(fileName));
+                    square.add(image);
+                }
+                else if (piece != null && piece.getColor() == Color.BLACK){
+                    String fileName = "src/com/diaby/model/img/" + piece.getPieceName() + "_n.png";
                     JLabel image = new JLabel(new ImageIcon(fileName));
                     square.add(image);
                 }
@@ -251,7 +257,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
             }
             board.movePiece(sourceRow, sourceCol, rowY, colX);
             // On passe au joueur suivant que si et seulement si le joueur courant a fini son mouvement.
-//            isWhiteTurn = sourcePiece.getColor() != Color.WHITE;
+            isWhiteTurn = sourcePiece.getColor() != Color.WHITE;
         }
         // Mise à jour de l'affichage
         drawGrid();
