@@ -4,31 +4,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Queen extends ChessPiece {
-    public Queen(String imageName,Color color, int row, int col) {
-        super("Queen", imageName,color, row, col);
+    public Queen(Color color, int row, int col,boolean isWhiteTurn) {
+        super("Queen", color, row, col, isWhiteTurn);
     }
 
     public Queen(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
 
-    }
-
-    @Override
-    public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
-        ArrayList<int[]> moves = PossiblesMoves(startYRow,startXCol,board);
-        // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
-        for(int[] move : moves)
-        {
-            if(endYRow == move[0] && endXCol == move[1])
-            {
-                return true;
-            }
-        }
-        // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
-        if (board[endYRow][endXCol] == null || !board[endYRow][endXCol].getColor().equals(getColor())) {
-            return true;
-        }
-        return false;
     }
 
     public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
@@ -144,7 +126,4 @@ public class Queen extends ChessPiece {
         return moves;
     }
 
-    public String getSymbol(){
-        return (getColor() == Color.WHITE ? "B" : "N");
-    }
 }

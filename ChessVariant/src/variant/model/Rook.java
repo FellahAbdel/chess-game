@@ -9,14 +9,14 @@ import java.util.ArrayList;
 public class Rook extends ChessPiece {
     private boolean hasMoved; // indique si le pion a déjà été déplacé ou non
 
-    public Rook(String imageName,Color color, int row, int col)
+    public Rook(Color color, int row, int col,boolean isWhiteTurn)
     {
-        super("Rook", imageName,color, row, col);
+        super("Rook", color, row, col, isWhiteTurn);
         hasMoved = false;
     }
 
     public Rook(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
 
     }
 
@@ -27,25 +27,6 @@ public class Rook extends ChessPiece {
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
     }
-    @Override
-    public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
-        ArrayList<int[]> moves = PossiblesMoves(startYRow,startXCol,board);
-        for(int[] move : moves)
-        {
-            if(endYRow == move[0] && endXCol == move[1])
-            {
-                return true;
-            }
-        }
-        // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
-        if(board[endYRow][endXCol] == null || !board[endYRow][endXCol].getColor().equals(getColor()))
-        {
-            return true;
-        }
-
-        return false;
-
-   }
 
     public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
@@ -101,9 +82,4 @@ public class Rook extends ChessPiece {
         return moves;
     }
 
-
-
-    public String getSymbol(){
-        return (getColor() == Color.WHITE ? "B" : "N");
-    }
 }

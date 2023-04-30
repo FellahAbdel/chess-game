@@ -6,34 +6,13 @@ import java.util.ArrayList;
 
 public class Imperatrice extends ChessPiece {
 
-    public Imperatrice( String imageName, Color color, int row, int col) {
-        super("Imperatrice", imageName, color, row, col);
+    public Imperatrice(Color color, int row, int col,boolean isWhiteTurn) {
+        super("Imperatrice", color, row, col, isWhiteTurn);
     }
 
     public Imperatrice(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getImageName(), piece.getColor(), piece.getRow(), piece.getCol());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
 
-    }
-
-    @Override
-    public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
-        // Calcul de la distance entre les cases de départ et d'arrivée
-        int yDistance = Math.abs(endYRow - startYRow);
-        int xDistance = Math.abs(endXCol - startXCol);
-
-        // Vérification que la case d'arrivée est dans les limites du plateau
-        if (endYRow < 0 || endYRow > 7 || endXCol < 0 || endXCol > 7) {
-            return false;
-        }
-
-        // Vérification que la case de départ est différente de la case d'arrivée
-        if (yDistance == 0 && xDistance == 0) {
-            return false;
-        }
-
-        // Vérification que la reine se déplace comme un fou ou comme un cavalier
-
-        return false;
     }
 
     @Override
@@ -142,11 +121,6 @@ public class Imperatrice extends ChessPiece {
         }
 
         return moves;
-    }
-
-    @Override
-    public String getSymbol() {
-        return "I";
     }
 }
 
