@@ -1,7 +1,5 @@
 package variant.model;
 
-//import javax.swing.text.Position;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -10,46 +8,48 @@ public class ChessBoard {
     public boolean[][] highLightCase = new boolean[8][12];
     public ChessBoard() {
         tileBoard = new ChessPiece[8][12];
-        this.initialize();
-
     }
 
-    private void initialize() {
-        // Initialiser les pièces blanches
-        tileBoard[0][0] = new Rook("tour_b.png", Color.WHITE, 0, 0);
-        tileBoard[0][1] = new Knight("cavalier_b.png",Color.WHITE, 0, 1);
-        tileBoard[0][2] = new Princesse("princesse_b.png",Color.WHITE, 0, 2);
-        tileBoard[0][3] = new Sauterelle("sauterelle_b.png",Color.WHITE, 0, 3);
-        tileBoard[0][4] = new Bishop("fou_b.png",Color.WHITE, 0, 4);
-        tileBoard[0][5] = new Queen("reine_b.png",Color.WHITE, 0, 5);
-        tileBoard[0][6] = new King("roi_b.png",Color.WHITE, 0, 6);
-        tileBoard[0][7] = new Bishop("fou_b.png",Color.WHITE, 0, 7);
-        tileBoard[0][8] = new Imperatrice("imperatrice_b.png",Color.WHITE, 0, 8);
-        tileBoard[0][9] = new Noctambule("noctambule_b.png",Color.WHITE, 0, 9);
-        tileBoard[0][10] = new Knight("cavalier_b.png",Color.WHITE, 0, 10);
-        tileBoard[0][11] = new Rook("tour_b.png",Color.WHITE, 0, 11);
+    public void initialize(boolean isWhiteTurn) {
+        Color color = isWhiteTurn ? Color.BLACK : Color.WHITE;
+        Color oppositeColor = isWhiteTurn ? Color.WHITE : Color.BLACK ;
 
+        // Initialiser les pièces blanches
+        tileBoard[0][0] = new Rook(color, 0, 0, isWhiteTurn);
+        tileBoard[0][1] = new Knight(color, 0, 1,isWhiteTurn);
+        tileBoard[0][2] = new Princesse(color, 0, 2,isWhiteTurn);
+        tileBoard[0][3] = new Sauterelle(color, 0, 3,isWhiteTurn);
+        tileBoard[0][4] = new Bishop(color, 0, 4,isWhiteTurn);
+        tileBoard[0][5] = new Queen(color, 0, 5,isWhiteTurn);
+        tileBoard[0][6] = new King(color, 0, 6,isWhiteTurn);
+        tileBoard[0][7] = new Bishop(color, 0, 7,isWhiteTurn);
+        tileBoard[0][8] = new Imperatrice(color,0,8,isWhiteTurn);
+        tileBoard[0][9] = new Noctambule(color,0,9,isWhiteTurn);
+        tileBoard[0][10] = new Knight(color,0,10,isWhiteTurn);
+        tileBoard[0][11] = new Rook(color,0,11,isWhiteTurn);
         for (int j = 0; j < 12; j++) {
-            tileBoard[1][j] = new Pawn("pion_b.png",Color.WHITE, 1, j);
+            tileBoard[1][j] = new Pawn(color, 1, j,isWhiteTurn);
         }
 
         // Initialiser les pièces noires
-        tileBoard[7][0] = new Rook("tour_n.png",Color.BLACK, 7, 0);
-        tileBoard[7][1] = new Knight("cavalier_n.png",Color.BLACK, 7, 1);
-        tileBoard[7][2] = new Princesse("princesse_n.png",Color.BLACK, 7, 2);
-        tileBoard[7][3] = new Sauterelle("sauterelle_n.png",Color.BLACK, 7, 3);
-        tileBoard[7][4] = new Bishop("fou_n.png",Color.BLACK, 7, 4);
-        tileBoard[7][5] = new Queen("reine_n.png",Color.BLACK, 7, 5);
-        tileBoard[7][6] = new King("roi_n.png",Color.BLACK, 7, 6);
-        tileBoard[7][7] = new Bishop("fou_n.png",Color.BLACK, 7, 7);
-        tileBoard[7][8] = new Imperatrice("imperatrice_n.png",Color.BLACK, 7, 8);
-        tileBoard[7][9] = new Noctambule("noctambule_n.png",Color.WHITE, 7, 9);
-        tileBoard[7][10] = new Knight("cavalier_n.png",Color.WHITE, 7, 10);
-        tileBoard[7][11] = new Rook("tour_n.png",Color.WHITE, 7, 11);
+        tileBoard[7][0] = new Rook(oppositeColor, 7, 0,isWhiteTurn);
+        tileBoard[7][1] = new Knight(oppositeColor, 7, 1,isWhiteTurn);
+        tileBoard[7][2] = new Princesse(oppositeColor, 7, 2,isWhiteTurn);
+        tileBoard[7][3] = new Sauterelle(oppositeColor, 7, 3,isWhiteTurn);
+        tileBoard[7][4] = new Bishop(oppositeColor, 7, 4,isWhiteTurn);
+        tileBoard[7][5] = new Queen(oppositeColor, 7, 5,isWhiteTurn);
+        tileBoard[7][6] = new King(oppositeColor, 7, 6,isWhiteTurn);
+        tileBoard[7][7] = new Bishop(oppositeColor, 7, 7,isWhiteTurn);
+        tileBoard[7][8] = new Imperatrice(oppositeColor, 7, 8,isWhiteTurn);
+        tileBoard[7][9] = new Noctambule(oppositeColor, 7, 9,isWhiteTurn);
+        tileBoard[7][10] = new Knight(oppositeColor, 7, 10,isWhiteTurn);
+        tileBoard[7][11] = new Rook(oppositeColor, 7, 11,isWhiteTurn);
         for (int j = 0; j < 12; j++) {
-            tileBoard[6][j] = new Pawn("pion_n.png",Color.BLACK, 6, j);
+            tileBoard[6][j] = new Pawn(oppositeColor, 6, j, isWhiteTurn);
         }
+
     }
+
     public static ChessPiece[][] copyBoard(ChessPiece[][] board) {
         ChessPiece[][] copy = new ChessPiece[8][12];
         for (int row = 0; row < 8; row++) {
@@ -109,32 +109,6 @@ public class ChessBoard {
             throw new IllegalArgumentException("No piece at " + row + " " + col);
         }
         tileBoard[row][col] = null ;
-    }
-
-    public int getNbOfWhitePiece() {
-        ArrayList<ChessPiece> pieces = new ArrayList<>();
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 12; col++) {
-                ChessPiece piece = tileBoard[row][col];
-                if (piece != null && piece.isWhite()) {
-                    pieces.add(piece);
-                }
-            }
-        }
-        return pieces.size();
-    }
-
-    public int getNbOfBlackPiece() {
-        ArrayList<ChessPiece> pieces = new ArrayList<>();
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 12; col++) {
-                ChessPiece piece = tileBoard[row][col];
-                if (piece != null && !piece.isWhite()) {
-                    pieces.add(piece);
-                }
-            }
-        }
-        return pieces.size();
     }
 
     public boolean isOccupied(int row, int col) {
@@ -213,23 +187,6 @@ public class ChessBoard {
 
         move(startRow, startCol, endRow, endCol);
         return true;
-    }
-
-
-
-
-    public void printBoard() {
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 10; col++) {
-                ChessPiece piece = getPieceAt(row, col);
-                if (piece == null) {
-                    System.out.print("- ");
-                } else {
-                    System.out.print(piece.getImageName() + " ");
-                }
-            }
-            System.out.println();
-        }
     }
 
 
