@@ -9,7 +9,6 @@ public class GameController {
     }
 
     public void startGame() {
-
         // afficher plateau jeu
         chessBoardView.displayBoard();
 
