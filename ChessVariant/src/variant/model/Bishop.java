@@ -1,4 +1,4 @@
-package variant;
+package variant.model;
 
 //import javax.swing.*;
 
