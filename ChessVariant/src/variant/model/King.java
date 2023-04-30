@@ -74,7 +74,7 @@ public class King extends ChessPiece {
         }
 
         // Check diagonal moves to the top-right
-        if (startYRow - 1 >= 0 && startXCol + 1 < 8) {
+        if (startYRow - 1 >= 0 && startXCol + 1 < 12) {
             ChessPiece piece = board[startYRow - 1][startXCol + 1];
             if (piece == null || piece.isWhite() != this.isWhite()) {
                 // Try the move and check if king is in check
