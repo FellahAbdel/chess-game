@@ -12,60 +12,33 @@ public class ChessBoard {
     }
 
     public void initialize(boolean isWhiteTurn) {
+        Color color = isWhiteTurn ? Color.BLACK : Color.WHITE;
+        Color oppositeColor = isWhiteTurn ? Color.WHITE : Color.BLACK ;
 
-        if(isWhiteTurn)
-        {
-            // Initialiser les pièces blanches
-            tileBoard[0][0] = new Rook(Color.BLACK, 0, 0, true);
-            tileBoard[0][1] = new Knight(Color.BLACK, 0, 1,true);
-            tileBoard[0][2] = new Bishop(Color.BLACK, 0, 2,true);
-            tileBoard[0][3] = new Queen(Color.BLACK, 0, 3,true);
-            tileBoard[0][4] = new King(Color.BLACK, 0, 4,true);
-            tileBoard[0][5] = new Bishop(Color.BLACK, 0, 5,true);
-            tileBoard[0][6] = new Knight(Color.BLACK, 0, 6,true);
-            tileBoard[0][7] = new Rook(Color.BLACK, 0, 7,true);
-            for (int j = 0; j < 8; j++) {
-                tileBoard[1][j] = new Pawn(Color.BLACK, 1, j,true);
-            }
+        // Initialiser les pièces blanches
+        tileBoard[0][0] = new Rook(color, 0, 0, isWhiteTurn);
+        tileBoard[0][1] = new Knight(color, 0, 1,isWhiteTurn);
+        tileBoard[0][2] = new Bishop(color, 0, 2,isWhiteTurn);
+        tileBoard[0][3] = new Queen(color, 0, 3,isWhiteTurn);
+        tileBoard[0][4] = new King(color, 0, 4,isWhiteTurn);
+        tileBoard[0][5] = new Bishop(color, 0, 5,isWhiteTurn);
+        tileBoard[0][6] = new Knight(color, 0, 6,isWhiteTurn);
+        tileBoard[0][7] = new Rook(color, 0, 7,isWhiteTurn);
+        for (int j = 0; j < 8; j++) {
+            tileBoard[1][j] = new Pawn(color, 1, j,isWhiteTurn);
+        }
 
-            // Initialiser les pièces noires
-            tileBoard[7][0] = new Rook(Color.WHITE, 7, 0,true);
-            tileBoard[7][1] = new Knight(Color.WHITE, 7, 1,true);
-            tileBoard[7][2] = new Bishop(Color.WHITE, 7, 2,true);
-            tileBoard[7][3] = new Queen(Color.WHITE, 7, 3,true);
-            tileBoard[7][4] = new King(Color.WHITE, 7, 4,true);
-            tileBoard[7][5] = new Bishop(Color.WHITE, 7, 5,true);
-            tileBoard[7][6] = new Knight(Color.WHITE, 7, 6,true);
-            tileBoard[7][7] = new Rook(Color.WHITE, 7, 7,true);
-            for (int j = 0; j < 8; j++) {
-                tileBoard[6][j] = new Pawn(Color.WHITE, 6, j,true);
-            }
-        } else {
-            // Initialiser les pièces blanches
-            tileBoard[0][0] = new Rook(Color.WHITE, 0, 0,false);
-            tileBoard[0][1] = new Knight(Color.WHITE, 0, 1,false);
-            tileBoard[0][2] = new Bishop(Color.WHITE, 0, 2,false);
-            tileBoard[0][3] = new Queen(Color.WHITE, 0, 3,false);
-            tileBoard[0][4] = new King(Color.WHITE, 0, 4,false);
-            tileBoard[0][5] = new Bishop(Color.WHITE, 0, 5,false);
-            tileBoard[0][6] = new Knight(Color.WHITE, 0, 6,false);
-            tileBoard[0][7] = new Rook(Color.WHITE, 0, 7,false);
-            for (int j = 0; j < 8; j++) {
-                tileBoard[1][j] = new Pawn(Color.WHITE, 1, j,false);
-            }
-
-            // Initialiser les pièces noires
-            tileBoard[7][0] = new Rook(Color.BLACK, 7, 0,false);
-            tileBoard[7][1] = new Knight(Color.BLACK, 7, 1,false);
-            tileBoard[7][2] = new Bishop(Color.BLACK, 7, 2,false);
-            tileBoard[7][3] = new Queen(Color.BLACK, 7, 3,false);
-            tileBoard[7][4] = new King(Color.BLACK, 7, 4,false);
-            tileBoard[7][5] = new Bishop(Color.BLACK, 7, 5,false);
-            tileBoard[7][6] = new Knight(Color.BLACK, 7, 6,false);
-            tileBoard[7][7] = new Rook(Color.BLACK, 7, 7,false);
-            for (int j = 0; j < 8; j++) {
-                tileBoard[6][j] = new Pawn(Color.BLACK, 6, j,false);
-            }
+        // Initialiser les pièces noires
+        tileBoard[7][0] = new Rook(oppositeColor, 7, 0,isWhiteTurn);
+        tileBoard[7][1] = new Knight(oppositeColor, 7, 1,isWhiteTurn);
+        tileBoard[7][2] = new Bishop(oppositeColor, 7, 2,isWhiteTurn);
+        tileBoard[7][3] = new Queen(oppositeColor, 7, 3,isWhiteTurn);
+        tileBoard[7][4] = new King(oppositeColor, 7, 4,isWhiteTurn);
+        tileBoard[7][5] = new Bishop(oppositeColor, 7, 5,isWhiteTurn);
+        tileBoard[7][6] = new Knight(oppositeColor, 7, 6,isWhiteTurn);
+        tileBoard[7][7] = new Rook(oppositeColor, 7, 7,isWhiteTurn);
+        for (int j = 0; j < 8; j++) {
+            tileBoard[6][j] = new Pawn(oppositeColor, 6, j, isWhiteTurn);
         }
 
     }

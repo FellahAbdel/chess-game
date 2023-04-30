@@ -1,8 +1,12 @@
 package com.diaby.controller;
 import com.diaby.model.*;
+import com.diaby.view.ChessBoardView;
+
+import java.util.ArrayList;
+
 public class RegleDuJeu {
 
-    public static boolean estPat(boolean isWhite, ChessBoard board) {
+    public static boolean isPat(boolean isWhite, ChessBoard board) {
         King king = board.getKing(isWhite);
         // Vérifie si le roi est en échec
         if (king.isInCheck(king.isWhite(), board.getTileBoard())) {
@@ -10,7 +14,8 @@ public class RegleDuJeu {
         }
 
         // Vérifie si le joueur a des mouvements possibles
-        for (ChessPiece p : board.getPiecesByColor(king.getColor())) {
+        ArrayList<ChessPiece> pieceList = board.getPiecesByColor(king.getColor());
+        for (ChessPiece p : pieceList ) {
             for (int row = 0; row < 8; row++) {
                 for (int col = 0; col < 8; col++) {
                     if (p.canMove(row, col, board.getTileBoard())) {
@@ -25,7 +30,7 @@ public class RegleDuJeu {
         return true;
     }
 
-    public static boolean estEchecEtMat(boolean isWhite, ChessPiece[][] board, ChessBoard chess) {
+    public static boolean isCheckMate(boolean isWhite, ChessPiece[][] board, ChessBoard chess) {
         // Vérifie si le joueur est en échec et mat
         King roi = chess.getKing(isWhite);
 

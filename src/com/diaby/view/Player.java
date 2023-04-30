@@ -77,7 +77,6 @@ public class Player extends JFrame implements MouseListener {
         if (button.getName().equals("black")) {
             isWhiteTurn = false;
         }
-
         playButton.setEnabled(true);
     }
 
