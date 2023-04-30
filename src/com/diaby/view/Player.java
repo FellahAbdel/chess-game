@@ -1,7 +1,6 @@
-package com.diaby.model;
+package com.diaby.view;
 
 import com.diaby.controller.GameController;
-import com.diaby.view.ChessBoardView;
 
 import java.awt.*;
 import java.awt.event.*;
