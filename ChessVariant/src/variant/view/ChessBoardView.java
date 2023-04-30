@@ -1,5 +1,6 @@
 package variant.view;
 
+import variant.controller.RegleDuJeu;
 import variant.model.ChessBoard;
 import variant.model.ChessPiece;
 import variant.model.Pawn;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 /** Fenetre graphique (classe heritant de JFrame) qui reagit au clic de souris (implements MouseListener)
  *   qui affiche le damier, qui permet de selectionner/deplacer des pieces d'echec
  */
-public class ChessBoardViewVariant extends JFrame implements MouseListener {
+public class ChessBoardView extends JFrame implements MouseListener {
     /**
      * Panneau principal
      */
@@ -31,8 +32,13 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
     static final Color BLACK_CASE = Color.gray;
     static final Color WHITE_CASE = Color.white;
     static final Color HIGHLIGHT_CASE = Color.red;
+    private boolean isWhiteTurn;
+    private ChessPiece sourcePiece;
 
-    public ChessBoardViewVariant() {
+    public ChessBoardView(boolean isWhiteTurn) {
+
+        this.isWhiteTurn = isWhiteTurn;
+
         // Taille d'un element graphique
         Dimension boardSize = new Dimension(SIZE_CASE_X * SIZE_COLUMN_BOARD, SIZE_CASE_Y * SIZE_ROW_BOARD);
 
@@ -92,25 +98,7 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
             }
         }
     }
-    /**
-     * Capture du bonton presse du pointeur sur la fenetre graphique
-     * @param e evenement pointeur presse
-     */
-    /**
-     * Capture du bonton presse du pointeur sur la fenetre graphique
-     *
-     * @param e evenement pointeur presse
-     */
 
-    protected ChessPiece selectedPiece = null;
-
-    public void removeSquare(int rowY, int colX)
-    {
-        JPanel squareToRemove = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
-        squareToRemove.removeAll();
-        squareToRemove.repaint();
-        squareToRemove.revalidate();
-    }
     private void promoteInto(JDialog promotionDialog, Pawn pawn, int rowY, int colX, String pieceType, String imageName){
         pawn.promotePawn(pawn, rowY, colX, pieceType, board.getTileBoard());
         promotionDialog.dispose();
@@ -172,38 +160,14 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
         promotionDialog.add(sauterelleButton);
         promotionDialog.add(noctambuleButton);
 
-        queenButton.addActionListener(e1 -> {
-            promoteInto(promotionDialog, pawn, rowY, colX, "Queen", queen);
-        });
-
-        rookButton.addActionListener(e12 -> {
-            promoteInto(promotionDialog, pawn, rowY, colX, "Rook", rook);
-
-        });
-
-        bishopButton.addActionListener(e13 -> {
-            promoteInto(promotionDialog, pawn, rowY, colX, "Bishop", bishop);
-        });
-
-        knightButton.addActionListener(e14 -> {
-            promoteInto(promotionDialog, pawn, rowY, colX, "Knight", knight);
-        });
-        princesseButton.addActionListener(e15 -> {
-            promoteInto(promotionDialog,pawn,rowY,colX,"Princesse",princesse);
-
-        });
-        imperatriceButton.addActionListener(e16 -> {
-            promoteInto(promotionDialog,pawn,rowY,colX,"Imperatrice",imperatrice);
-
-        });
-        sauterelleButton.addActionListener(e17 -> {
-            promoteInto(promotionDialog,pawn,rowY,colX,"Sauterelle",sauterelle);
-
-        });
-        noctambuleButton.addActionListener(e18 -> {
-            promoteInto(promotionDialog,pawn,rowY,colX,"Noctambule",noctambule);
-
-        });
+        queenButton.addActionListener(e1 -> promoteInto(promotionDialog, pawn, rowY, colX, "Queen", queen));
+        rookButton.addActionListener(e12 -> promoteInto(promotionDialog, pawn, rowY, colX, "Rook", rook));
+        bishopButton.addActionListener(e13 -> promoteInto(promotionDialog, pawn, rowY, colX, "Bishop", bishop));
+        knightButton.addActionListener(e14 -> promoteInto(promotionDialog, pawn, rowY, colX, "Knight", knight));
+        princesseButton.addActionListener(e15 -> promoteInto(promotionDialog,pawn,rowY,colX,"Princesse",princesse));
+        imperatriceButton.addActionListener(e16 -> promoteInto(promotionDialog,pawn,rowY,colX,"Imperatrice",imperatrice));
+        sauterelleButton.addActionListener(e17 -> promoteInto(promotionDialog,pawn,rowY,colX,"Sauterelle",sauterelle));
+        noctambuleButton.addActionListener(e18 -> promoteInto(promotionDialog,pawn,rowY,colX,"Noctambule",noctambule));
 
         // fermeture une fois le clique capturé
         queenButton.addActionListener(e1 -> promotionDialog.dispose());
@@ -218,55 +182,76 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
         promotionDialog.setVisible(true);
 
     }
+
+    public void removeSquare(int rowY, int colX)
+    {
+        JPanel squareToRemove = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
+        squareToRemove.removeAll();
+        squareToRemove.repaint();
+        squareToRemove.revalidate();
+    }
     public void mousePressed(MouseEvent e) {
         // Conversion de la position cliquée en position de la grille
-        int colX = e.getX() / (ChessBoardViewVariant.SIZE_CASE_X);
-        int rowY = e.getY() / (ChessBoardViewVariant.SIZE_CASE_Y);
+        int colX = e.getX() / (ChessBoardView.SIZE_CASE_X);
+        int rowY = e.getY() / (ChessBoardView.SIZE_CASE_Y);
 
-        ChessPiece piece = board.getPieceAt(rowY, colX);
-        if (selectedPiece == null) { // Premier clic pour sélectionner la pièce
-            if (piece != null ) { // Vérifie que la pièce appartient au joueur dont c'est le tour
-                selectedPiece = piece;
-                ArrayList<int[]> moves = selectedPiece.PossiblesMoves(rowY, colX, board.getTileBoard());
-                board.resetHighlight();
-                System.out.println("nom piece : " + selectedPiece.getPieceName());
-                for (int[] move : moves) {
+        ChessPiece selectedPiece = board.getPieceAt(rowY, colX);
+        // Pièce non null et non mis en evidence (Pour ne pas qu'en cliquant sur la piece adverse au lieu de la
+        // bouffer on affiche les mouvements possibles de la pièce adverse).
 
-                    System.out.println("row = " + move[0] + " " + "col = " + move[1]);
-                    board.highLightCase[move[0]][move[1]] = true;
-                }
+        if (selectedPiece != null && !board.highLightCase[rowY][colX] && selectedPiece.isWhite() == isWhiteTurn) { // Premier clic pour sélectionner la pièce
+            // On clique sur l'un des pions.
+            // Liste des coordonnées possibles du joueur.
+            ArrayList<int[]> moves = selectedPiece.PossiblesMoves(rowY, colX, board.getTileBoard());
+            board.resetHighlight();
+
+            // On met en evidence tous les mouvements possibles du joueur.
+            for(int[] move : moves){
+                int  i = move[0];
+                int j = move[1];
+                board.highLightCase[i][j] = true ;
             }
-        } else { // Deuxième clic pour déplacer la pièce
-            if (board.highLightCase[rowY][colX]) { // Vérifie que la case cliquée est un mouvement possible
-                board.resetHighlight();
-                removeSquare(selectedPiece.getRow(),selectedPiece.getCol());
 
-                if(selectedPiece instanceof Pawn)
+            sourcePiece = selectedPiece ;
+
+            if (RegleDuJeu.draw(isWhiteTurn, board)) {
+                JOptionPane.showMessageDialog(mainPanel, "Fin du jeu c'est un pat");
+                dispose();
+            }
+
+            if (RegleDuJeu.checkMate(isWhiteTurn, board.getTileBoard(), board)) {
+                JOptionPane.showMessageDialog(mainPanel, "Fin du jeu, échec et mat pour : " + isWhiteTurn);
+                dispose();
+            }
+        }
+
+        // Si on clique sur une tuile mise en evidence.
+        if (board.highLightCase[rowY][colX]) {
+            board.resetHighlight();
+            // C'est là qu'on fait les tests de déplacements.
+            int sourceRow = sourcePiece.getRow();
+            int sourceCol = sourcePiece.getCol();
+            removeSquare(sourceRow,sourceCol);
+
+            if(sourcePiece instanceof Pawn)
+            {
+                if(colX != sourceCol && selectedPiece != null && sourcePiece.getColor() != selectedPiece.getColor())
                 {
-                    if(colX != selectedPiece.getCol() && piece == null)
-                    {
-                        int capturedPieceRow = selectedPiece.getColor() == Color.WHITE ? rowY - 1 : rowY + 1;
-                        board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
-                        removeSquare(capturedPieceRow,colX);
-                    }
-                    if(colX != selectedPiece.getCol() && piece != null && piece.getColor() != selectedPiece.getColor())
-                    {
-                        board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
-                        removeSquare(rowY,colX);
-                    }
-                    if((rowY == 0 || rowY == 7))
-                    {
-                        promotionView(selectedPiece,rowY,colX);
-                    }
-                }
-                else if (board.isOccupied(rowY, colX) && board.getPieceAt(rowY,colX).getColor() != selectedPiece.getColor()) {
-                    board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
+                    board.movePiece(sourceRow, sourceCol, rowY, colX);
                     removeSquare(rowY,colX);
                 }
-                board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
-                selectedPiece = null;
+                if((rowY == 0 || rowY == 7))
+                {
+                    promotionView(selectedPiece,rowY,colX);
+                }
             }
-
+             else if ( selectedPiece != null && board.isOccupied(rowY, colX) && selectedPiece.getColor() != sourcePiece.getColor()){
+                board.movePiece(sourceRow, selectedPiece.getCol(), rowY, colX);
+                removeSquare(rowY,colX);
+            }
+            board.movePiece(sourceRow, sourceCol, rowY, colX);
+            // On passe au joueur suivant que si et seulement si le joueur courant a fini son mouvement.
+//            isWhiteTurn = sourcePiece.getColor() != Color.WHITE;
         }
         // Mise à jour de l'affichage
         drawGrid();
@@ -282,14 +267,15 @@ public class ChessBoardViewVariant extends JFrame implements MouseListener {
         // On efface l'évidence.
     }
 
-    public static void main(String[] args) {
-        // Definir et afficher la fenetre graphique correspondant au damier
-        JFrame frame = new ChessBoardViewVariant();
+    public void displayBoard(){
+        // Définir et afficher la fenêtre graphique correspondant au damier
+        JFrame frame = new ChessBoardView(isWhiteTurn);
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE );
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo( null );
         frame.setVisible(true);
-}
+    }
+
 }
 
