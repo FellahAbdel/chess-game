@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class RegleDuJeu {
 
-    public static boolean isPat(boolean isWhite, ChessBoard board) {
+    public static boolean isADraw(boolean isWhite, ChessBoard board) {
         King king = board.getKing(isWhite);
         // Vérifie si le roi est en échec
         if (king.isInCheck(king.isWhite(), board.getTileBoard())) {
