@@ -1,5 +1,5 @@
 package com.diaby.view;
-import com.diaby.RegleDuJeu;
+import com.diaby.controller.RegleDuJeu;
 import com.diaby.model.*;
 
 import java.awt.*;
