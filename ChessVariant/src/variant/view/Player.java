@@ -1,10 +1,12 @@
-package com.diaby.view;
+package variant.view;
 
-import com.diaby.controller.GameController;
 
-import java.awt.*;
-import java.awt.event.*;
+import variant.controller.GameController;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 
 public class Player extends JFrame implements MouseListener {
