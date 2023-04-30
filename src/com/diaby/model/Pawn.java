@@ -80,19 +80,11 @@ public class Pawn extends ChessPiece {
         board[row][col] = newPiece;
     }
 
-    public ArrayList<int[]> possiblesMoves(int startXCol, int startYRow, ChessPiece[][] board) {
-        ArrayList<int[]> moves = new ArrayList<>();
-
-        if (this.getWhiteTurn()) {
-            moves = possiblesMovesWhiteTurnTrue(startXCol, startYRow, board, moves);
-        } else {
-            moves = possiblesMovesWhiteTurnFalse(startXCol, startYRow, board, moves);
-        }
-
-        return moves;
-    }
 
     private void descent(int startXCol, int startYRow, ChessPiece[][] board, ArrayList<int[]> moves, Boolean isWhite) {
+        System.out.println("Descent method called with startXCol: " + startXCol + " and startYRow: " + startYRow);
+        System.out.println("Direction of movement: " + (isWhite ? "forward" : "backward"));
+
         if (startXCol < 7 && board[startXCol + 1][startYRow] == null) {
             moves.add(new int[]{startXCol + 1, startYRow});
         }
@@ -147,33 +139,23 @@ public class Pawn extends ChessPiece {
         }
     }
 
-    public ArrayList<int[]> possiblesMovesWhiteTurnFalse(int startXCol, int startYRow, ChessPiece[][] board,
-                                                         ArrayList<int[]> moves) {
+    public ArrayList<int[]> possiblesMoves(int startXCol, int startYRow, ChessPiece[][] board) {
+        ArrayList<int[]> moves = new ArrayList<>();
 
-        if (this.isWhite()) {  // Descente blanche.
-            descent(startXCol, startYRow, board, moves, false);
-        } else { // Montée Noir.
-            // Check one step forward
-            climb(startXCol, startYRow, board, moves, true);
+        boolean isWhiteTurn = this.getWhiteTurn();
+
+        // Check for descent or climb based on the color and turn
+        boolean isDescent = (this.isWhite() && !isWhiteTurn) || (!this.isWhite() && isWhiteTurn);
+        boolean isForward = (this.isWhite() && isWhiteTurn) || (!this.isWhite() && !isWhiteTurn);
+
+        if (isDescent) {
+            descent(startXCol, startYRow, board, moves, !isForward);
+        } else {
+            climb(startXCol, startYRow, board, moves, !isForward);
         }
+
         return moves;
     }
 
-
-    public ArrayList<int[]> possiblesMovesWhiteTurnTrue(int startXCol, int startYRow, ChessPiece[][] board,
-                                                        ArrayList<int[]> moves) {
-        if (!this.isWhite()) {  // Descente Noire
-            descent(startXCol, startYRow, board, moves, true);
-        } else {  // Montee blanche.
-            climb(startXCol, startYRow, board, moves, false);
-        }
-        return moves;
-    }
-
- /*   public ArrayList<int[]> possiblesMovesWhiteTurn(int startXCol, int startYRow, ChessPiece[][] board,
-                                                        ArrayList<int[]> moves) {
-        boolean isWhite = this
-        return  moves;
-    }*/
 
 }
