@@ -1,4 +1,4 @@
-package com.diaby;
+package com.diaby.controller;
 import com.diaby.model.*;
 import com.diaby.view.ChessBoardView;
 
