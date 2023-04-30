@@ -208,12 +208,12 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
             sourcePiece = selectedPiece ;
 
-            if (RegleDuJeu.estPat(isWhiteTurn, board)) {
+            if (RegleDuJeu.isADraw(isWhiteTurn, board)) {
                 JOptionPane.showMessageDialog(mainPanel, "Fin du jeu c'est un pat");
                 dispose();
             }
 
-            if (RegleDuJeu.estEchecEtMat(isWhiteTurn, board.getTileBoard(), board)) {
+            if (RegleDuJeu.isCheckMate(isWhiteTurn, board.getTileBoard(), board)) {
                 JOptionPane.showMessageDialog(mainPanel, "Fin du jeu, échec et mat pour : " + isWhiteTurn);
                 dispose();
             }
