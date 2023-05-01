@@ -82,8 +82,8 @@ public class Pawn extends ChessPiece {
 
 
     private void descent(int startXCol, int startYRow, ChessPiece[][] board, ArrayList<int[]> moves, Boolean isWhite) {
-        System.out.println("Descent method called with startXCol: " + startXCol + " and startYRow: " + startYRow);
-        System.out.println("Direction of movement: " + (isWhite ? "forward" : "backward"));
+//        System.out.println("Descent method called with startXCol: " + startXCol + " and startYRow: " + startYRow);
+//        System.out.println("Direction of movement: " + (isWhite ? "forward" : "backward"));
 
         if (startXCol < 7 && board[startXCol + 1][startYRow] == null) {
             moves.add(new int[]{startXCol + 1, startYRow});
