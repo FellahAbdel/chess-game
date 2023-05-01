@@ -206,15 +206,6 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
             sourcePiece = selectedPiece;
 
-            if (RegleDuJeu.isADraw(isWhiteTurn, board)) {
-                JOptionPane.showMessageDialog(mainPanel, "Fin du jeu c'est un pat");
-                dispose();
-            }
-
-            if (RegleDuJeu.isCheckMate(isWhiteTurn, board.getTileBoard(), board)) {
-                JOptionPane.showMessageDialog(mainPanel, "Fin du jeu, échec et mat pour : " + isWhiteTurn);
-                dispose();
-            }
         }
         // Si on clique sur une tuile mise en evidence.
         if (board.highLightCase[rowY][colX]) {
@@ -257,6 +248,17 @@ public class ChessBoardView extends JFrame implements MouseListener {
             board.movePiece(sourceRow, sourceCol, rowY, colX);
             // On passe au joueur suivant que si et seulement si le joueur courant a fini son mouvement.
             isWhiteTurn = sourcePiece.getColor() != Color.WHITE;
+
+            if (RegleDuJeu.isADraw(isWhiteTurn, board)) {
+                JOptionPane.showMessageDialog(mainPanel, "Fin du jeu c'est un pat");
+                dispose();
+            }
+
+            if (RegleDuJeu.isCheckMate(isWhiteTurn, board.getTileBoard(), board)) {
+                JOptionPane.showMessageDialog(mainPanel, "Fin du jeu, échec et mat pour : " + isWhiteTurn);
+                dispose();
+            }
+
         }
 
         // Mise à jour de l'affichage
