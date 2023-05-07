@@ -32,7 +32,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
     static final Color HIGHLIGHT_CASE = Color.red;
 
     private ChessPiece sourcePiece;
-    private boolean white_pieces_at_bottom;
+    private final boolean white_pieces_at_bottom;
     private boolean isTurn = true;
 
     public ChessBoardView(boolean white_pieces_at_bottom) {
@@ -72,6 +72,9 @@ public class ChessBoardView extends JFrame implements MouseListener {
      */
     public void drawGrid() {
         JPanel square;
+        String filePath = "src/com/diaby/model/img/";
+        String fileName;
+        String pieceName;
         int index = 0;
         // Pour chaque case de la grille
         for (int row = 0; row < SIZE_ROW_BOARD; row++) {
@@ -83,12 +86,9 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
                 // Obtention de la piece sur la case et ajout d'une image dans un JLabel
                 ChessPiece piece = board.getPieceAt(row, col);
-                if (piece != null && piece.getColor() == Color.WHITE) {
-                    String fileName = "src/com/diaby/model/img/" + piece.getPieceName() + "_b.png";
-                    JLabel image = new JLabel(new ImageIcon(fileName));
-                    square.add(image);
-                } else if (piece != null && piece.getColor() == Color.BLACK) {
-                    String fileName = "src/com/diaby/model/img/" + piece.getPieceName() + "_n.png";
+                if (piece != null) {
+                    pieceName = piece.getPieceName();
+                    fileName = piece.isWhite() ? filePath + pieceName + "_b.png" : filePath + pieceName + "_n.png";
                     JLabel image = new JLabel(new ImageIcon(fileName));
                     square.add(image);
                 }
@@ -216,12 +216,12 @@ public class ChessBoardView extends JFrame implements MouseListener {
             int sourceCol = sourcePiece.getCol();
 
             // Verification pour la prise en passant.
-            if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null ) {
+            if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null) {
                 int capturedPieceRow = !sourcePiece.isWhite() ? rowY - 1 : rowY + 1;
                 removeSquare(capturedPieceRow, colX);
             }
             // Verification pour la prise en passant.
-            if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null ) {
+            if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null) {
                 int capturedPieceRow = sourcePiece.isWhite() ? rowY - 1 : rowY + 1;
                 removeSquare(capturedPieceRow, colX);
             }
@@ -253,8 +253,10 @@ public class ChessBoardView extends JFrame implements MouseListener {
             isTurn = sourcePiece.getColor() != Color.WHITE;
 
             // exple : si le joueur blanc joue son coup , la variable boolean hasJustMoveDouble associé au pion noir
-            // sera mise à false grâce à la méthode resetBooleanPawn , cela permet à ce que si un coup en passant est possible
-            // qu'elle ne soit disponible qu'au prochain coup joué , si ce n'est le cas elle n'est plus disponible pour toujours .
+            // sera mise à false grâce à la méthode resetBooleanPawn , cela permet à ce que si un coup en passant est
+            // possible
+            // qu'elle ne soit disponible qu'au prochain coup joué , si ce n'est le cas elle n'est plus disponible
+            // pour toujours .
             board.resetBooleanPawn(isTurn);
 
             if (RegleDuJeu.isADraw(isTurn, board)) {

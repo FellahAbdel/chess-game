@@ -11,6 +11,11 @@ public class ChessBoard {
         tileBoard = new ChessPiece[8][8];
     }
 
+    /**
+     * Initialise le tableau de pièces d'échecs selon la position des pièces blanches.
+     *
+     * @param white_pieces_at_bottom vrai si les pièces blanches sont placées en bas, faux si elles sont placées en haut
+     */
     public void initialize(boolean white_pieces_at_bottom) {
         Color color = white_pieces_at_bottom ? Color.BLACK : Color.WHITE;
         Color oppositeColor = white_pieces_at_bottom ? Color.WHITE : Color.BLACK;
@@ -43,6 +48,12 @@ public class ChessBoard {
 
     }
 
+    /**
+     * Cette méthode permet de créer une copie du tableau d'échecs "board".
+     *
+     * @param board le tableau d'échecs à copier
+     * @return une copie du tableau d'échecs "board"
+     */
     public static ChessPiece[][] copyBoard(ChessPiece[][] board) {
         ChessPiece[][] copy = new ChessPiece[8][8];
         for (int row = 0; row < 8; row++) {
@@ -70,24 +81,54 @@ public class ChessBoard {
         return copy;
     }
 
+    /**
+     * Retourne le plateau de jeu représenté par un tableau de ChessPiece.
+     *
+     * @return un tableau de ChessPiece représentant le plateau de jeu.
+     */
     public ChessPiece[][] getTileBoard() {
         return tileBoard;
     }
 
+    /**
+     * Réinitialise le tableau highLightCase à false pour chaque case.
+     */
     public void resetHighlight() {
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
                 highLightCase[i][j] = false;
     }
 
+    /**
+     * Retourne la pièce se trouvant à une position donnée.
+     *
+     * @param row la rangée où se trouve la pièce.
+     * @param col la colonne où se trouve la pièce.
+     * @return la pièce se trouvant à la position donnée.
+     */
     public ChessPiece getPieceAt(int row, int col) {
         return tileBoard[row][col];
     }
 
+    /**
+     * Place une pièce donnée à une position donnée.
+     *
+     * @param row   la rangée où placer la pièce.
+     * @param col   la colonne où placer la pièce.
+     * @param piece la pièce à placer.
+     */
     public void setPieceAt(int row, int col, ChessPiece piece) {
         tileBoard[row][col] = piece;
     }
 
+
+    /**
+     * Enlève la pièce se trouvant à une position donnée.
+     *
+     * @param row la rangée où se trouve la pièce à enlever.
+     * @param col la colonne où se trouve la pièce à enlever.
+     * @throws IllegalArgumentException si aucune pièce ne se trouve à la position donnée.
+     */
     public void removePieceAt(int row, int col) {
         ChessPiece pieceToRemove = getPieceAt(row, col);
         if (pieceToRemove == null) {
@@ -96,10 +137,23 @@ public class ChessBoard {
         tileBoard[row][col] = null;
     }
 
+    /**
+     * Vérifie si une case donnée est occupée par une pièce.
+     *
+     * @param row la rangée de la case à vérifier.
+     * @param col la colonne de la case à vérifier.
+     * @return true si la case est occupée par une pièce, false sinon.
+     */
     public boolean isOccupied(int row, int col) {
         return tileBoard[row][col] != null;
     }
 
+    /**
+     * Retourne une liste de toutes les pièces d'une couleur donnée.
+     *
+     * @param color la couleur des pièces à retourner.
+     * @return une liste de toutes les pièces de la couleur donnée.
+     */
     public ArrayList<ChessPiece> getPiecesByColor(Color color) {
         ArrayList<ChessPiece> piecesList = new ArrayList<>();
         for (int row = 0; row < 8; row++) {
@@ -113,6 +167,12 @@ public class ChessBoard {
         return piecesList;
     }
 
+    /**
+     * Retourne le roi d'une couleur donnée.
+     *
+     * @param isWhiteKing true si le roi à chercher est blanc, false sinon.
+     * @return le roi de la couleur donnée.
+     */
     public King getKing(boolean isWhiteKing) {
         King king = null;
         for (int row = 0; row < 8; row++) {
@@ -138,6 +198,16 @@ public class ChessBoard {
         }
     }
 
+    /**
+     * Déplace une pièce d'une position à une autre.
+     * Si une pièce ennemie est présente sur la case d'arrivée, elle est capturée.
+     * Si une pièce alliée est présente sur la case d'arrivée, aucun déplacement n'est effectué.
+     *
+     * @param startRow La rangée de départ de la pièce.
+     * @param startCol La colonne de départ de la pièce.
+     * @param endRow   La rangée d'arrivée de la pièce.
+     * @param endCol   La colonne d'arrivée de la pièce.
+     */
     public void move(int startRow, int startCol, int endRow, int endCol) {
         ChessPiece startPiece = getPieceAt(startRow, startCol);
         ChessPiece endPiece = getPieceAt(endRow, endCol);
@@ -152,15 +222,24 @@ public class ChessBoard {
 
     }
 
+    /**
+     * Déplace une pièce d'une position à une autre et effectue les opérations supplémentaires liées à ce déplacement,
+     * comme la capture en passant et la promotion des pions.
+     *
+     * @param startRow La rangée de départ de la pièce.
+     * @param startCol La colonne de départ de la pièce.
+     * @param endRow   La rangée d'arrivée de la pièce.
+     * @param endCol   La colonne d'arrivée de la pièce.
+     */
     public void movePiece(int startRow, int startCol, int endRow, int endCol) {
         ChessPiece startPiece = getPieceAt(startRow, startCol);
         ChessPiece endPiece = getPieceAt(endRow, endCol);
 
         if (startPiece == null) {
-            return ;
+            return;
         }
         if (endPiece != null && endPiece.getColor() == startPiece.getColor()) {
-            return ;
+            return;
         }
 
         // capture en passant
