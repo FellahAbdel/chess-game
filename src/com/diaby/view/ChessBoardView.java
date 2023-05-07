@@ -32,7 +32,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
     static final Color HIGHLIGHT_CASE = Color.red;
 
     private ChessPiece sourcePiece;
-    private boolean white_pieces_at_bottom;
+    private final boolean white_pieces_at_bottom;
     private boolean isTurn = true;
 
     public ChessBoardView(boolean white_pieces_at_bottom) {
@@ -73,8 +73,8 @@ public class ChessBoardView extends JFrame implements MouseListener {
     public void drawGrid() {
         JPanel square;
         String filePath = "src/com/diaby/model/img/";
-        String fileName = "";
-        String pieceName = "";
+        String fileName;
+        String pieceName;
         int index = 0;
         // Pour chaque case de la grille
         for (int row = 0; row < SIZE_ROW_BOARD; row++) {
@@ -192,7 +192,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
         ChessPiece selectedPiece = board.getPieceAt(rowY, colX);
         // Pièce non null et non mis en evidence (Pour ne pas qu'en cliquant sur la piece adverse au lieu de la
         // bouffer on affiche les mouvements possibles de la pièce adverse).
-        if (selectedPiece != null && !board.highLightCase[rowY][colX] && selectedPiece.isWhite() == isWhiteTurn) {
+        if (selectedPiece != null && !board.highLightCase[rowY][colX] && selectedPiece.isWhite() == isTurn) {
             // On clique sur l'un des pions.
             // Liste des coordonnées possibles du joueur.
             ArrayList<int[]> moves = selectedPiece.possiblesMoves(rowY, colX, board.getTileBoard());
@@ -253,14 +253,11 @@ public class ChessBoardView extends JFrame implements MouseListener {
             isTurn = sourcePiece.getColor() != Color.WHITE;
 
             // exple : si le joueur blanc joue son coup , la variable boolean hasJustMoveDouble associé au pion noir
-            // sera mise à false grâce à la méthode resetBooleanPawn , cela permet à ce que si un coup en passant est possible
-            // qu'elle ne soit disponible qu'au prochain coup joué , si ce n'est le cas elle n'est plus disponible pour toujours .
-            board.resetBooleanPawn(isTurn);
             // sera mise à false grâce à la méthode resetBooleanPawn , cela permet à ce que si un coup en passant est
             // possible
             // qu'elle ne soit disponible qu'au prochain coup joué , si ce n'est le cas elle n'est plus disponible
             // pour toujours .
-            board.resetBooleanPawn(isWhiteTurn);
+            board.resetBooleanPawn(isTurn);
 
             if (RegleDuJeu.isADraw(isTurn, board)) {
                 JOptionPane.showMessageDialog(mainPanel, "Fin du jeu c'est un pat");
