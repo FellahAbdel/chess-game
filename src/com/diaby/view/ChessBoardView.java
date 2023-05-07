@@ -32,10 +32,11 @@ public class ChessBoardView extends JFrame implements MouseListener {
     static final Color HIGHLIGHT_CASE = Color.red;
 
     private ChessPiece sourcePiece;
-    private boolean isWhiteTurn;
+    private boolean white_pieces_at_bottom;
+    private boolean isTurn = true;
 
-    public ChessBoardView(boolean isWhiteTurn) {
-        this.isWhiteTurn = isWhiteTurn;
+    public ChessBoardView(boolean white_pieces_at_bottom) {
+        this.white_pieces_at_bottom = white_pieces_at_bottom;
         // Taille d'un element graphique
         Dimension boardSize = new Dimension(SIZE_CASE_X * SIZE_COLUMN_BOARD, SIZE_CASE_Y * SIZE_ROW_BOARD);
 
@@ -61,7 +62,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
         // Instanciation de l'échiquier
         board = new ChessBoard();
-        board.initialize(isWhiteTurn);
+        board.initialize(white_pieces_at_bottom);
         // Affiche la grille
         drawGrid();
     }
@@ -191,7 +192,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
         ChessPiece selectedPiece = board.getPieceAt(rowY, colX);
         // Pièce non null et non mis en evidence (Pour ne pas qu'en cliquant sur la piece adverse au lieu de la
         // bouffer on affiche les mouvements possibles de la pièce adverse).
-        if (selectedPiece != null && !board.highLightCase[rowY][colX] && selectedPiece.isWhite() == isWhiteTurn) {
+        if (selectedPiece != null && !board.highLightCase[rowY][colX] && selectedPiece.isWhite() == isTurn) {
             // On clique sur l'un des pions.
             // Liste des coordonnées possibles du joueur.
             ArrayList<int[]> moves = selectedPiece.possiblesMoves(rowY, colX, board.getTileBoard());
@@ -249,20 +250,20 @@ public class ChessBoardView extends JFrame implements MouseListener {
             removeSquare(sourceRow, sourceCol);
 
             // On passe au joueur suivant que si et seulement si le joueur courant a fini son mouvement.
-            isWhiteTurn = sourcePiece.getColor() != Color.WHITE;
+            isTurn = sourcePiece.getColor() != Color.WHITE;
 
             // exple : si le joueur blanc joue son coup , la variable boolean hasJustMoveDouble associé au pion noir
             // sera mise à false grâce à la méthode resetBooleanPawn , cela permet à ce que si un coup en passant est possible
             // qu'elle ne soit disponible qu'au prochain coup joué , si ce n'est le cas elle n'est plus disponible pour toujours .
-            board.resetBooleanPawn(isWhiteTurn);
+            board.resetBooleanPawn(isTurn);
 
-            if (RegleDuJeu.isADraw(isWhiteTurn, board)) {
+            if (RegleDuJeu.isADraw(isTurn, board)) {
                 JOptionPane.showMessageDialog(mainPanel, "Fin du jeu c'est un pat");
                 dispose();
             }
 
-            if (RegleDuJeu.isCheckMate(isWhiteTurn, board.getTileBoard(), board)) {
-                JOptionPane.showMessageDialog(mainPanel, "Fin du jeu, échec et mat pour : " + isWhiteTurn);
+            if (RegleDuJeu.isCheckMate(isTurn, board.getTileBoard(), board)) {
+                JOptionPane.showMessageDialog(mainPanel, "Fin du jeu, échec et mat ");
                 dispose();
             }
 
@@ -288,7 +289,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
     public void displayBoard() {
         // Définir et afficher la fenêtre graphique correspondant au damier
-        JFrame frame = new ChessBoardView(isWhiteTurn);
+        JFrame frame = new ChessBoardView(white_pieces_at_bottom);
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setResizable(false);
