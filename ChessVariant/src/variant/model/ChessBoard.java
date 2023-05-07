@@ -151,30 +151,23 @@ public class ChessBoard {
         {
             endPiece.setCaptured();
             removePieceAt(endRow, endCol);
-            setPieceAt(endRow, endCol, startPiece);
-            setPieceAt(startRow, startCol, null);
-            startPiece.setRow(endRow);
-            startPiece.setCol(endCol);
         }
-        else
-        {
-            setPieceAt(endRow, endCol, startPiece);
-            setPieceAt(startRow, startCol, null);
-            startPiece.setRow(endRow);
-            startPiece.setCol(endCol);
-        }
+        setPieceAt(endRow, endCol, startPiece);
+        setPieceAt(startRow, startCol, null);
+        startPiece.setRow(endRow);
+        startPiece.setCol(endCol);
 
     }
 
-    public boolean movePiece(int startRow, int startCol, int endRow, int endCol) {
+    public void movePiece(int startRow, int startCol, int endRow, int endCol) {
         ChessPiece startPiece = getPieceAt(startRow, startCol);
         ChessPiece endPiece = getPieceAt(endRow, endCol);
 
         if (startPiece == null) {
-            return false;
+            return ;
         }
         if (endPiece != null && endPiece.getColor() == startPiece.getColor()) {
-            return false;
+            return ;
         }
 
         // capture en passant
@@ -186,7 +179,6 @@ public class ChessBoard {
         }
 
         move(startRow, startCol, endRow, endCol);
-        return true;
     }
 
 
