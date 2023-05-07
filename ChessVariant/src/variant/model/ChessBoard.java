@@ -1,9 +1,11 @@
 package variant.model;
 
+import variant.view.Player;
+
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ChessBoard {
+public class ChessBoard extends Player {
     private ChessPiece[][] tileBoard;
     public boolean[][] highLightCase = new boolean[8][12];
     public ChessBoard() {
