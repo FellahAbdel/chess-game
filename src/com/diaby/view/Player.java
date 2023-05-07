@@ -57,7 +57,7 @@ public class Player extends JFrame implements MouseListener {
         buttonsPanel.add(whiteButton);
         buttonsPanel.add(blackButton);
 
-        JLabel label = new JLabel("Premier joueur à commencer la partie ");
+        JLabel label = new JLabel("Premier joueur à commencer la partie");
         label.setForeground(Color.WHITE); // Sets the label text color
         label.setHorizontalAlignment(JLabel.CENTER);
 
