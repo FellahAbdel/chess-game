@@ -12,12 +12,13 @@ public abstract class ChessPiece {
 
     private boolean isWhiteTurn;
 
-    private boolean captured ;
-    public ChessPiece(String name,Color color, int row , int col, boolean isWhiteTurn) {
+    private boolean captured;
+
+    public ChessPiece(String name, Color color, int row, int col, boolean isWhiteTurn) {
         this.pieceName = name;
         this.color = color;
-        this.row = row ;
-        this.col = col ;
+        this.row = row;
+        this.col = col;
         captured = false;
         this.isWhiteTurn = isWhiteTurn;
     }
@@ -26,7 +27,7 @@ public abstract class ChessPiece {
         return isWhiteTurn;
     }
 
-    public String getPieceName (){
+    public String getPieceName() {
         return pieceName;
     }
 
@@ -57,30 +58,33 @@ public abstract class ChessPiece {
     public boolean isWhite() {
         return this.getColor() == Color.WHITE;
     }
+
     /**
      * Vérifie si le mouvement d'une pièce est valide.
      *
      * @param startYRow la position en x de la pièce avant le mouvement.
      * @param startXCol la position en y de la pièce avant le mouvement.
-     * @param endXCol la position en x de la pièce après le mouvement.
-     * @param endYRow la position en y de la pièce après le mouvement.
-     * @param board le tableau de pièces représentant l'état actuel du plateau.
+     * @param endXCol   la position en x de la pièce après le mouvement.
+     * @param endYRow   la position en y de la pièce après le mouvement.
+     * @param board     le tableau de pièces représentant l'état actuel du plateau.
      * @return true si le mouvement est valide, false sinon.
      */
+/*
     public abstract boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board);
-
+*/
     public abstract ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board);
+
     /**
      * Vérifie si une pièce peut atteindre une case donnée sur le plateau.
      *
-     * @param colX la position en x de la case.
-     * @param rowY la position en y de la case.
+     * @param colX  la position en x de la case.
+     * @param rowY  la position en y de la case.
      * @param board le tableau de pièces représentant l'état actuel du plateau.
      * @return true si la case peut être atteinte, false sinon.
      */
     public boolean canMove(int rowY, int colX, ChessPiece[][] board) {
 
-        ArrayList<int[]> moves = possiblesMoves(rowY,colX,board);
+        ArrayList<int[]> moves = possiblesMoves(rowY, colX, board);
         // Vérifie s'il a des mouvements valides
         return moves.isEmpty();
     }

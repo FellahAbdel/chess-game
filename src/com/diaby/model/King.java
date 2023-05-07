@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class King extends ChessPiece {
     private boolean hasMoved;
 
-    public King(Color color, int row, int col,boolean isWhiteTurn) {
-        super("King",color, row, col,isWhiteTurn);
+    public King(Color color, int row, int col, boolean isWhiteTurn) {
+        super("King", color, row, col, isWhiteTurn);
         hasMoved = false;
     }
 
@@ -23,25 +23,6 @@ public class King extends ChessPiece {
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
     }
-
-    @Override
-    public boolean isValidMove(int startX, int startY, int endX, int endY, ChessPiece[][] board) {
-        // Vérifie si le déplacement se fait d'une case dans n'importe quelle direction
-        int deltaX = Math.abs(endX - startX);
-        int deltaY = Math.abs(endY - startY);
-        if (deltaX <= 1 && deltaY <= 1)
-        {
-            // check if the King is not moving to a threatened position
-
-            // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
-            if (board[endY][endX] == null || !board[endY][endX].getColor().equals(getColor())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
 
     private boolean isValidPosition(int x, int y) {
         return x >= 0 && x < 8 && y >= 0 && y < 8;
@@ -164,9 +145,9 @@ public class King extends ChessPiece {
         }
 
         // petit roque
-        if(!this.getHasMoved()  && startXCol == 4) {
+        if (!this.getHasMoved() && startXCol == 4) {
             ChessPiece rook = board[startYRow][7];
-            if(rook instanceof Rook && !((Rook) rook).getHasMoved() && board[startYRow][5] == null && board[startYRow][6] == null) {
+            if (rook instanceof Rook && !((Rook) rook).getHasMoved() && board[startYRow][5] == null && board[startYRow][6] == null) {
                 boolean isInCheck = false;
                 ChessPiece piece = board[startYRow][startXCol];
                 if (isInCheck(piece.isWhite(), board)) {
@@ -180,7 +161,7 @@ public class King extends ChessPiece {
                         testBoard[startYRow][startXCol + 2] = testBoard[startYRow][startXCol];
                         testBoard[startYRow][startXCol] = null;
                         if (!isInCheck(this.isWhite(), testBoard)) {
-                            moves.add(new int[]{startYRow , startXCol + 2 });
+                            moves.add(new int[]{startYRow, startXCol + 2});
                         }
 
                     }
@@ -189,9 +170,9 @@ public class King extends ChessPiece {
         }
 
         // grand roque
-        if(!this.getHasMoved() && startXCol == 4) {
+        if (!this.getHasMoved() && startXCol == 4) {
             ChessPiece rook = board[startYRow][0];
-            if(rook instanceof Rook && !((Rook) rook).getHasMoved() && board[startYRow][1] == null && board[startYRow][2] == null && board[startYRow][3] == null) {
+            if (rook instanceof Rook && !((Rook) rook).getHasMoved() && board[startYRow][1] == null && board[startYRow][2] == null && board[startYRow][3] == null) {
                 boolean isInCheck = false;
                 ChessPiece piece = board[startYRow][startXCol];
                 if (isInCheck(piece.isWhite(), board)) {
@@ -205,14 +186,13 @@ public class King extends ChessPiece {
                         testBoard[startYRow][startXCol - 2] = testBoard[startYRow][startXCol];
                         testBoard[startYRow][startXCol] = null;
                         if (!isInCheck(this.isWhite(), testBoard)) {
-                            moves.add(new int[]{startYRow , startXCol - 2 });
+                            moves.add(new int[]{startYRow, startXCol - 2});
                         }
 
                     }
                 }
             }
         }
-
 
 
         return moves;

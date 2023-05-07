@@ -6,9 +6,8 @@ import java.util.ArrayList;
 public class Rook extends ChessPiece {
     private boolean hasMoved; // indique si le pion a déjà été déplacé ou non
 
-    public Rook(Color color, int row, int col,boolean isWhiteTurn)
-    {
-        super("Rook",color, row, col,isWhiteTurn);
+    public Rook(Color color, int row, int col, boolean isWhiteTurn) {
+        super("Rook", color, row, col, isWhiteTurn);
         hasMoved = false;
     }
 
@@ -23,29 +22,10 @@ public class Rook extends ChessPiece {
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
     }
-    @Override
-    public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
-        ArrayList<int[]> moves = possiblesMoves(startYRow,startXCol,board);
-        for(int[] move : moves)
-        {
-            if(endYRow == move[0] && endXCol == move[1])
-            {
-                return true;
-            }
-        }
-        // Vérifie si la case de destination est vide ou occupée par une pièce de la couleur opposée
-        if(board[endYRow][endXCol] == null || !board[endYRow][endXCol].getColor().equals(getColor()))
-        {
-            return true;
-        }
-
-        return false;
-
-   }
 
     public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
-        boolean canMove = true ;
+        boolean canMove = true;
         // Check moves to the right
         for (int i = startXCol + 1; i < 8 && canMove; i++) {
             if (board[startYRow][i] == null) {
@@ -54,11 +34,11 @@ public class Rook extends ChessPiece {
                 moves.add(new int[]{startYRow, i});
                 canMove = false;
             } else {
-                canMove = false ;
+                canMove = false;
             }
         }
 
-        canMove = true ;
+        canMove = true;
         // Check moves to the left
         for (int i = startXCol - 1; i >= 0 && canMove; i--) {
             if (board[startYRow][i] == null) {
@@ -71,7 +51,7 @@ public class Rook extends ChessPiece {
             }
         }
 
-        canMove = true ;
+        canMove = true;
         // Check moves to the bottom
         for (int i = startYRow + 1; i < 8 && canMove; i++) {
             if (board[i][startXCol] == null) {
@@ -80,11 +60,11 @@ public class Rook extends ChessPiece {
                 moves.add(new int[]{i, startXCol});
                 canMove = false;
             } else {
-                canMove = false ;
+                canMove = false;
             }
         }
 
-        canMove = true ;
+        canMove = true;
         // Check moves to the top
         for (int i = startYRow - 1; i >= 0 && canMove; i--) {
             if (board[i][startXCol] == null) {
