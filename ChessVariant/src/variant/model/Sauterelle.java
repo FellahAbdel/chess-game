@@ -9,7 +9,7 @@ public class Sauterelle extends ChessPiece {
     }
 
     public Sauterelle(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhite_pieces_at_bottom());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhitePiecesAtBottom());
 
     }
 

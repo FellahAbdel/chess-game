@@ -10,7 +10,7 @@ public class Pawn extends ChessPiece {
     }
 
     public Pawn(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhite_pieces_at_bottom());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhitePiecesAtBottom());
     }
 
     public void promotePawn(Pawn pawn, int row, int col, String pieceType, ChessPiece[][] board) {
@@ -18,28 +18,28 @@ public class Pawn extends ChessPiece {
         ChessPiece newPiece;
         switch (pieceType) {
             case "Queen":
-                newPiece = new Queen(color, row, col,pawn.getWhite_pieces_at_bottom());
+                newPiece = new Queen(color, row, col,pawn.getWhitePiecesAtBottom());
                 break;
             case "Rook":
-                newPiece = new Rook(color, row, col,pawn.getWhite_pieces_at_bottom());
+                newPiece = new Rook(color, row, col,pawn.getWhitePiecesAtBottom());
                 break;
             case "Bishop":
-                newPiece = new Bishop(color, row, col,pawn.getWhite_pieces_at_bottom());
+                newPiece = new Bishop(color, row, col,pawn.getWhitePiecesAtBottom());
                 break;
             case "Knight":
-                newPiece = new Knight(color, row, col,pawn.getWhite_pieces_at_bottom());
+                newPiece = new Knight(color, row, col,pawn.getWhitePiecesAtBottom());
                 break;
             case "Imperatrice":
-                newPiece = new Imperatrice(color,row,col,pawn.getWhite_pieces_at_bottom());
+                newPiece = new Imperatrice(color,row,col,pawn.getWhitePiecesAtBottom());
                 break;
             case "Princesse":
-                newPiece = new Princesse(color,row,col,pawn.getWhite_pieces_at_bottom());
+                newPiece = new Princesse(color,row,col,pawn.getWhitePiecesAtBottom());
                 break;
             case "Noctambule":
-                newPiece = new Noctambule(color,row,col,pawn.getWhite_pieces_at_bottom());
+                newPiece = new Noctambule(color,row,col,pawn.getWhitePiecesAtBottom());
                 break;
             case "Sauterelle":
-                newPiece = new Sauterelle(color,row,col,pawn.getWhite_pieces_at_bottom());
+                newPiece = new Sauterelle(color,row,col,pawn.getWhitePiecesAtBottom());
                 break;
             default:
                 throw new IllegalArgumentException("Invalid piece type");
@@ -50,7 +50,7 @@ public class Pawn extends ChessPiece {
     public ArrayList<int[]> possiblesMoves(int startXCol, int startYRow, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
 
-        return possiblesMovesTurn(startXCol, startYRow, board, moves, !this.getWhite_pieces_at_bottom());
+        return possiblesMovesTurn(startXCol, startYRow, board, moves, !this.getWhitePiecesAtBottom());
 
     }
 

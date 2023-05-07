@@ -32,14 +32,14 @@ public class ChessBoardView extends JFrame implements MouseListener {
     static final Color BLACK_CASE = Color.gray;
     static final Color WHITE_CASE = Color.white;
     static final Color HIGHLIGHT_CASE = Color.red;
-    private final boolean white_pieces_at_bottom;
+    private final boolean whitePiecesAtBottom;
 
     private boolean isTurn = true;
     private ChessPiece sourcePiece;
 
-    public ChessBoardView(boolean white_pieces_at_bottom) {
+    public ChessBoardView(boolean whitePiecesAtBottom) {
 
-        this.white_pieces_at_bottom = white_pieces_at_bottom;
+        this.whitePiecesAtBottom = whitePiecesAtBottom;
 
         // Taille d'un element graphique
         Dimension boardSize = new Dimension(SIZE_CASE_X * SIZE_COLUMN_BOARD, SIZE_CASE_Y * SIZE_ROW_BOARD);
@@ -66,7 +66,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
         // Instanciation de l'échiquier
         board = new ChessBoard();
-        board.initialize(white_pieces_at_bottom);
+        board.initialize(whitePiecesAtBottom);
         // Afiiche la grille
         drawGrid();
     }
@@ -278,7 +278,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
     public void displayBoard(){
         // Définir et afficher la fenêtre graphique correspondant au damier
-        JFrame frame = new ChessBoardView(white_pieces_at_bottom);
+        JFrame frame = new ChessBoardView(whitePiecesAtBottom);
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE );
         frame.pack();
         frame.setResizable(false);

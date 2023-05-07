@@ -10,7 +10,7 @@ public class King extends ChessPiece {
     }
 
     public King(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhite_pieces_at_bottom());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhitePiecesAtBottom());
     }
 
     public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
