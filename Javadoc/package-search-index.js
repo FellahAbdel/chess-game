@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.diaby.controller"},{"l":"com.diaby.model"},{"l":"com.diaby.view"},{"l":"variant.controller"},{"l":"variant.model"},{"l":"variant.view"}]
