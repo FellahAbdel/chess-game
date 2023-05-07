@@ -15,69 +15,73 @@ public class Princesse extends ChessPiece{
     }
 
     @Override
-    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
-        ArrayList<int[]> moves = new ArrayList<int[]>();
+    public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
+        ArrayList<int[]> moves = new ArrayList<>();
 
-        // Ajout des mouvements de la pièce comme un fou
+        // generates moves like bishop
 
+        boolean canMove = true;
         // Upper Left Diagonal
-        for(int i=startYRow-1, j=startXCol-1; i>=0 && j>=0; i--, j--){
+        for(int i=startYRow-1, j=startXCol-1; i>=0 && j>=0 && canMove; i--, j--){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
             }
             else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
-                break;
+                canMove = false;
             }
             else {
-                break;
+                canMove = false;
             }
         }
 
         // Upper Right Diagonal
-        for(int i=startYRow-1, j=startXCol+1; i>=0 && j<12; i--, j++){
+        canMove = true;
+        for(int i=startYRow-1, j=startXCol+1; i>=0 && j<12 && canMove; i--, j++){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
             }
             else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
-                break;
+                canMove = false;
             }
             else {
-                break;
+                canMove = false;
             }
         }
 
         // Lower Left Diagonal
-        for(int i=startYRow+1, j=startXCol-1; i<8 && j>=0; i++, j--){
+        canMove = true;
+        for(int i=startYRow+1, j=startXCol-1; i<8 && j>=0 && canMove; i++, j--){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
             }
             else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
-                break;
+                canMove = false;
             }
             else {
-                break;
+                canMove = false;
             }
         }
 
         // Lower Right Diagonal
-        for(int i=startYRow+1, j=startXCol+1; i<8 && j<12; i++, j++){
+        canMove = true;
+        for(int i=startYRow+1, j=startXCol+1; i<8 && j<12 && canMove; i++, j++){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
             }
             else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
-                break;
+                canMove = false;
             }
             else {
-                break;
+                canMove = false;
             }
         }
 
 
-        // Ajout des mouvements de la pièce comme un cavalier
+        // generates moves like Knight
         // Two steps up
         if(startYRow-2 >= 0){
             // One step to the left

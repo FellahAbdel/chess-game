@@ -13,7 +13,7 @@ public class Knight extends ChessPiece {
 
     }
 
-    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
+    public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
         // Two steps up
         if(startYRow-2 >= 0){

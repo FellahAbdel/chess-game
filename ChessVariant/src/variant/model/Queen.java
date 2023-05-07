@@ -13,113 +13,119 @@ public class Queen extends ChessPiece {
 
     }
 
-    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
+    public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
 
         // generate moves like bishop
+        boolean canMove = true;
         // Upper Left Diagonal
-        for(int i=startYRow-1, j=startXCol-1; i>=0 && j>=0; i--, j--){
+        for(int i=startYRow-1, j=startXCol-1; i>=0 && j>=0 && canMove; i--, j--){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
             }
             else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
-                break;
+                canMove = false;
             }
             else {
-                break;
+                canMove = false;
             }
         }
 
         // Upper Right Diagonal
-        for(int i=startYRow-1, j=startXCol+1; i>=0 && j<12; i--, j++){
+        canMove = true;
+        for(int i=startYRow-1, j=startXCol+1; i>=0 && j<12 && canMove; i--, j++){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
             }
             else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
-                break;
+                canMove = false;
             }
             else {
-                break;
+                canMove = false;
             }
         }
 
         // Lower Left Diagonal
-        for(int i=startYRow+1, j=startXCol-1; i<8 && j>=0; i++, j--){
+        canMove = true;
+        for(int i=startYRow+1, j=startXCol-1; i<8 && j>=0 && canMove; i++, j--){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
             }
             else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
-                break;
+                canMove = false;
             }
             else {
-                break;
+                canMove = false;
             }
         }
 
         // Lower Right Diagonal
-        for(int i=startYRow+1, j=startXCol+1; i<8 && j<12; i++, j++){
+        canMove = true;
+        for(int i=startYRow+1, j=startXCol+1; i<8 && j<12 && canMove; i++, j++){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
             }
             else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
-                break;
+                canMove = false;
             }
             else {
-                break;
+                canMove = false;
             }
         }
 
         // generate moves like rook
-
         // Check moves to the right
-        for (int i = startXCol + 1; i < 12; i++) {
+        for (int i = startXCol + 1; i < 12 && canMove; i++) {
             if (board[startYRow][i] == null) {
                 moves.add(new int[]{startYRow, i});
             } else if (board[startYRow][i].isWhite() != this.isWhite()) {
                 moves.add(new int[]{startYRow, i});
-                break;
+                canMove = false;
             } else {
-                break;
+                canMove = false;
             }
         }
 
         // Check moves to the left
-        for (int i = startXCol - 1; i >= 0; i--) {
+        canMove = true;
+        for (int i = startXCol - 1; i >= 0 && canMove; i--) {
             if (board[startYRow][i] == null) {
                 moves.add(new int[]{startYRow, i});
             } else if (board[startYRow][i].isWhite() != this.isWhite()) {
                 moves.add(new int[]{startYRow, i});
-                break;
+                canMove = false;
             } else {
-                break;
+                canMove = false;
             }
         }
 
         // Check moves to the bottom
-        for (int i = startYRow + 1; i < 8; i++) {
+        canMove = true;
+        for (int i = startYRow + 1; i < 8 && canMove; i++) {
             if (board[i][startXCol] == null) {
                 moves.add(new int[]{i, startXCol});
             } else if (board[i][startXCol].isWhite() != this.isWhite()) {
                 moves.add(new int[]{i, startXCol});
-                break;
+                canMove = false;
             } else {
-                break;
+                canMove = false;
             }
         }
 
         // Check moves to the top
-        for (int i = startYRow - 1; i >= 0; i--) {
+        canMove = true;
+        for (int i = startYRow - 1; i >= 0 && canMove; i--) {
             if (board[i][startXCol] == null) {
                 moves.add(new int[]{i, startXCol});
             } else if (board[i][startXCol].isWhite() != this.isWhite()) {
                 moves.add(new int[]{i, startXCol});
-                break;
+                canMove = false;
             } else {
-                break;
+                canMove = false;
             }
         }
 

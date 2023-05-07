@@ -11,17 +11,15 @@ public abstract class ChessPiece {
     protected Color color; // couleur de la pièce (blanc ou noir)
     private int row; // ligne actuelle de la pièce sur le plateau
     private int col; // colonne actuelle de la pièce sur le plateau
-    protected boolean hasMoved; // indique si le pion a déjà été déplacé ou non
+    private boolean captured;
 
-    private boolean captured = false;
     public ChessPiece(String name, Color color, int row , int col, boolean isWhiteTurn) {
         this.pieceName = name;
         this.color = color;
         this.row = row ;
         this.col = col ;
-        this.isWhiteTurn = isWhiteTurn;
         captured = false;
-        hasMoved = false;
+        this.isWhiteTurn = isWhiteTurn;
     }
 
     public boolean getWhiteTurn() {
@@ -55,20 +53,11 @@ public abstract class ChessPiece {
     public void setCaptured() {
         captured = true;
     }
-
     public boolean isWhite() {
         return this.getColor() == Color.WHITE;
     }
 
-    public boolean getHasMoved() {
-        return hasMoved;
-    }
-
-    public void setHasMoved(boolean hasMoved) {
-        this.hasMoved = hasMoved;
-    }
-
-    public abstract ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board);
+    public abstract ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board);
     /**
      * Vérifie si une pièce peut atteindre une case donnée sur le plateau.
      *
@@ -79,7 +68,7 @@ public abstract class ChessPiece {
      */
     public boolean canMove(int rowY, int colX, ChessPiece[][] board) {
 
-        ArrayList<int[]> moves = PossiblesMoves(rowY,colX,board);
+        ArrayList<int[]> moves = possiblesMoves(rowY,colX,board);
         // Vérifie si il a des mouvements valides
         return moves.size() != 0;
     }

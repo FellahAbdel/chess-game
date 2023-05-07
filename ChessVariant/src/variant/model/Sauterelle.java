@@ -31,7 +31,7 @@ public class Sauterelle extends ChessPiece {
     }
 
     @Override
-    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
+    public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> possibleMoves = new ArrayList<>();
 
         // Parcourir toutes les cases de la même ligne, colonne ou diagonale que la case de départ

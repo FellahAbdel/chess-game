@@ -7,14 +7,13 @@ public class King extends ChessPiece {
 
     public King(Color color, int row, int col, boolean isWhiteTurn) {
         super("King", color, row, col, isWhiteTurn);
-        hasMoved = false;
     }
 
     public King(ChessPiece piece) {
         super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
     }
 
-    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
+    public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
 
         // Check moves to the right
@@ -152,7 +151,7 @@ public class King extends ChessPiece {
                 if(!(piece instanceof King) )
                 {
                     if (piece != null && piece.isWhite() != isWhiteKing) {
-                        ArrayList<int[]> moves = piece.PossiblesMoves(row, col, board);
+                        ArrayList<int[]> moves = piece.possiblesMoves(row, col, board);
                         for (int[] move : moves) {
                             if (kingPos != null && move[0] == kingPos[0] && move[1] == kingPos[1]) {
                                 return true;

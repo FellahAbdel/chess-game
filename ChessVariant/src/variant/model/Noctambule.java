@@ -15,7 +15,7 @@ public class Noctambule extends ChessPiece {
     }
 
     @Override
-    public ArrayList<int[]> PossiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
+    public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> possibleMoves = new ArrayList<>();
 
         // Ajouter les cases diagonales accessibles pour prolonger le mouvement du cavalier
@@ -90,21 +90,6 @@ public class Noctambule extends ChessPiece {
      */
     public boolean isValidCaptureOrEmpty(int row, int col, ChessPiece[][] board) {
         return (board[row][col] == null || board[row][col].getColor() != this.getColor());
-    }
-
-    public static boolean isPathClear(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
-        // Calculate the direction of the move
-        int deltaY = Integer.compare(endYRow, startYRow);
-        int deltaX = Integer.compare(endXCol, startXCol);
-
-        // Check all squares between the start and end squares, excluding the start and end squares
-        for (int i = startYRow + deltaY, j = startXCol + deltaX; i != endYRow || j != endXCol; i += deltaY, j += deltaX) {
-            if (board[i][j] != null) {
-                return false; // There is an obstacle on the path
-            }
-        }
-
-        return true; // The path is clear
     }
 
 }
