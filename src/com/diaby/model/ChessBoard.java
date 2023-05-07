@@ -152,15 +152,15 @@ public class ChessBoard {
 
     }
 
-    public boolean movePiece(int startRow, int startCol, int endRow, int endCol) {
+    public void movePiece(int startRow, int startCol, int endRow, int endCol) {
         ChessPiece startPiece = getPieceAt(startRow, startCol);
         ChessPiece endPiece = getPieceAt(endRow, endCol);
 
         if (startPiece == null) {
-            return false;
+            return ;
         }
         if (endPiece != null && endPiece.getColor() == startPiece.getColor()) {
-            return false;
+            return ;
         }
 
         // capture en passant
@@ -180,7 +180,6 @@ public class ChessBoard {
             }
         }
 
-
         move(startRow, startCol, endRow, endCol);
 
         if (startPiece instanceof Pawn && Math.abs(startRow - endRow) == 2) {
@@ -193,7 +192,6 @@ public class ChessBoard {
         } else if (startPiece instanceof Rook) {
             ((Rook) startPiece).setHasMoved(true);
         }
-        return true;
     }
 
 }
