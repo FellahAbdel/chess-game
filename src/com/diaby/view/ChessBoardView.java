@@ -251,6 +251,9 @@ public class ChessBoardView extends JFrame implements MouseListener {
             // On passe au joueur suivant que si et seulement si le joueur courant a fini son mouvement.
             isWhiteTurn = sourcePiece.getColor() != Color.WHITE;
 
+            // exple : si le joueur blanc joue son coup , la variable boolean hasJustMoveDouble associé au pion noir
+            // sera mise à false grâce à la méthode resetBooleanPawn , cela permet à ce que si un coup en passant est possible
+            // qu'elle ne soit disponible qu'au prochain coup joué , si ce n'est le cas elle n'est plus disponible pour toujours .
             board.resetBooleanPawn(isWhiteTurn);
 
             if (RegleDuJeu.isADraw(isWhiteTurn, board)) {
