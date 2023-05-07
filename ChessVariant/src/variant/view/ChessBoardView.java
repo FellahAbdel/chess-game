@@ -208,7 +208,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
         if (selectedPiece != null && !board.highLightCase[rowY][colX] && selectedPiece.isWhite() == isWhiteTurn) { // Premier clic pour sélectionner la pièce
             // On clique sur l'un des pions.
             // Liste des coordonnées possibles du joueur.
-            ArrayList<int[]> moves = selectedPiece.PossiblesMoves(rowY, colX, board.getTileBoard());
+            ArrayList<int[]> moves = selectedPiece.possiblesMoves(rowY, colX, board.getTileBoard());
             board.resetHighlight();
 
             // On met en evidence tous les mouvements possibles du joueur.
@@ -256,7 +256,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
             }
 
             if (RegleDuJeu.checkMate(isWhiteTurn, board.getTileBoard(), board)) {
-                JOptionPane.showMessageDialog(mainPanel, "Fin du jeu, échec et mat pour : " + isWhiteTurn);
+                JOptionPane.showMessageDialog(mainPanel, "Fin du jeu, échec et mat ");
                 dispose();
             }
         }
