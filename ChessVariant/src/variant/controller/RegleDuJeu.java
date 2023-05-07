@@ -33,7 +33,7 @@ public class RegleDuJeu {
         // Vérifie si le joueur est en échec et mat
         King roi = chess.getKing(isWhite);
 
-        return roi.isInCheck(roi.isWhite(), board) && roi.PossiblesMoves(roi.getRow(), roi.getCol(), board).isEmpty();
+        return roi.isInCheck(roi.isWhite(), board) && roi.possiblesMoves(roi.getRow(), roi.getCol(), board).isEmpty();
     }
 
 }
