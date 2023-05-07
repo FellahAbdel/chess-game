@@ -76,6 +76,9 @@ public class ChessBoardView extends JFrame implements MouseListener {
      */
     public void drawGrid() {
         JPanel square;
+        String filePath = "src/com/diaby/model/img/";
+        String fileName;
+        String pieceName;
         int index = 0;
         // Pour chaque case de la grille
         for (int row = 0; row < SIZE_ROW_BOARD; row++) {
@@ -87,13 +90,9 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
                 // Obtention de la piece sur la case et ajout d'une image dans un JLabel
                 ChessPiece piece = board.getPieceAt(row, col);
-                if (piece != null && piece.getColor() == Color.WHITE) {
-                    String fileName = "src/com/diaby/model/img/" + piece.getPieceName() + "_b.png";
-                    JLabel image = new JLabel(new ImageIcon(fileName));
-                    square.add(image);
-                }
-                else if (piece != null && piece.getColor() == Color.BLACK){
-                    String fileName = "src/com/diaby/model/img/" + piece.getPieceName() + "_n.png";
+                if (piece != null) {
+                    pieceName = piece.getPieceName();
+                    fileName = piece.isWhite() ? filePath + pieceName + "_b.png" : filePath + pieceName + "_n.png";
                     JLabel image = new JLabel(new ImageIcon(fileName));
                     square.add(image);
                 }
@@ -107,6 +106,16 @@ public class ChessBoardView extends JFrame implements MouseListener {
         }
     }
 
+    /**
+     * Promouvoir le pion sélectionné en une autre pièce.
+     *
+     * @param promotionDialog La boîte de dialogue de promotion.
+     * @param pawn Le pion à promouvoir.
+     * @param rowY La rangée Y où se trouve le pion.
+     * @param colX La colonne X où se trouve le pion.
+     * @param pieceType Le type de pièce auquel promouvoir le pion (Reine, Tour, Fou, Cavalier).
+     * @param imageName Le nom du fichier image à utiliser pour représenter la nouvelle pièce.
+     */
     private void promoteInto(JDialog promotionDialog, Pawn pawn, int rowY, int colX, String pieceType, String imageName){
         pawn.promotePawn(pawn, rowY, colX, pieceType, board.getTileBoard());
         promotionDialog.dispose();
@@ -118,7 +127,13 @@ public class ChessBoardView extends JFrame implements MouseListener {
         promotionSquare.revalidate();
     }
 
-
+    /**
+     * Affiche la boîte de dialogue de promotion et ajoute les boutons pour chaque type de promotion.
+     * Cette méthode est appelée lorsqu'un pion atteint l'autre extrémité du plateau.
+     * @param selectedPiece La pièce sélectionnée à promouvoir.
+     * @param rowY La ligne y sur laquelle le pion est promu.
+     * @param colX La colonne x sur lequel le pion est promu.
+     */
     private void promotionView(ChessPiece selectedPiece, int rowY, int colX){
         // Ouvre la boîte de dialogue de promotion
         JDialog promotionDialog = new JDialog();
@@ -191,6 +206,12 @@ public class ChessBoardView extends JFrame implements MouseListener {
 
     }
 
+    /**
+     * Supprime une case de l'interface graphique à partir de ses coordonnées (rangée, colonne).
+     *
+     * @param rowY la rangée de la case à supprimer
+     * @param colX la colonne de la case à supprimer
+     */
     public void removeSquare(int rowY, int colX)
     {
         JPanel squareToRemove = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
@@ -198,6 +219,12 @@ public class ChessBoardView extends JFrame implements MouseListener {
         squareToRemove.repaint();
         squareToRemove.revalidate();
     }
+
+    /**
+     * Capture du bouton presse du pointeur sur la fenêtre graphique
+     *
+     * @param e événement pointeur presse
+     */
     public void mousePressed(MouseEvent e) {
         // Conversion de la position cliquée en position de la grille
         int colX = e.getX() / (ChessBoardView.SIZE_CASE_X);
@@ -276,6 +303,9 @@ public class ChessBoardView extends JFrame implements MouseListener {
         // On efface l'évidence.
     }
 
+    /**
+     * Crée une fenêtre graphique correspondant au damier et l'affiche.
+     */
     public void displayBoard(){
         // Définir et afficher la fenêtre graphique correspondant au damier
         JFrame frame = new ChessBoardView(whitePiecesAtBottom);

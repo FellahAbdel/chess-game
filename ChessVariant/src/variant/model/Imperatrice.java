@@ -3,18 +3,44 @@ package variant.model;
 import java.awt.*;
 import java.util.ArrayList;
 
-
+/**
+ * Classe représentant une pièce d'échecs de type Impératrice.
+ * Elle étend la classe ChessPiece et redéfinit la méthode possiblesMoves() pour calculer les déplacements possibles
+ * pour une Impératrice.
+ */
 public class Imperatrice extends ChessPiece {
 
-    public Imperatrice(Color color, int row, int col,boolean isWhiteTurn) {
-        super("Imperatrice", color, row, col, isWhiteTurn);
+    /**
+     * Constructeur pour créer une nouvelle pièce de type Impératrice.
+     *
+     * @param color                 la couleur de la pièce
+     * @param row                   la ligne sur laquelle la pièce se trouve
+     * @param col                   la colonne sur laquelle la pièce se trouve
+     * @param whitePiecesAtBottom   true si c'est au tour des blancs de jouer, false sinon
+     */
+    public Imperatrice(Color color, int row, int col,boolean whitePiecesAtBottom) {
+        super("Imperatrice", color, row, col, whitePiecesAtBottom);
     }
 
+    /**
+     * Constructeur pour créer une nouvelle impératrice en copiant une autre pièce d'échecs.
+     *
+     * @param piece La pièce d'échecs à copier
+     */
     public Imperatrice(ChessPiece piece) {
         super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhitePiecesAtBottom());
 
     }
 
+    /**
+     * Retourne la liste de tous les déplacements possibles pour l'impératrice à partir de sa position actuelle
+     * sur l'échiquier.
+     *
+     * @param startYRow La ligne de l'impératrice sur l'échiquier (de 0 à 7)
+     * @param startXCol La colonne de l'impératrice sur l'échiquier (de 0 à 11)
+     * @param board     L'échiquier actuel représenté par une matrice de ChessPiece
+     * @return Une liste d'entiers représentant les positions (ligne, colonne) des cases où l'impératrice peut se déplacer.
+     */
     @Override
     public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
@@ -73,7 +99,8 @@ public class Imperatrice extends ChessPiece {
         }
 
 
-        // Ajout des mouvements de la pièce comme un cavalier
+        // generate moves like Knight
+
         // Two steps up
         if(startYRow-2 >= 0){
             // One step to the left

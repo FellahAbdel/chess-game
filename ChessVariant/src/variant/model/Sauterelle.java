@@ -3,16 +3,44 @@ package variant.model;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Classe représentant une pièce d'échecs de type Sauterelle.
+ * Elle étend la classe ChessPiece et redéfinit la méthode possiblesMoves() pour calculer les déplacements possibles
+ * pour une Sauterelle.
+ */
 public class Sauterelle extends ChessPiece {
-    public Sauterelle(Color color, int row, int col,boolean isWhiteTurn) {
-        super("Sauterelle", color, row, col,isWhiteTurn);
+    /**
+     * Constructeur pour créer une nouvelle pièce de type Noctambule.
+     *
+     * @param color                 la couleur de la pièce
+     * @param row                   la ligne sur laquelle la pièce se trouve
+     * @param col                   la colonne sur laquelle la pièce se trouve
+     * @param whitePiecesAtBottom   true si c'est au tour des blancs de jouer, false sinon
+     */
+    public Sauterelle(Color color, int row, int col,boolean whitePiecesAtBottom) {
+        super("Sauterelle", color, row, col,whitePiecesAtBottom);
     }
 
+    /**
+     * Constructeur pour créer une nouvelle Noctambule en copiant une autre pièce d'échecs.
+     *
+     * @param piece La pièce d'échecs à copier
+     */
     public Sauterelle(ChessPiece piece) {
         super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhitePiecesAtBottom());
 
     }
 
+    /**
+     * Vérifie si le mouvement de la sauterelle est valide.
+     *
+     * @param startYRow ligne de la case de départ
+     * @param startXCol colonne de la case de départ
+     * @param endYRow ligne de la case de destination
+     * @param endXCol colonne de la case de destination
+     * @param board plateau de jeu
+     * @return true si le mouvement est valide, false sinon
+     */
     public boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
         // Vérifier si la case de destination est sur la même ligne, colonne ou diagonale que la case de départ
         if (startYRow == endYRow || startXCol == endXCol || Math.abs(startYRow - endYRow) == Math.abs(startXCol - endXCol)) {
@@ -30,6 +58,16 @@ public class Sauterelle extends ChessPiece {
         return false;
     }
 
+
+
+    /**
+     * Renvoie une liste de tous les mouvements possibles pour la sauterelle.
+     *
+     * @param startYRow ligne de la case de départ
+     * @param startXCol colonne de la case de départ
+     * @param board plateau de jeu
+     * @return une liste de tableaux d'entiers représentant les cases accessibles par la sauterelle
+     */
     @Override
     public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> possibleMoves = new ArrayList<>();
@@ -47,8 +85,14 @@ public class Sauterelle extends ChessPiece {
     }
 
     /**
-     * Vérifier si la case de destination est accessible en sautant par-dessus une autre pièce
-     */
+     * Vérifier si la case de destination est accessible en sautant par-dessus une autre pièce.
+     *
+     * @param startYRow ligne de la case de départ
+     * @param startXCol colonne de la case de départ
+     * @param endYRow ligne de la case de destination
+     * @param endXCol colonne de la case de destination
+     * @param board plateau de jeu
+    */
     private boolean isJumpingOver(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
         // Vérifier si la case de destination est adjacente à la case de départ
         if (Math.abs(startYRow - endYRow) <= 1 && Math.abs(startXCol - endXCol) <= 1) {
@@ -108,19 +152,38 @@ public class Sauterelle extends ChessPiece {
     }
 
     /**
-     * Vérifie si la position donnée est sur le plateau
+     * Vérifie si la position donnée est sur le plateau.
+     *
+     * @param row la ligne a vérifié.
+     * @param col la colonne a vérifié.
+     * @return true si la position donnée est sur le plateau, false sinon.
      */
     public boolean isOnBoard(int row, int col) {
         return (row >= 0 && col >= 0 && row < 8 && col < 12);
     }
 
     /**
-     * Vérifie si la position donnée est vide ou contient une pièce de couleur différente
+     * Vérifie si la position donnée est vide ou contient une pièce de couleur différente.
+     *
+     * @param row   la ligne a vérifié.
+     * @param col   la colonne a vérifié.
+     * @param board l'état actuel de l'échiquier.
+     * @return true si la position donnée est vide ou contient une pièce de couleur différente, false sinon.
      */
     public boolean isValidCaptureOrEmpty(int row, int col, ChessPiece[][] board) {
         return (board[row][col] == null || board[row][col].getColor() != this.getColor());
     }
 
+    /**
+     * Vérifie si le chemin entre deux cases sur un plateau d'échecs est libre.
+     *
+     * @param startYRow la rangée (numérotée de haut en bas) de la case de départ.
+     * @param startXCol la colonne (numérotée de gauche à droite) de la case de départ.
+     * @param endYRow la rangée (numérotée de haut en bas) de la case d'arrivée.
+     * @param endXCol la colonne (numérotée de gauche à droite) de la case d'arrivée.
+     * @param board un tableau de pièces d'échecs représentant l'état actuel du plateau.
+     * @return true si le chemin entre les cases est libre, false sinon.
+     */
     public static boolean isPathClear(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board) {
         // Calculate the direction of the move
         int deltaY = Integer.compare(endYRow, startYRow);

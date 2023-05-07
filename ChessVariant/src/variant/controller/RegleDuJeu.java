@@ -4,8 +4,18 @@ import variant.model.ChessBoard;
 import variant.model.ChessPiece;
 import variant.model.King;
 
+/**
+ * Classe en charge des méthodes permettant d'arrêter le jeu.
+ */
 public class RegleDuJeu {
 
+    /**
+     * Renvoie true si c'est un pat, false sinon
+     *
+     * @param isWhite   true si c'est un pion blanc et false sinon
+     * @param board     L'échiquier actuel représenté par une matrice de ChessPiece
+     * @return true si c'est un pat et false sinon
+     */
     public static boolean draw(boolean isWhite, ChessBoard board) {
         King king = board.getKing(isWhite);
         // Vérifie si le roi est en échec
@@ -29,6 +39,14 @@ public class RegleDuJeu {
         return true;
     }
 
+    /**
+     * Renvoie true si c'est un échec et mat, false sinon
+     *
+     * @param isWhite   true si c'est un pion blanc et false sinon
+     * @param board     L'échiquier actuel représenté par une matrice de ChessPiece
+     * @param chess     instance de la classe ChessBoard
+     * @return true si c'est un échec et mat, false sinon
+     */
     public static boolean checkMate(boolean isWhite, ChessPiece[][] board, ChessBoard chess) {
         // Vérifie si le joueur est en échec et mat
         King roi = chess.getKing(isWhite);
