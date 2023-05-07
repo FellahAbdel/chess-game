@@ -49,9 +49,7 @@ public class Sauterelle extends ChessPiece {
                 // Vérifier si la trajectoire est dégagée (pas de pièce entre la case de départ et d'arrivée)
                 if (isPathClear(startYRow, startXCol, endYRow, endXCol, board)) {
                     // Vérifier si la case de destination est accessible en sautant par-dessus une autre pièce
-                    if (isJumpingOver(startYRow, startXCol, endYRow, endXCol, board)) {
-                        return true;
-                    }
+                    return isJumpingOver(startYRow, startXCol, endYRow, endXCol, board);
                 }
             }
         }
