@@ -213,14 +213,14 @@ public class ChessBoardView extends JFrame implements MouseListener {
             // C'est là qu'on fait les tests de déplacements.
             int sourceRow = sourcePiece.getRow();
             int sourceCol = sourcePiece.getCol();
-            removeSquare(sourceRow, sourceCol);
+
             // Verification pour la prise en passant.
-            if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null) {
+            if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null ) {
                 int capturedPieceRow = !sourcePiece.isWhite() ? rowY - 1 : rowY + 1;
                 removeSquare(capturedPieceRow, colX);
             }
             // Verification pour la prise en passant.
-            if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null) {
+            if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece == null ) {
                 int capturedPieceRow = sourcePiece.isWhite() ? rowY - 1 : rowY + 1;
                 removeSquare(capturedPieceRow, colX);
             }
@@ -234,7 +234,7 @@ public class ChessBoardView extends JFrame implements MouseListener {
                 // on peut roquer. (Aussi le roi n'est pas en position d'échec)
                 // Roque court.
                 if (colX > sourceCol) {
-                    this.castling(sourceRow, sourceCol, rowY, colX, 7, 5, 7);
+                    castling(sourceRow, sourceCol, rowY, colX, 7, 5, 7);
                 }// Roque long.
                 else if (colX < sourceCol) {
                     castling(sourceRow, sourceCol, rowY, colX, 0, 3, 0);
@@ -246,8 +246,12 @@ public class ChessBoardView extends JFrame implements MouseListener {
             }
 
             board.movePiece(sourceRow, sourceCol, rowY, colX);
+            removeSquare(sourceRow, sourceCol);
+
             // On passe au joueur suivant que si et seulement si le joueur courant a fini son mouvement.
             isWhiteTurn = sourcePiece.getColor() != Color.WHITE;
+
+            board.resetBooleanPawn(isWhiteTurn);
 
             if (RegleDuJeu.isADraw(isWhiteTurn, board)) {
                 JOptionPane.showMessageDialog(mainPanel, "Fin du jeu c'est un pat");
