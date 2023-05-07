@@ -10,7 +10,7 @@ public class Noctambule extends ChessPiece {
     }
 
     public Noctambule(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(),piece.getWhiteTurn());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(),piece.getWhite_pieces_at_bottom());
 
     }
 

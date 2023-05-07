@@ -9,7 +9,7 @@ public class Queen extends ChessPiece {
     }
 
     public Queen(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhite_pieces_at_bottom());
 
     }
 

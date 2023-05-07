@@ -6,24 +6,24 @@ import java.util.ArrayList;
 public abstract class ChessPiece {
     private String pieceName; // nom de la pièce
 
-    private boolean isWhiteTurn ;
+    private boolean white_pieces_at_bottom;
 
     protected Color color; // couleur de la pièce (blanc ou noir)
     private int row; // ligne actuelle de la pièce sur le plateau
     private int col; // colonne actuelle de la pièce sur le plateau
     private boolean captured;
 
-    public ChessPiece(String name, Color color, int row , int col, boolean isWhiteTurn) {
+    public ChessPiece(String name, Color color, int row , int col, boolean white_pieces_at_bottom) {
         this.pieceName = name;
         this.color = color;
         this.row = row ;
         this.col = col ;
         captured = false;
-        this.isWhiteTurn = isWhiteTurn;
+        this.white_pieces_at_bottom = white_pieces_at_bottom;
     }
 
-    public boolean getWhiteTurn() {
-        return isWhiteTurn;
+    public boolean getWhite_pieces_at_bottom() {
+        return white_pieces_at_bottom;
     }
 
     public String getPieceName (){
