@@ -59,19 +59,6 @@ public abstract class ChessPiece {
         return this.getColor() == Color.WHITE;
     }
 
-    /**
-     * Vérifie si le mouvement d'une pièce est valide.
-     *
-     * @param startYRow la position en x de la pièce avant le mouvement.
-     * @param startXCol la position en y de la pièce avant le mouvement.
-     * @param endXCol   la position en x de la pièce après le mouvement.
-     * @param endYRow   la position en y de la pièce après le mouvement.
-     * @param board     le tableau de pièces représentant l'état actuel du plateau.
-     * @return true si le mouvement est valide, false sinon.
-     */
-/*
-    public abstract boolean isValidMove(int startYRow, int startXCol, int endYRow, int endXCol, ChessPiece[][] board);
-*/
     public abstract ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board);
 
     /**
