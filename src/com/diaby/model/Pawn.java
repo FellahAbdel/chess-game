@@ -122,18 +122,18 @@ public class Pawn extends ChessPiece {
                 startYRow > 0 &&
                 board[startXCol][startYRow - 1] != null &&
                 board[startXCol][startYRow - 1].isWhite() == isWhite &&
-                ((Pawn)board[startXCol][startYRow + 1]).getHasJustMoveDouble() &&
                 board[startXCol + 1][startYRow - 1] == null &&
-                board[startXCol][startYRow - 1] instanceof Pawn) {
+                board[startXCol][startYRow - 1] instanceof Pawn &&
+                ((Pawn)board[startXCol][startYRow + 1]).getHasJustMoveDouble()) {
             moves.add(new int[]{startXCol + 1, startYRow - 1});
         }
         if (startXCol == 4 &&
                 startYRow < 7 &&
                 board[startXCol][startYRow + 1] != null &&
                 board[startXCol][startYRow + 1].isWhite() == isWhite &&
-                ((Pawn)board[startXCol][startYRow + 1]).getHasJustMoveDouble() &&
                 board[startXCol + 1][startYRow + 1] == null &&
-                board[startXCol][startYRow + 1] instanceof Pawn) {
+                board[startXCol][startYRow + 1] instanceof Pawn &&
+                ((Pawn)board[startXCol][startYRow + 1]).getHasJustMoveDouble()) {
             moves.add(new int[]{startXCol + 1, startYRow + 1});
         }
     }
@@ -170,17 +170,17 @@ public class Pawn extends ChessPiece {
         if (startXCol == 3 && startYRow > 0 &&
                 board[startXCol][startYRow - 1] != null &&
                 board[startXCol][startYRow - 1].isWhite() == isWhite &&
-                ((Pawn)board[startXCol][startYRow - 1]).getHasJustMoveDouble() &&
                 board[startXCol - 1][startYRow - 1] == null &&
-                board[startXCol][startYRow - 1] instanceof Pawn) {
+                board[startXCol][startYRow - 1] instanceof Pawn &&
+                ((Pawn)board[startXCol][startYRow - 1]).getHasJustMoveDouble() ) {
             moves.add(new int[]{startXCol - 1, startYRow - 1});
         }
         if (startXCol == 3 && startYRow < 7 &&
                 board[startXCol][startYRow + 1] != null &&
                 board[startXCol][startYRow + 1].isWhite() == isWhite &&
-                ((Pawn)board[startXCol][startYRow + 1]).getHasJustMoveDouble() &&
                 board[startXCol - 1][startYRow + 1] == null &&
-                board[startXCol][startYRow + 1] instanceof Pawn) {
+                board[startXCol][startYRow + 1] instanceof Pawn &&
+                ((Pawn)board[startXCol][startYRow + 1]).getHasJustMoveDouble()) {
             moves.add(new int[]{startXCol - 1, startYRow + 1});
         }
     }
