@@ -11,14 +11,14 @@ import java.awt.event.MouseListener;
 
 public class Player extends JFrame implements MouseListener {
 
-    private boolean isWhiteTurn;
+    private boolean white_pieces_at_bottom;
     private ChessBoardView chessBoardView ;
     private GameController game;
 
     private JButton playButton;
 
     public Player() {
-        isWhiteTurn = false;
+        white_pieces_at_bottom = false;
     }
 
     public void createAndShowGUI() {
@@ -44,7 +44,7 @@ public class Player extends JFrame implements MouseListener {
         playButton.setPreferredSize(new Dimension(120, 40)); // Sets the button size
         playButton.addActionListener(e -> {
             dispose();
-            chessBoardView = new ChessBoardView(isWhiteTurn);
+            chessBoardView = new ChessBoardView(white_pieces_at_bottom);
             game = new GameController(chessBoardView);
             game.startGame();
         });
@@ -74,10 +74,10 @@ public class Player extends JFrame implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         JButton button = (JButton) e.getSource();
         if (button.getName().equals("white")) {
-            isWhiteTurn = true;
+            white_pieces_at_bottom = true;
         }
         if (button.getName().equals("black")) {
-            isWhiteTurn = false;
+            white_pieces_at_bottom = false;
         }
 
         playButton.setEnabled(true);
