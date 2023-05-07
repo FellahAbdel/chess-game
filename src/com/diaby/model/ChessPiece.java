@@ -10,17 +10,17 @@ public abstract class ChessPiece {
     private int row; // ligne actuelle de la pièce sur le plateau
     private int col; // colonne actuelle de la pièce sur le plateau
 
-    private boolean white_pieces_at_bottom;
+    private boolean whitePiecesAtBottom;
 
     private boolean captured;
 
-    public ChessPiece(String name, Color color, int row, int col, boolean white_pieces_at_bottom) {
+    public ChessPiece(String name, Color color, int row, int col, boolean whitePiecesAtBottom) {
         this.pieceName = name;
         this.color = color;
         this.row = row;
         this.col = col;
         this.captured = false;
-        this.white_pieces_at_bottom = white_pieces_at_bottom;
+        this.whitePiecesAtBottom = whitePiecesAtBottom;
     }
 
     /**
@@ -28,8 +28,8 @@ public abstract class ChessPiece {
      *
      * @return boolean true si c'est le tour des blancs, false si c'est le tour des noirs.
      */
-    public boolean getWhite_pieces_at_bottom() {
-        return white_pieces_at_bottom;
+    public boolean getWhitePiecesAtBottom() {
+        return whitePiecesAtBottom;
     }
 
     /**

@@ -9,14 +9,14 @@ import javax.swing.*;
 
 public class Player extends JFrame implements MouseListener {
 
-    private boolean white_pieces_at_bottom;
+    private boolean whitePiecesAtBottom;
     private ChessBoardView chessBoardView ;
     private GameController game;
 
     private JButton playButton;
 
     public Player() {
-        white_pieces_at_bottom = false;
+        whitePiecesAtBottom = false;
     }
 
     public void createAndShowGUI() {
@@ -42,7 +42,7 @@ public class Player extends JFrame implements MouseListener {
         playButton.setPreferredSize(new Dimension(120, 40)); // Sets the button size
         playButton.addActionListener(e -> {
             dispose();
-            chessBoardView = new ChessBoardView(white_pieces_at_bottom);
+            chessBoardView = new ChessBoardView(whitePiecesAtBottom);
             game = new GameController(chessBoardView);
             game.startGame();
         });
@@ -72,10 +72,10 @@ public class Player extends JFrame implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         JButton button = (JButton) e.getSource();
         if (button.getName().equals("white")) {
-            white_pieces_at_bottom = true;
+            whitePiecesAtBottom = true;
         }
         if (button.getName().equals("black")) {
-            white_pieces_at_bottom = false;
+            whitePiecesAtBottom = false;
         }
         playButton.setEnabled(true);
     }
