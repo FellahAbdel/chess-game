@@ -13,7 +13,7 @@ public class King extends ChessPiece {
     }
 
     public King(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhite_pieces_at_bottom());
     }
 
     public boolean getHasMoved() {
@@ -22,10 +22,6 @@ public class King extends ChessPiece {
 
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
-    }
-
-    private boolean isValidPosition(int x, int y) {
-        return x >= 0 && x < 8 && y >= 0 && y < 8;
     }
 
     public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {

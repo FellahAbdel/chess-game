@@ -30,7 +30,7 @@ public class Rook extends ChessPiece {
      * @param piece La pièce d'échecs à copier
      */
     public Rook(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhite_pieces_at_bottom());
     }
 
     /**

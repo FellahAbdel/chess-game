@@ -212,7 +212,7 @@ public class ChessBoard {
         ChessPiece startPiece = getPieceAt(startRow, startCol);
         ChessPiece endPiece = getPieceAt(endRow, endCol);
         if (endPiece != null && (endPiece.getColor() != startPiece.getColor())) {
-            endPiece.setCaptured();
+            endPiece.setCaptured(true);
             removePieceAt(endRow, endCol);
         }
         setPieceAt(endRow, endCol, startPiece);
@@ -243,18 +243,18 @@ public class ChessBoard {
         }
 
         // capture en passant
-        if (!startPiece.getWhiteTurn()) {
+        if (!startPiece.getWhite_pieces_at_bottom()) {
             if (startPiece instanceof Pawn && endCol != startCol && endPiece == null) {
                 int capturedPieceRow = startPiece.isWhite() ? endRow - 1 : endRow + 1;
                 ChessPiece capturedPiece = getPieceAt(capturedPieceRow, endCol);
-                capturedPiece.setCaptured();
+                capturedPiece.setCaptured(true);
                 removePieceAt(capturedPieceRow, endCol);
             }
         } else {
             if (startPiece instanceof Pawn && endCol != startCol && endPiece == null) {
                 int capturedPieceRow = !startPiece.isWhite() ? endRow - 1 : endRow + 1;
                 ChessPiece capturedPiece = getPieceAt(capturedPieceRow, endCol);
-                capturedPiece.setCaptured();
+                capturedPiece.setCaptured(true);
                 removePieceAt(capturedPieceRow, endCol);
             }
         }

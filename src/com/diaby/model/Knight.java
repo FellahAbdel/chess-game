@@ -10,7 +10,7 @@ public class Knight extends ChessPiece {
     }
 
     public Knight(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhite_pieces_at_bottom());
     }
 
     public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
