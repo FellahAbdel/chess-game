@@ -52,7 +52,16 @@ public class Pawn extends ChessPiece {
         this.hasJustMoveDouble = hasJustMoveDouble;
     }
 
-
+    /**
+     * Promeut un pion en une autre pièce d'échecs.
+     *
+     * @param pawn      le pion à promouvoir.
+     * @param row       la ligne sur laquelle se trouve le pion à promouvoir.
+     * @param col       la colonne sur laquelle se trouve le pion à promouvoir.
+     * @param pieceType le type de pièce en laquelle le pion doit être promu ("Queen", "Rook", "Bishop" ou "Knight").
+     * @param board     le tableau de jeu de l'échiquier sur lequel la pièce sera placée.
+     * @throws IllegalArgumentException si le type de pièce n'est pas valide.
+     */
     public void promotePawn(Pawn pawn, int row, int col, String pieceType, ChessPiece[][] board) {
         Color color = pawn.getColor();
         ChessPiece newPiece;
@@ -75,7 +84,15 @@ public class Pawn extends ChessPiece {
         board[row][col] = newPiece;
     }
 
-
+    /**
+     * Ajoute les mouvements possibles d'un pion à une liste donnée en fonction de la position actuelle sur le plateau de jeu.
+     *
+     * @param startXCol indice de la colonne de départ du pion
+     * @param startYRow indice de la ligne départ du pion
+     * @param board     état actuel de l'échiquier
+     * @param moves     un ArrayList pour stocker les mouvements légaux du pion
+     * @param isWhite   une valeur booléenne indiquant si le pion est blanc ou noir
+     */
     private void descent(int startXCol, int startYRow, ChessPiece[][] board, ArrayList<int[]> moves, Boolean
             isWhite) {
 
@@ -121,6 +138,14 @@ public class Pawn extends ChessPiece {
         }
     }
 
+    /**
+     * Ajoute les mouvements possibles d'un pion à une liste donnée en fonction de la position actuelle sur le plateau de jeu.
+     * @param startXCol la colonne de la position actuelle du pion
+     * @param startYRow la rangée de la position actuelle du pion
+     * @param board le plateau de jeu actuel
+     * @param moves la liste des mouvements possibles
+     * @param isWhite la couleur du joueur qui possède le pion (true si blanc, false si noir).
+     */
     private void climb(int startXCol, int startYRow, ChessPiece[][] board, ArrayList<int[]> moves, Boolean isWhite) {
         if (startXCol > 0 && board[startXCol - 1][startYRow] == null) {
             moves.add(new int[]{startXCol - 1, startYRow});
@@ -160,6 +185,15 @@ public class Pawn extends ChessPiece {
         }
     }
 
+    /**
+     * Cette méthode calcule tous les mouvements possibles pour une pièce de jeu d'échecs à partir de sa position actuelle sur le plateau.
+     * @param startXCol la colonne de départ de la pièce
+     * @param startYRow la ligne de départ de la pièce
+     * @param board le plateau de jeu d'échecs actuel
+     * @param moves la liste des mouvements possibles de la pièce
+     * @param whiteTurn un booléen qui indique si c'est au tour des blancs de jouer
+     * @return une liste de tableaux d'entiers représentant les coordonnées des cases où la pièce peut se déplacer
+     */
     private ArrayList<int[]> possiblesMovesTurn(int startXCol, int startYRow, ChessPiece[][] board,
                                                ArrayList<int[]> moves, Boolean whiteTurn) {
         if (whiteTurn) {
