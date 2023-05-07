@@ -13,7 +13,22 @@ public class Bishop extends ChessPiece {
         super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhiteTurn());
     }
 
-    //    @Override
+    /**
+     * Renvoie une liste de tous les mouvements possibles qu'un fou peut faire sur un échiquier donné à partir de sa
+     * position actuelle.
+     * Le fou peut se déplacer en diagonale dans n'importe quelle direction jusqu'à ce qu'il atteigne la fin de
+     * l'échiquier ou une obstruction.
+     * Si le fou rencontre une obstruction, il peut capturer la pièce obstruant si elle est de couleur opposée.
+     *
+     * @param startYRow La coordonnée y de départ (rangée) du fou.
+     * @param startXCol La coordonnée x de départ (colonne) du fou.
+     * @param board     L'échiquier sur lequel le fou est placé.
+     * @return Une ArrayList de tableaux d'entiers, où chaque tableau d'entiers représente un mouvement possible pour
+     * le fou.
+     * Chaque tableau d'entiers contient deux entiers : la coordonnée y (rangée) et la coordonnée x (colonne) de la
+     * case de destination.
+     */
+    @Override
     public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
         boolean canMove = true;
