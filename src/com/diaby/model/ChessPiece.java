@@ -112,7 +112,7 @@ public abstract class ChessPiece {
      * @param startYRow le numéro de ligne de départ de la pièce.
      * @param startXCol le numéro de colonne de départ de la pièce.
      * @param board     le plateau de jeu.
-     * @return ArrayList<int [ ]> une liste des coordonnées des cases où la pièce peut se déplacer.
+     * @return une liste des coordonnées des cases où la pièce peut se déplacer.
      */
     public abstract ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board);
 
