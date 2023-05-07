@@ -19,11 +19,15 @@ public class Knight extends ChessPiece {
         if (startYRow - 2 >= 0) {
             // One step to the left
 
-            if (startXCol - 1 >= 0 && (board[startYRow - 2][startXCol - 1] == null || board[startYRow - 2][startXCol - 1].isWhite() != this.isWhite())) {
+            if (startXCol - 1 >= 0 &&
+                    (board[startYRow - 2][startXCol - 1] == null ||
+                            board[startYRow - 2][startXCol - 1].isWhite() != this.isWhite())) {
                 moves.add(new int[]{startYRow - 2, startXCol - 1});
             }
             // One step to the right
-            if (startXCol + 1 < 8 && (board[startYRow - 2][startXCol + 1] == null || board[startYRow - 2][startXCol + 1].isWhite() != this.isWhite())) {
+            if (startXCol + 1 < 8 &&
+                    (board[startYRow - 2][startXCol + 1] == null ||
+                            board[startYRow - 2][startXCol + 1].isWhite() != this.isWhite())) {
                 moves.add(new int[]{startYRow - 2, startXCol + 1});
             }
         }
@@ -31,11 +35,15 @@ public class Knight extends ChessPiece {
         // Two steps down
         if (startYRow + 2 < 8) {
             // One step to the left
-            if (startXCol - 1 >= 0 && (board[startYRow + 2][startXCol - 1] == null || board[startYRow + 2][startXCol - 1].isWhite() != this.isWhite())) {
+            if (startXCol - 1 >= 0 &&
+                    (board[startYRow + 2][startXCol - 1] == null ||
+                            board[startYRow + 2][startXCol - 1].isWhite() != this.isWhite())) {
                 moves.add(new int[]{startYRow + 2, startXCol - 1});
             }
             // One step to the right
-            if (startXCol + 1 < 8 && (board[startYRow + 2][startXCol + 1] == null || board[startYRow + 2][startXCol + 1].isWhite() != this.isWhite())) {
+            if (startXCol + 1 < 8 &&
+                    (board[startYRow + 2][startXCol + 1] == null ||
+                            board[startYRow + 2][startXCol + 1].isWhite() != this.isWhite())) {
                 moves.add(new int[]{startYRow + 2, startXCol + 1});
             }
         }
@@ -43,11 +51,15 @@ public class Knight extends ChessPiece {
         // Two steps to the left
         if (startXCol - 2 >= 0) {
             // One step up
-            if (startYRow - 1 >= 0 && (board[startYRow - 1][startXCol - 2] == null || board[startYRow - 1][startXCol - 2].isWhite() != this.isWhite())) {
+            if (startYRow - 1 >= 0 &&
+                    (board[startYRow - 1][startXCol - 2] == null ||
+                            board[startYRow - 1][startXCol - 2].isWhite() != this.isWhite())) {
                 moves.add(new int[]{startYRow - 1, startXCol - 2});
             }
             // One step down
-            if (startYRow + 1 < 8 && (board[startYRow + 1][startXCol - 2] == null || board[startYRow + 1][startXCol - 2].isWhite() != this.isWhite())) {
+            if (startYRow + 1 < 8 &&
+                    (board[startYRow + 1][startXCol - 2] == null ||
+                            board[startYRow + 1][startXCol - 2].isWhite() != this.isWhite())) {
                 moves.add(new int[]{startYRow + 1, startXCol - 2});
             }
         }
@@ -55,11 +67,15 @@ public class Knight extends ChessPiece {
         // Two steps to the right
         if (startXCol + 2 < 8) {
             // One step up
-            if (startYRow - 1 >= 0 && (board[startYRow - 1][startXCol + 2] == null || board[startYRow - 1][startXCol + 2].isWhite() != this.isWhite())) {
+            if (startYRow - 1 >= 0 &&
+                    (board[startYRow - 1][startXCol + 2] == null ||
+                            board[startYRow - 1][startXCol + 2].isWhite() != this.isWhite())) {
                 moves.add(new int[]{startYRow - 1, startXCol + 2});
             }
             // One step down
-            if (startYRow + 1 < 8 && (board[startYRow + 1][startXCol + 2] == null || board[startYRow + 1][startXCol + 2].isWhite() != this.isWhite())) {
+            if (startYRow + 1 < 8 &&
+                    (board[startYRow + 1][startXCol + 2] == null ||
+                            board[startYRow + 1][startXCol + 2].isWhite() != this.isWhite())) {
                 moves.add(new int[]{startYRow + 1, startXCol + 2});
             }
         }
