@@ -3,25 +3,55 @@ package com.diaby.model;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Classe représentant une pièce d'échecs de type Pawn (Pion).
+ * Elle étend la classe ChessPiece et redéfinit la méthode possiblesMoves() pour calculer les déplacements possibles
+ * pour un Pion.
+ */
 public class Pawn extends ChessPiece {
 
     private boolean hasJustMoveDouble;
-    public Pawn(Color color, int row, int col, boolean isWhiteTurn) {
-        super("Pawn", color, row, col, isWhiteTurn);
+
+    /**
+     * Constructeur pour créer une nouvelle pièce de type Rook.
+     *
+     * @param color                 la couleur de la pièce
+     * @param row                   la ligne sur laquelle la pièce se trouve
+     * @param col                   la colonne sur laquelle la pièce se trouve
+     * @param whitePiecesAtBottom   true si c'est au tour des blancs de jouer, false sinon
+     */
+    public Pawn(Color color, int row, int col, boolean whitePiecesAtBottom) {
+        super("Pawn", color, row, col, whitePiecesAtBottom);
         hasJustMoveDouble = false;
     }
 
+    /**
+     * Constructeur pour créer un nouveau pion en copiant une autre pièce d'échecs.
+     *
+     * @param piece La pièce d'échecs à copier
+     */
+    public Pawn(ChessPiece piece) {
+        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhitePiecesAtBottom());
+    }
+
+    /**
+     * Retourne un booléen indiquant si le pion a déjà bougé depuis le début de la partie de deux cases.
+     *
+     * @return True si le pion a déjà bougé de deux cases, False sinon.
+     */
     public boolean getHasJustMoveDouble() {
         return hasJustMoveDouble;
     }
 
+    /**
+     * Modifie le booléen qui indique si la tour a déjà bougé depuis le début de la partie de deux cases.
+     *
+     * @param hasJustMoveDouble True si le pion a bougé de deux cases, False sinon.
+     */
     public void setHasJustMoveDouble(boolean hasJustMoveDouble) {
         this.hasJustMoveDouble = hasJustMoveDouble;
     }
 
-    public Pawn(ChessPiece piece) {
-        super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhitePiecesAtBottom());
-    }
 
     public void promotePawn(Pawn pawn, int row, int col, String pieceType, ChessPiece[][] board) {
         Color color = pawn.getColor();
@@ -148,6 +178,16 @@ public class Pawn extends ChessPiece {
 
         return moves;
     }
+
+    /**
+     * Retourne la liste de tous les déplacements possibles pour le pion à partir de sa position actuelle
+     * sur l'échiquier.
+     *
+     * @param startYRow La ligne du pion sur l'échiquier (de 0 à 7)
+     * @param startXCol La colonne du pion sur l'échiquier (de 0 à 7)
+     * @param board     L'échiquier actuel représenté par une matrice de ChessPiece
+     * @return Une liste d'entiers représentant les positions (ligne, colonne) des cases où la tour peut se déplacer.
+     */
     @Override
     public ArrayList<int[]> possiblesMoves(int startXCol, int startYRow, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();

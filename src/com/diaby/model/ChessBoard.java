@@ -115,7 +115,7 @@ public class ChessBoard {
      *
      * @param row   la rangée où placer la pièce.
      * @param col   la colonne où placer la pièce.
-     * @param piece la pièce à placer.
+     * @param piece la pièce a placé.
      */
     public void setPieceAt(int row, int col, ChessPiece piece) {
         tileBoard[row][col] = piece;

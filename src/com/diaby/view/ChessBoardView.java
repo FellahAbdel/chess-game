@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 /**
- * Fenêtre graphique (classe héritant de JFrame) qui reagit au clic de souris (implements MouseListener)
+ * Fenêtre graphique (classe héritant de JFrame) qui réagit au clic de souris (implements MouseListener)
  * qui affiche le damier, qui permet de sélectionner/déplacer des pieces d'échec
  */
 public class ChessBoardView extends JFrame implements MouseListener {
@@ -102,6 +102,17 @@ public class ChessBoardView extends JFrame implements MouseListener {
         }
     }
 
+    /**
+     * Promouvoir le pion sélectionné en une autre pièce.
+     *
+     * @param promotionDialog La boîte de dialogue de promotion.
+     * @param pawn Le pion à promouvoir.
+     * @param rowY La rangée Y où se trouve le pion.
+     * @param colX La colonne X où se trouve le pion.
+     * @param pieceType Le type de pièce auquel promouvoir le pion (Reine, Tour, Fou, Cavalier).
+     * @param imageName Le nom du fichier image à utiliser pour représenter la nouvelle pièce.
+     */
+
     private void promoteInto(JDialog promotionDialog, Pawn pawn, int rowY, int colX, String pieceType,
                              String imageName) {
         pawn.promotePawn(pawn, rowY, colX, pieceType, board.getTileBoard());
@@ -114,6 +125,13 @@ public class ChessBoardView extends JFrame implements MouseListener {
         promotionSquare.revalidate();
     }
 
+    /**
+     * Affiche la boîte de dialogue de promotion et ajoute les boutons pour chaque type de promotion.
+     * Cette méthode est appelée lorsqu'un pion atteint l'autre extrémité du plateau.
+     * @param selectedPiece La pièce sélectionnée à promouvoir.
+     * @param rowY La ligne y sur laquelle le pion est promu.
+     * @param colX La colonne x sur lequel le pion est promu.
+     */
     private void promotionView(ChessPiece selectedPiece, int rowY, int colX) {
         // Ouvre la boîte de dialogue de promotion
         JDialog promotionDialog = new JDialog();
@@ -162,6 +180,18 @@ public class ChessBoardView extends JFrame implements MouseListener {
         board.movePiece(selectedPiece.getRow(), selectedPiece.getCol(), rowY, colX);
     }
 
+    /**
+     * Effectue le roque dans le jeu d'échecs. Déplace la tour à la colonne finale du roi et le roi à sa nouvelle position.
+     * Met à jour l'interface graphique en supprimant les cases correspondant à la position initiale de la tour et du roi.
+     *
+     * @param sourceRow la rangée de départ du roi et de la tour
+     * @param sourceCol la colonne de départ du roi et de la tour
+     * @param rowY la rangée d'arrivée du roi
+     * @param colX la colonne d'arrivée du roi
+     * @param startColumn la colonne de départ de la tour
+     * @param endColumn la colonne d'arrivée de la tour
+     * @param n la colonne finale de la tour
+     */
     private void castling(int sourceRow, int sourceCol, int rowY, int colX, int startColumn, int endColumn, int n) {
         // Déplace la tour.
         board.movePiece(sourceRow, startColumn, sourceRow, endColumn);
@@ -172,6 +202,12 @@ public class ChessBoardView extends JFrame implements MouseListener {
         removeSquare(rowY, n);
     }
 
+    /**
+     * Supprime une case de l'interface graphique à partir de ses coordonnées (rangée, colonne).
+     *
+     * @param rowY la rangée de la case à supprimer
+     * @param colX la colonne de la case à supprimer
+     */
     private void removeSquare(int rowY, int colX) {
         JPanel squareToRemove = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
         squareToRemove.removeAll();
@@ -242,7 +278,6 @@ public class ChessBoardView extends JFrame implements MouseListener {
                 }
             } else if (selectedPiece != null && board.isOccupied(rowY, colX) && selectedPiece.getColor() != sourcePiece.getColor()) {
                 // Il y a une pièce adverse à la destination.
-//                board.movePiece(sourceRow, sourceCol, rowY, colX);
                 removeSquare(rowY, colX);
             }
 
@@ -252,11 +287,11 @@ public class ChessBoardView extends JFrame implements MouseListener {
             // On passe au joueur suivant que si et seulement si le joueur courant a fini son mouvement.
             isTurn = sourcePiece.getColor() != Color.WHITE;
 
-            // exple : si le joueur blanc joue son coup , la variable boolean hasJustMoveDouble associé au pion noir
-            // sera mise à false grâce à la méthode resetBooleanPawn , cela permet à ce que si un coup en passant est
+            // exemple : si le joueur blanc joue son coup, la variable boolean hasJustMoveDouble associé au pion noir
+            // sera mise à false grâce à la méthode resetBooleanPawn, cela permet à ce que si un coup en passant est
             // possible
-            // qu'elle ne soit disponible qu'au prochain coup joué , si ce n'est le cas elle n'est plus disponible
-            // pour toujours .
+            // qu'elle ne soit disponible qu'au prochain coup joué, si ce n'est le cas elle n'est plus disponible
+            // pour toujours.
             board.resetBooleanPawn(isTurn);
 
             if (RegleDuJeu.isADraw(isTurn, board)) {
@@ -289,6 +324,9 @@ public class ChessBoardView extends JFrame implements MouseListener {
         // On efface l'évidence.
     }
 
+    /**
+     * Crée une fenêtre graphique correspondant au damier et l'affiche.
+     */
     public void displayBoard() {
         // Définir et afficher la fenêtre graphique correspondant au damier
         JFrame frame = new ChessBoardView(whitePiecesAtBottom);

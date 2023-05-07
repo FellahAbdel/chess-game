@@ -14,13 +14,13 @@ public class Rook extends ChessPiece {
     /**
      * Constructeur pour créer une nouvelle pièce de type Rook.
      *
-     * @param color       la couleur de la pièce
-     * @param row         la ligne sur laquelle la pièce se trouve
-     * @param col         la colonne sur laquelle la pièce se trouve
-     * @param isWhiteTurn true si c'est au tour des blancs de jouer, false sinon
+     * @param color                 la couleur de la pièce
+     * @param row                   la ligne sur laquelle la pièce se trouve
+     * @param col                   la colonne sur laquelle la pièce se trouve
+     * @param whitePiecesAtBottom   true si c'est au tour des blancs de jouer, false sinon
      */
-    public Rook(Color color, int row, int col, boolean isWhiteTurn) {
-        super("Rook", color, row, col, isWhiteTurn);
+    public Rook(Color color, int row, int col, boolean whitePiecesAtBottom) {
+        super("Rook", color, row, col, whitePiecesAtBottom);
         hasMoved = false;
     }
 
@@ -55,10 +55,10 @@ public class Rook extends ChessPiece {
      * Retourne la liste de tous les déplacements possibles pour la tour à partir de sa position actuelle
      * sur l'échiquier.
      *
-     * @param startYRow La rangée de la tour sur l'échiquier (de 0 à 7)
+     * @param startYRow La ligne de la tour sur l'échiquier (de 0 à 7)
      * @param startXCol La colonne de la tour sur l'échiquier (de 0 à 7)
      * @param board     L'échiquier actuel représenté par une matrice de ChessPiece
-     * @return Une liste d'entiers représentant les positions (rangée, colonne) des cases où la tour peut se déplacer.
+     * @return Une liste d'entiers représentant les positions (ligne, colonne) des cases où la tour peut se déplacer.
      */
     public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();

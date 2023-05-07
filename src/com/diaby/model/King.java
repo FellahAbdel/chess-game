@@ -3,27 +3,63 @@ package com.diaby.model;
 import java.awt.*;
 import java.util.ArrayList;
 
-
+/**
+ * Classe représentant une pièce d'échecs de type King (Roi).
+ * Elle étend la classe ChessPiece et redéfinit la méthode possiblesMoves() pour calculer les déplacements possibles
+ * pour un Roi.
+ */
 public class King extends ChessPiece {
     private boolean hasMoved;
 
-    public King(Color color, int row, int col, boolean isWhiteTurn) {
-        super("King", color, row, col, isWhiteTurn);
+    /**
+     * Constructeur pour créer une nouvelle pièce de type King.
+     *
+     * @param color                  la couleur de la pièce
+     * @param row                    la ligne sur laquelle la pièce se trouve
+     * @param col                    la colonne sur laquelle la pièce se trouve
+     * @param whitePiecesAtBottom    true si c'est au tour des blancs de jouer, false sinon
+     */
+    public King(Color color, int row, int col, boolean whitePiecesAtBottom) {
+        super("King", color, row, col, whitePiecesAtBottom);
         hasMoved = false;
     }
 
+    /**
+     * Constructeur pour créer un nouveau roi en copiant une autre pièce d'échecs.
+     *
+     * @param piece La pièce d'échecs à copier
+     */
     public King(ChessPiece piece) {
         super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhitePiecesAtBottom());
     }
 
+    /**
+     * Retourne un booléen indiquant si la tour a déjà bougé depuis le début de la partie.
+     *
+     * @return True si la tour a déjà bougé, False sinon.
+     */
     public boolean getHasMoved() {
         return hasMoved;
     }
 
+    /**
+     * Modifie le booléen qui indique si la tour a déjà bougé depuis le début de la partie.
+     *
+     * @param hasMoved True si la tour a déjà bougé, False sinon.
+     */
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
     }
 
+    /**
+     * Retourne la liste de tous les déplacements possibles du Roi à partir de sa position actuelle
+     * sur l'échiquier.
+     *
+     * @param startYRow La ligne du cavalier sur l'échiquier (de 0 à 7)
+     * @param startXCol La colonne du cavalier sur l'échiquier (de 0 à 7)
+     * @param board     L'échiquier actuel représenté par une matrice de ChessPiece
+     * @return Une liste d'entiers représentant les positions (ligne, colonne) des cases où le roi peut se déplacer.
+     */
     public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
         // Check moves to the right
@@ -194,7 +230,14 @@ public class King extends ChessPiece {
         return moves;
     }
 
-
+    /**
+     * Permet de tester si la position actuelle du roi est menacé par une pièce adverse
+     * autrement si cette dernière est en position d'échec.
+     *
+     * @param isWhiteKing   true si c'est le roi blanc et false sinon
+     * @param board         L'échiquier actuel représenté par une matrice de ChessPiece
+     * @return un boolean true si le roi est en échec et false sinon
+     */
     public boolean isInCheck(boolean isWhiteKing, ChessPiece[][] board) {
         // Find the king's position
         int[] kingPos = null;

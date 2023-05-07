@@ -3,17 +3,43 @@ package com.diaby.model;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Classe représentant une pièce d'échecs de type Queen (Reine).
+ * Elle étend la classe ChessPiece et redéfinit la méthode possiblesMoves() pour calculer les déplacements possibles
+ * pour une Reine.
+ */
 public class Queen extends ChessPiece {
 
-    public Queen(Color color, int row, int col, boolean isWhiteTurn) {
-        super("Queen", color, row, col, isWhiteTurn);
+    /**
+     * Constructeur pour créer une nouvelle pièce de type Queen.
+     *
+     * @param color                 la couleur de la pièce
+     * @param row                   la ligne sur laquelle la pièce se trouve
+     * @param col                   la colonne sur laquelle la pièce se trouve
+     * @param whitePiecesAtBottom   true si c'est au tour des blancs de jouer, false sinon
+     */
+    public Queen(Color color, int row, int col, boolean whitePiecesAtBottom) {
+        super("Queen", color, row, col, whitePiecesAtBottom);
     }
 
-
+    /**
+     * Constructeur pour créer une nouvelle reine en copiant une autre pièce d'échecs.
+     *
+     * @param piece La pièce d'échecs à copier
+     */
     public Queen(ChessPiece piece) {
         super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhitePiecesAtBottom());
     }
 
+    /**
+     * Retourne la liste de tous les déplacements possibles pour la reine à partir de sa position actuelle
+     * sur l'échiquier.
+     *
+     * @param startYRow La ligne de la reine sur l'échiquier (de 0 à 7)
+     * @param startXCol La colonne de la reine sur l'échiquier (de 0 à 7)
+     * @param board     L'échiquier actuel représenté par une matrice de ChessPiece
+     * @return Une liste d'entiers représentant les positions (ligne, colonne) des cases où la tour peut se déplacer.
+     */
     public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
         ArrayList<int[]> moves = new ArrayList<>();
         boolean canMove = true;

@@ -12,7 +12,7 @@ public abstract class ChessPiece {
 
     private boolean whitePiecesAtBottom;
 
-    private boolean captured;
+    protected boolean captured;
 
     public ChessPiece(String name, Color color, int row, int col, boolean whitePiecesAtBottom) {
         this.pieceName = name;

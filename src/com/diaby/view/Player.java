@@ -6,6 +6,11 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * Fenêtre graphique (classe héritant de JFrame) qui réagit au clic de souris (implements MouseListener)
+ * qui affiche deux pions de couleur opposés, qui permet de sélectionner la couleur des pièces qui sera en bas
+ * de l'échiquier ou en haut de l'échiquier.
+ */
 
 public class Player extends JFrame implements MouseListener {
 
@@ -19,10 +24,15 @@ public class Player extends JFrame implements MouseListener {
         whitePiecesAtBottom = false;
     }
 
+    /**
+     * Méthode permettant de donner un visuel afin de faciliter le choix de la couleur de pieces
+     * dont on désire jouer avec.
+     */
+
     public void createAndShowGUI() {
         setTitle("Jouer aux échecs");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 300);
+        setSize(600, 300);
         setLocationRelativeTo(null); // Centres the window on the screen
         setResizable(false); // Prevents resizing the window
 
@@ -57,7 +67,7 @@ public class Player extends JFrame implements MouseListener {
         buttonsPanel.add(whiteButton);
         buttonsPanel.add(blackButton);
 
-        JLabel label = new JLabel("Premier joueur à commencer la partie");
+        JLabel label = new JLabel("Faite le choix de la couleur de la pièce qui sera placé en bas de l'échiquier");
         label.setForeground(Color.WHITE); // Sets the label text color
         label.setHorizontalAlignment(JLabel.CENTER);
 
@@ -69,6 +79,13 @@ public class Player extends JFrame implements MouseListener {
         setVisible(true);
     }
 
+    /**
+     * Met à true ou false whitePiecesAtBottom.
+     * Si true, les pieces blanches sont en bas de la grille de jeu.
+     * Si false, les pieces blanches sont en haut de la grille de jeu.
+     *
+     * @param e événement pointeur clic.
+     */
     public void mouseClicked(MouseEvent e) {
         JButton button = (JButton) e.getSource();
         if (button.getName().equals("white")) {
@@ -80,12 +97,14 @@ public class Player extends JFrame implements MouseListener {
         playButton.setEnabled(true);
     }
 
-
     public void mousePressed(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
 
+    /**
+     * Affiche l'interface player.
+     */
     public void displayPlayer()
     {
         SwingUtilities.invokeLater(() -> {

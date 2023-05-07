@@ -3,12 +3,30 @@ package com.diaby.model;
 import java.awt.*;
 import java.util.ArrayList;
 
-
+/**
+ * Classe représentant une pièce d'échecs de type Bishop (bishop).
+ * Elle étend la classe ChessPiece et redéfinit la méthode possiblesMoves() pour calculer les déplacements possibles
+ * pour un Fou.
+ */
 public class Bishop extends ChessPiece {
-    public Bishop(Color color, int row, int col, boolean isWhiteTurn) {
-        super("Bishop", color, row, col, isWhiteTurn);
+
+    /**
+     * Constructeur pour créer une nouvelle pièce de type Bishop.
+     *
+     * @param color                 la couleur de la pièce
+     * @param row                   la ligne sur laquelle la pièce se trouve
+     * @param col                   la colonne sur laquelle la pièce se trouve
+     * @param whitePiecesAtBottom   true si c'est au tour des blancs de jouer, false sinon
+     */
+    public Bishop(Color color, int row, int col, boolean whitePiecesAtBottom) {
+        super("Bishop", color, row, col, whitePiecesAtBottom);
     }
 
+    /**
+     * Constructeur pour créer un nouveau fou en copiant une autre pièce d'échecs.
+     *
+     * @param piece La pièce d'échecs à copier
+     */
     public Bishop(ChessPiece piece) {
         super(piece.getPieceName(), piece.getColor(), piece.getRow(), piece.getCol(), piece.getWhitePiecesAtBottom());
     }
@@ -16,17 +34,11 @@ public class Bishop extends ChessPiece {
     /**
      * Renvoie une liste de tous les mouvements possibles qu'un fou peut faire sur un échiquier donné à partir de sa
      * position actuelle.
-     * Le fou peut se déplacer en diagonale dans n'importe quelle direction jusqu'à ce qu'il atteigne la fin de
-     * l'échiquier ou une obstruction.
-     * Si le fou rencontre une obstruction, il peut capturer la pièce obstruant si elle est de couleur opposée.
      *
-     * @param startYRow La coordonnée y de départ (rangée) du fou.
+     * @param startYRow La coordonnée y de départ (ligne) du fou.
      * @param startXCol La coordonnée x de départ (colonne) du fou.
      * @param board     L'échiquier sur lequel le fou est placé.
-     * @return Une ArrayList de tableaux d'entiers, où chaque tableau d'entiers représente un mouvement possible pour
-     * le fou.
-     * Chaque tableau d'entiers contient deux entiers : la coordonnée y (rangée) et la coordonnée x (colonne) de la
-     * case de destination.
+     * @return Une liste d'entiers représentant les positions (ligne, colonne) des cases où le fou peut se déplacer.
      */
     @Override
     public ArrayList<int[]> possiblesMoves(int startYRow, int startXCol, ChessPiece[][] board) {
