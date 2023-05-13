@@ -1,18 +1,19 @@
 package com.diaby.controller;
 
 import com.diaby.model.*;
+
 import java.util.ArrayList;
 
 /**
  * Classe en charge des méthodes permettant d'arrêter le jeu.
  */
-public class RegleDuJeu {
+public class GameRules {
 
     /**
      * Renvoie true si c'est un pat, false sinon
      *
-     * @param isWhite   true si c'est un pion blanc et false sinon
-     * @param board     L'échiquier actuel représenté par une matrice de ChessPiece
+     * @param isWhite true si c'est un pion blanc et false sinon
+     * @param board   L'échiquier actuel représenté par une matrice de ChessPiece
      * @return true si c'est un pat et false sinon
      */
     public static boolean isADraw(boolean isWhite, ChessBoard board) {
@@ -24,7 +25,7 @@ public class RegleDuJeu {
 
         // Vérifie si le joueur a des mouvements possibles
         ArrayList<ChessPiece> pieceList = board.getPiecesByColor(king.getColor());
-        for (ChessPiece p : pieceList ) {
+        for (ChessPiece p : pieceList) {
             for (int row = 0; row < 8; row++) {
                 for (int col = 0; col < 8; col++) {
                     if (p.canMove(row, col, board.getTileBoard())) {
@@ -42,9 +43,9 @@ public class RegleDuJeu {
     /**
      * Renvoie true si c'est un échec et mat, false sinon
      *
-     * @param isWhite   true si c'est un pion blanc et false sinon
-     * @param board     L'échiquier actuel représenté par une matrice de ChessPiece
-     * @param chess     instance de la classe ChessBoard
+     * @param isWhite true si c'est un pion blanc et false sinon
+     * @param board   L'échiquier actuel représenté par une matrice de ChessPiece
+     * @param chess   instance de la classe ChessBoard
      * @return true si c'est un échec et mat, false sinon
      */
     public static boolean isCheckMate(boolean isWhite, ChessPiece[][] board, ChessBoard chess) {

@@ -1,6 +1,6 @@
 package com.diaby.view;
 
-import com.diaby.controller.RegleDuJeu;
+import com.diaby.controller.GameRules;
 import com.diaby.model.*;
 
 import java.awt.*;
@@ -106,11 +106,11 @@ public class ChessBoardView extends Player implements MouseListener {
      * Promouvoir le pion sélectionné en une autre pièce.
      *
      * @param promotionDialog La boîte de dialogue de promotion.
-     * @param pawn Le pion à promouvoir.
-     * @param rowY La rangée Y où se trouve le pion.
-     * @param colX La colonne X où se trouve le pion.
-     * @param pieceType Le type de pièce auquel promouvoir le pion (Reine, Tour, Fou, Cavalier).
-     * @param imageName Le nom du fichier image à utiliser pour représenter la nouvelle pièce.
+     * @param pawn            Le pion à promouvoir.
+     * @param rowY            La rangée Y où se trouve le pion.
+     * @param colX            La colonne X où se trouve le pion.
+     * @param pieceType       Le type de pièce auquel promouvoir le pion (Reine, Tour, Fou, Cavalier).
+     * @param imageName       Le nom du fichier image à utiliser pour représenter la nouvelle pièce.
      */
 
     private void promoteInto(JDialog promotionDialog, Pawn pawn, int rowY, int colX, String pieceType,
@@ -128,9 +128,10 @@ public class ChessBoardView extends Player implements MouseListener {
     /**
      * Affiche la boîte de dialogue de promotion et ajoute les boutons pour chaque type de promotion.
      * Cette méthode est appelée lorsqu'un pion atteint l'autre extrémité du plateau.
+     *
      * @param selectedPiece La pièce sélectionnée à promouvoir.
-     * @param rowY La ligne y sur laquelle le pion est promu.
-     * @param colX La colonne x sur lequel le pion est promu.
+     * @param rowY          La ligne y sur laquelle le pion est promu.
+     * @param colX          La colonne x sur lequel le pion est promu.
      */
     private void promotionView(ChessPiece selectedPiece, int rowY, int colX) {
         // Ouvre la boîte de dialogue de promotion
@@ -181,16 +182,18 @@ public class ChessBoardView extends Player implements MouseListener {
     }
 
     /**
-     * Effectue le roque dans le jeu d'échecs. Déplace la tour à la colonne finale du roi et le roi à sa nouvelle position.
-     * Met à jour l'interface graphique en supprimant les cases correspondant à la position initiale de la tour et du roi.
+     * Effectue le roque dans le jeu d'échecs. Déplace la tour à la colonne finale du roi et le roi à sa nouvelle
+     * position.
+     * Met à jour l'interface graphique en supprimant les cases correspondant à la position initiale de la tour et du
+     * roi.
      *
-     * @param sourceRow la rangée de départ du roi et de la tour
-     * @param sourceCol la colonne de départ du roi et de la tour
-     * @param rowY la rangée d'arrivée du roi
-     * @param colX la colonne d'arrivée du roi
+     * @param sourceRow   la rangée de départ du roi et de la tour
+     * @param sourceCol   la colonne de départ du roi et de la tour
+     * @param rowY        la rangée d'arrivée du roi
+     * @param colX        la colonne d'arrivée du roi
      * @param startColumn la colonne de départ de la tour
-     * @param endColumn la colonne d'arrivée de la tour
-     * @param n la colonne finale de la tour
+     * @param endColumn   la colonne d'arrivée de la tour
+     * @param n           la colonne finale de la tour
      */
     private void castling(int sourceRow, int sourceCol, int rowY, int colX, int startColumn, int endColumn, int n) {
         // Déplace la tour.
@@ -294,12 +297,12 @@ public class ChessBoardView extends Player implements MouseListener {
             // pour toujours.
             board.resetBooleanPawn(isTurn);
 
-            if (RegleDuJeu.isADraw(isTurn, board)) {
+            if (GameRules.isADraw(isTurn, board)) {
                 JOptionPane.showMessageDialog(mainPanel, "Fin du jeu c'est un pat");
                 dispose();
             }
 
-            if (RegleDuJeu.isCheckMate(isTurn, board.getTileBoard(), board)) {
+            if (GameRules.isCheckMate(isTurn, board.getTileBoard(), board)) {
                 JOptionPane.showMessageDialog(mainPanel, "Fin du jeu, échec et mat ");
                 dispose();
             }
