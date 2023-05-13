@@ -11,10 +11,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-/** Fenetre graphique (classe heritant de JFrame) qui reagit au clic de souris (implements MouseListener)
- *   qui affiche le damier, qui permet de selectionner/deplacer des pieces d'echec
+/**
+ * Fenetre graphique (classe heritant de JFrame) qui reagit au clic de souris (implements MouseListener)
+ * qui affiche le damier, qui permet de selectionner/deplacer des pieces d'echec
  */
-public class ChessBoardView extends Player implements MouseListener {
+public class ChessBoardView extends Game implements MouseListener {
     /**
      * Panneau principal
      */
@@ -53,7 +54,7 @@ public class ChessBoardView extends Player implements MouseListener {
         // Definition du panel contenant le damier
         chessBoard = new JPanel();
         mainPanel.add(chessBoard); // Ajout du panel damier au panel principal
-        chessBoard.setLayout(new GridLayout(SIZE_ROW_BOARD,SIZE_COLUMN_BOARD)); // le damier sera une grille N * M
+        chessBoard.setLayout(new GridLayout(SIZE_ROW_BOARD, SIZE_COLUMN_BOARD)); // le damier sera une grille N * M
         chessBoard.setPreferredSize(boardSize);
         chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
 
@@ -110,13 +111,14 @@ public class ChessBoardView extends Player implements MouseListener {
      * Promouvoir le pion sélectionné en une autre pièce.
      *
      * @param promotionDialog La boîte de dialogue de promotion.
-     * @param pawn Le pion à promouvoir.
-     * @param rowY La rangée Y où se trouve le pion.
-     * @param colX La colonne X où se trouve le pion.
-     * @param pieceType Le type de pièce auquel promouvoir le pion (Reine, Tour, Fou, Cavalier).
-     * @param imageName Le nom du fichier image à utiliser pour représenter la nouvelle pièce.
+     * @param pawn            Le pion à promouvoir.
+     * @param rowY            La rangée Y où se trouve le pion.
+     * @param colX            La colonne X où se trouve le pion.
+     * @param pieceType       Le type de pièce auquel promouvoir le pion (Reine, Tour, Fou, Cavalier).
+     * @param imageName       Le nom du fichier image à utiliser pour représenter la nouvelle pièce.
      */
-    private void promoteInto(JDialog promotionDialog, Pawn pawn, int rowY, int colX, String pieceType, String imageName){
+    private void promoteInto(JDialog promotionDialog, Pawn pawn, int rowY, int colX, String pieceType,
+                             String imageName) {
         pawn.promotePawn(pawn, rowY, colX, pieceType, board.getTileBoard());
         promotionDialog.dispose();
         JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
@@ -130,11 +132,12 @@ public class ChessBoardView extends Player implements MouseListener {
     /**
      * Affiche la boîte de dialogue de promotion et ajoute les boutons pour chaque type de promotion.
      * Cette méthode est appelée lorsqu'un pion atteint l'autre extrémité du plateau.
+     *
      * @param selectedPiece La pièce sélectionnée à promouvoir.
-     * @param rowY La ligne y sur laquelle le pion est promu.
-     * @param colX La colonne x sur lequel le pion est promu.
+     * @param rowY          La ligne y sur laquelle le pion est promu.
+     * @param colX          La colonne x sur lequel le pion est promu.
      */
-    private void promotionView(ChessPiece selectedPiece, int rowY, int colX){
+    private void promotionView(ChessPiece selectedPiece, int rowY, int colX) {
         // Ouvre la boîte de dialogue de promotion
         JDialog promotionDialog = new JDialog();
         promotionDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -160,10 +163,10 @@ public class ChessBoardView extends Player implements MouseListener {
         String rook = pawn.isWhite() ? imagePath + "tour_b.png" : imagePath + "tour_n.png";
         String bishop = pawn.isWhite() ? imagePath + "fou_b.png" : imagePath + "fou_n.png";
         String knight = pawn.isWhite() ? imagePath + "cavalier_b.png" : imagePath + "cavalier_n.png";
-        String princesse = pawn.isWhite()? imagePath + "princesse_b.png" : imagePath + "princesse_n.png";
-        String imperatrice = pawn.isWhite()? imagePath + "imperatrice_b.png" : imagePath + "imperatrice_n.png";
-        String sauterelle = pawn.isWhite()? imagePath + "sauterelle_b.png" : imagePath + "sauterelle_n.png";
-        String noctambule = pawn.isWhite()? imagePath + "noctambule_b.png" : imagePath + "noctambule_n.png";
+        String princesse = pawn.isWhite() ? imagePath + "princesse_b.png" : imagePath + "princesse_n.png";
+        String imperatrice = pawn.isWhite() ? imagePath + "imperatrice_b.png" : imagePath + "imperatrice_n.png";
+        String sauterelle = pawn.isWhite() ? imagePath + "sauterelle_b.png" : imagePath + "sauterelle_n.png";
+        String noctambule = pawn.isWhite() ? imagePath + "noctambule_b.png" : imagePath + "noctambule_n.png";
 
         queenButton = new JButton(new ImageIcon(queen));
         rookButton = new JButton(new ImageIcon(rook));
@@ -187,10 +190,14 @@ public class ChessBoardView extends Player implements MouseListener {
         rookButton.addActionListener(e12 -> promoteInto(promotionDialog, pawn, rowY, colX, "Rook", rook));
         bishopButton.addActionListener(e13 -> promoteInto(promotionDialog, pawn, rowY, colX, "Bishop", bishop));
         knightButton.addActionListener(e14 -> promoteInto(promotionDialog, pawn, rowY, colX, "Knight", knight));
-        princesseButton.addActionListener(e15 -> promoteInto(promotionDialog,pawn,rowY,colX,"Princesse",princesse));
-        imperatriceButton.addActionListener(e16 -> promoteInto(promotionDialog,pawn,rowY,colX,"Imperatrice",imperatrice));
-        sauterelleButton.addActionListener(e17 -> promoteInto(promotionDialog,pawn,rowY,colX,"Sauterelle",sauterelle));
-        noctambuleButton.addActionListener(e18 -> promoteInto(promotionDialog,pawn,rowY,colX,"Noctambule",noctambule));
+        princesseButton.addActionListener(e15 -> promoteInto(promotionDialog, pawn, rowY, colX, "Princesse",
+                princesse));
+        imperatriceButton.addActionListener(e16 -> promoteInto(promotionDialog, pawn, rowY, colX, "Imperatrice",
+                imperatrice));
+        sauterelleButton.addActionListener(e17 -> promoteInto(promotionDialog, pawn, rowY, colX, "Sauterelle",
+                sauterelle));
+        noctambuleButton.addActionListener(e18 -> promoteInto(promotionDialog, pawn, rowY, colX, "Noctambule",
+                noctambule));
 
         // fermeture une fois le clique capturé
         queenButton.addActionListener(e1 -> promotionDialog.dispose());
@@ -212,8 +219,7 @@ public class ChessBoardView extends Player implements MouseListener {
      * @param rowY la rangée de la case à supprimer
      * @param colX la colonne de la case à supprimer
      */
-    public void removeSquare(int rowY, int colX)
-    {
+    public void removeSquare(int rowY, int colX) {
         JPanel squareToRemove = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
         squareToRemove.removeAll();
         squareToRemove.repaint();
@@ -234,20 +240,21 @@ public class ChessBoardView extends Player implements MouseListener {
         // Pièce non null et non mis en evidence (Pour ne pas qu'en cliquant sur la piece adverse au lieu de la
         // bouffer on affiche les mouvements possibles de la pièce adverse).
 
-        if (selectedPiece != null && !board.highLightCase[rowY][colX] && selectedPiece.isWhite() == isTurn) { // Premier clic pour sélectionner la pièce
+        if (selectedPiece != null && !board.highLightCase[rowY][colX] && selectedPiece.isWhite() == isTurn) { //
+            // Premier clic pour sélectionner la pièce
             // On clique sur l'un des pions.
             // Liste des coordonnées possibles du joueur.
             ArrayList<int[]> moves = selectedPiece.possiblesMoves(rowY, colX, board.getTileBoard());
             board.resetHighlight();
 
             // On met en evidence tous les mouvements possibles du joueur.
-            for(int[] move : moves){
-                int  i = move[0];
+            for (int[] move : moves) {
+                int i = move[0];
                 int j = move[1];
-                board.highLightCase[i][j] = true ;
+                board.highLightCase[i][j] = true;
             }
 
-            sourcePiece = selectedPiece ;
+            sourcePiece = selectedPiece;
 
         }
 
@@ -257,23 +264,19 @@ public class ChessBoardView extends Player implements MouseListener {
             // C'est là qu'on fait les tests de déplacements.
             int sourceRow = sourcePiece.getRow();
             int sourceCol = sourcePiece.getCol();
-            removeSquare(sourceRow,sourceCol);
+            removeSquare(sourceRow, sourceCol);
 
-            if(sourcePiece instanceof Pawn)
-            {
-                if(colX != sourceCol && selectedPiece != null && sourcePiece.getColor() != selectedPiece.getColor())
-                {
+            if (sourcePiece instanceof Pawn) {
+                if (colX != sourceCol && selectedPiece != null && sourcePiece.getColor() != selectedPiece.getColor()) {
                     board.movePiece(sourceRow, sourceCol, rowY, colX);
-                    removeSquare(rowY,colX);
+                    removeSquare(rowY, colX);
                 }
-                if((rowY == 0 || rowY == 7))
-                {
-                    promotionView(selectedPiece,rowY,colX);
+                if ((rowY == 0 || rowY == 7)) {
+                    promotionView(selectedPiece, rowY, colX);
                 }
-            }
-             else if ( selectedPiece != null && board.isOccupied(rowY, colX) && selectedPiece.getColor() != sourcePiece.getColor()){
+            } else if (selectedPiece != null && board.isOccupied(rowY, colX) && selectedPiece.getColor() != sourcePiece.getColor()) {
                 board.movePiece(sourceRow, selectedPiece.getCol(), rowY, colX);
-                removeSquare(rowY,colX);
+                removeSquare(rowY, colX);
             }
             board.movePiece(sourceRow, sourceCol, rowY, colX);
             // On passe au joueur suivant que si et seulement si le joueur courant a fini son mouvement.
@@ -294,11 +297,16 @@ public class ChessBoardView extends Player implements MouseListener {
     }
 
 
-    public void mouseReleased(MouseEvent e) {}
-    public void mouseClicked(MouseEvent e) {}
-    public void mouseEntered(MouseEvent e){
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    public void mouseEntered(MouseEvent e) {
         // On met en evidence les mouvements possibles
     }
+
     public void mouseExited(MouseEvent e) {
         // On efface l'évidence.
     }
@@ -306,13 +314,13 @@ public class ChessBoardView extends Player implements MouseListener {
     /**
      * Crée une fenêtre graphique correspondant au damier et l'affiche.
      */
-    public void displayBoard(){
+    public void displayBoard() {
         // Définir et afficher la fenêtre graphique correspondant au damier
         JFrame frame = new ChessBoardView(whitePiecesAtBottom);
-        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE );
+        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setResizable(false);
-        frame.setLocationRelativeTo( null );
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 

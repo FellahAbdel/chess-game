@@ -14,15 +14,15 @@ import java.awt.event.MouseListener;
  * qui affiche deux pions de couleur opposés, qui permet de sélectionner la couleur des pièces qui sera en bas
  * de l'échiquier ou en haut de l'échiquier.
  */
-public class Player extends JFrame implements MouseListener {
+public class Game extends JFrame implements MouseListener {
 
     private boolean whitePiecesAtBottom;
-    private ChessBoardView chessBoardView ;
-    private GameController game;
+    private ChessBoardView chessBoardView;
+    private GameController gameController;
 
     private JButton playButton;
 
-    public Player() {
+    public Game() {
         whitePiecesAtBottom = false;
     }
 
@@ -54,8 +54,8 @@ public class Player extends JFrame implements MouseListener {
         playButton.addActionListener(e -> {
             dispose();
             chessBoardView = new ChessBoardView(whitePiecesAtBottom);
-            game = new GameController(chessBoardView);
-            game.startGame();
+            gameController = new GameController(chessBoardView);
+            gameController.startGame();
         });
 
         JPanel panel = new JPanel();
@@ -64,7 +64,8 @@ public class Player extends JFrame implements MouseListener {
 
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setBackground(new Color(0x22, 0x22, 0x22)); // Sets the panel background color
-        buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20)); // Centers the buttons and adds some space between them
+        buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20)); // Centers the buttons and adds some space
+        // between them
         buttonsPanel.add(whiteButton);
         buttonsPanel.add(blackButton);
 
@@ -100,19 +101,25 @@ public class Player extends JFrame implements MouseListener {
     }
 
 
-    public void mousePressed(MouseEvent e) {}
-    public void mouseReleased(MouseEvent e) {}
-    public void mouseEntered(MouseEvent e) {}
-    public void mouseExited(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
+    }
+
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    public void mouseExited(MouseEvent e) {
+    }
 
     /**
      * Affiche l'interface player.
      */
-    public void displayPlayer()
-    {
+    public void displayGame() {
         SwingUtilities.invokeLater(() -> {
-            Player player = new Player();
-            player.createAndShowGUI();
+            Game game = new Game();
+            game.createAndShowGUI();
         });
     }
 
