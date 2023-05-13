@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Fenêtre graphique (classe héritant de JFrame) qui réagit au clic de souris (implements MouseListener)
  * qui affiche le damier, qui permet de sélectionner/déplacer des pieces d'échec
  */
-public class ChessBoardView extends Player implements MouseListener {
+public class ChessBoardView extends Game implements MouseListener {
     /**
      * Panneau principal
      */

@@ -1,11 +1,11 @@
 package com.diaby.model;
 
-import com.diaby.view.Player;
+import com.diaby.view.Game;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ChessBoard extends Player {
+public class ChessBoard extends Game {
     private ChessPiece[][] tileBoard;
     public boolean[][] highLightCase = new boolean[8][8];
 

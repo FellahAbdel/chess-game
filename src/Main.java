@@ -1,10 +1,10 @@
 
-import com.diaby.view.Player;
+import com.diaby.view.Game;
 
 public class Main {
     public static void main(String[] args) {
-        Player player = new Player();
-        player.displayPlayer();
+        Game game = new Game();
+        game.displayGame();
     }
 }
 
