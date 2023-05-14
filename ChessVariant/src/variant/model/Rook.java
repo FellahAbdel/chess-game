@@ -45,7 +45,7 @@ public class Rook extends ChessPiece {
         ArrayList<int[]> moves = new ArrayList<>();
         boolean canMove = true;
         // Check moves to the right
-        for (int i = startXCol + 1; i < 12 && canMove; i++) {
+        for (int i = startXCol + 1; i < 10 && canMove; i++) {
             if (board[startYRow][i] == null) {
                 moves.add(new int[]{startYRow, i});
             } else if (board[startYRow][i].isWhite() != this.isWhite()) {

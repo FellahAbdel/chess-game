@@ -37,27 +37,23 @@ public class Bishop extends ChessPiece {
         for(int i=startYRow-1, j=startXCol-1; i>=0 && j>=0 && canMove; i--, j--){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
-            }
-            else if(board[i][j].isWhite() != this.isWhite()){
+            } else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
                 canMove = false;
-            }
-            else {
+            } else {
                 canMove = false;
             }
         }
 
         // Upper Right Diagonal
         canMove = true;
-        for(int i=startYRow-1, j=startXCol+1; i>=0 && j<12 && canMove; i--, j++){
+        for(int i=startYRow-1, j=startXCol + 1; i>=0 && j<10 && canMove; i--, j++){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
-            }
-            else if(board[i][j].isWhite() != this.isWhite()){
+            } else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
                 canMove = false;
-            }
-            else {
+            } else {
                 canMove = false;
             }
         }
@@ -67,27 +63,23 @@ public class Bishop extends ChessPiece {
         for(int i=startYRow+1, j=startXCol-1; i<8 && j>=0 && canMove; i++, j--){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
-            }
-            else if(board[i][j].isWhite() != this.isWhite()){
+            } else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
                 canMove = false;
-            }
-            else {
+            } else {
                 canMove = false;
             }
         }
 
         // Lower Right Diagonal
         canMove = true;
-        for(int i=startYRow+1, j=startXCol+1; i<8 && j<12 && canMove; i++, j++){
+        for(int i=startYRow+1, j=startXCol+1; i<8 && j<10 && canMove; i++, j++){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
-            }
-            else if(board[i][j].isWhite() != this.isWhite()){
+            } else if(board[i][j].isWhite() != this.isWhite()){
                 moves.add(new int[]{i, j});
                 canMove = false;
-            }
-            else {
+            } else {
                 canMove = false;
             }
         }
