@@ -1,7 +1,5 @@
 package com.diaby.view;
 
-import com.diaby.controller.GameController;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -16,7 +14,6 @@ public class Game extends JFrame implements MouseListener {
 
     private boolean whitePiecesAtBottom;
     private ChessBoardView chessBoardView;
-    private GameController gameController;
 
     private JButton playButton;
 
@@ -53,8 +50,7 @@ public class Game extends JFrame implements MouseListener {
         playButton.addActionListener(e -> {
             dispose();
             chessBoardView = new ChessBoardView(whitePiecesAtBottom);
-            gameController = new GameController(chessBoardView);
-            gameController.startGame();
+            startGame();
         });
 
         JPanel panel = new JPanel();
@@ -118,6 +114,14 @@ public class Game extends JFrame implements MouseListener {
             Game game = new Game();
             game.createAndShowGUI();
         });
+    }
+
+    /**
+     * méthode permettant de lancer le jeu.
+     */
+    public void startGame() {
+        // afficher plateau jeu
+        chessBoardView.displayBoard();
     }
 
 }
