@@ -7,7 +7,7 @@ import variant.model.King;
 /**
  * Classe en charge des méthodes permettant d'arrêter le jeu.
  */
-public class RegleDuJeu {
+public class GameRules {
 
     /**
      * Renvoie true si c'est un pat, false sinon
