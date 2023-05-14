@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/home/kaya/IdeaProjects/chessProjectJava/src</OriginalElement>
+  <nodes>
+    <node x="1423.722250441621" y="-177.36169947773192">com.diaby.model.ChessPiece</node>
+    <node x="566.3062964053195" y="300.76579695695324">com.diaby.controller.GameRules</node>
+    <node x="961.6154548279139" y="692.6387559140222">com.diaby.view.ChessBoardView</node>
+    <node x="1922.3428215815843" y="156.41901758787034">com.diaby.model.Rook</node>
+    <node x="1579.2625481413368" y="392.1192246706876">com.diaby.view.Game</node>
+    <node x="1956.2214090570637" y="420.52599567934794">com.diaby.model.ChessBoard</node>
+    <node x="1083.7812138153654" y="336.27604517371043">com.diaby.model.Queen</node>
+    <node x="70.80194802351724" y="424.824913643092">com.diaby.model.Bishop</node>
+    <node x="2417.835042997078" y="246.9957150608535">com.diaby.model.Knight</node>
+    <node x="649.3452511135878" y="42.246235335475944">com.diaby.model.King</node>
+    <node x="2253.322982842992" y="-190.00872850504487">com.diaby.model.Pawn</node>
+    <node x="330.24839347209576" y="155.65989330280857">Main</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.diaby.model.Queen" target="com.diaby.model.ChessPiece" relationship="GENERALIZATION">
+      <point x="-2.1381536544140545E-4" y="-54.00004517371042" />
+      <point x="1301.281" y="274.0" />
+      <point x="1641.222" y="274.0" />
+      <point x="-2.5044162111953483E-4" y="211.99969947773192" />
+    </edge>
+    <edge source="com.diaby.view.Game" target="com.diaby.view.ChessBoardView" relationship="TO_ONE">
+      <point x="-141.5" y="32.20568897240446" />
+      <point x="1162.115" y="550.324913643092" />
+      <point x="-15.000454827913927" y="-162.0" />
+    </edge>
+    <edge source="com.diaby.model.Bishop" target="com.diaby.model.ChessPiece" relationship="GENERALIZATION">
+      <point x="5.1976482779991784E-5" y="-53.999913643091986" />
+      <point x="288.302" y="274.0" />
+      <point x="1641.222" y="274.0" />
+      <point x="-2.5044162111953483E-4" y="211.99969947773192" />
+    </edge>
+    <edge source="com.diaby.model.ChessBoard" target="com.diaby.model.Bishop" relationship="CREATE">
+      <point x="-4.090570637345081E-4" y="200.000004320652" />
+      <point x="2142.721" y="1034.139" />
+      <point x="53.302" y="1034.139" />
+      <point x="53.302" y="-212.0" />
+      <point x="273.302" y="-212.0" />
+      <point x="-14.99994802351722" y="-53.999913643091986" />
+    </edge>
+    <edge source="com.diaby.model.Pawn" target="com.diaby.model.ChessPiece" relationship="GENERALIZATION">
+      <point x="-274.49998284299227" y="-2.7149495512901467E-4" />
+      <point x="1893.0" y="-62.009" />
+      <point x="1893.0" y="274.0" />
+      <point x="1641.222" y="274.0" />
+      <point x="-2.5044162111953483E-4" y="211.99969947773192" />
+    </edge>
+    <edge source="com.diaby.model.Pawn" target="com.diaby.model.Queen" relationship="CREATE">
+      <point x="-152.97998284299229" y="127.99972850504487" />
+      <point x="2374.843" y="392.0" />
+      <point x="2349.843" y="392.0" />
+      <point x="2349.843" y="347.496" />
+      <point x="217.49978618463456" y="-42.78004517371045" />
+    </edge>
+    <edge source="com.diaby.view.ChessBoardView" target="com.diaby.view.Game" relationship="GENERALIZATION">
+      <point x="-4.5482791392714716E-4" y="-161.99975591402222" />
+      <point x="1177.115" y="669.0" />
+      <point x="1720.763" y="669.0" />
+      <point x="4.518586631547805E-4" y="125.99977532931246" />
+    </edge>
+    <edge source="com.diaby.model.Pawn" target="com.diaby.model.Bishop" relationship="CREATE">
+      <point x="1.7157007732748752E-5" y="-128.00027149495511" />
+      <point x="2527.823" y="-212.0" />
+      <point x="273.302" y="-212.0" />
+      <point x="-14.99994802351722" y="-53.999913643091986" />
+    </edge>
+    <edge source="com.diaby.model.ChessBoard" target="com.diaby.model.Knight" relationship="CREATE">
+      <point x="14.999590942936265" y="-199.99999567934793" />
+      <point x="2157.721" y="374.0" />
+      <point x="2635.335" y="374.0" />
+      <point x="-4.299707779864548E-5" y="54.00028493914647" />
+    </edge>
+    <edge source="com.diaby.model.Pawn" target="com.diaby.model.Knight" relationship="CREATE">
+      <point x="274.50001715700773" y="-2.7149495512901467E-4" />
+      <point x="2870.335" y="-62.009" />
+      <point x="2870.335" y="374.0" />
+      <point x="2635.335" y="374.0" />
+      <point x="-4.299707779864548E-5" y="54.00028493914647" />
+    </edge>
+    <edge source="com.diaby.model.ChessBoard" target="com.diaby.model.ChessPiece" relationship="TO_MANY">
+      <point x="-186.50040905706373" y="-192.49999567934793" />
+      <point x="1878.0" y="428.026" />
+      <point x="1878.0" y="34.638" />
+      <point x="217.49974955837888" y="-3.005222680840802E-4" />
+    </edge>
+    <edge source="com.diaby.model.ChessBoard" target="com.diaby.view.Game" relationship="GENERALIZATION">
+      <point x="-186.50040905706373" y="4.320652010392223E-6" />
+      <point x="1929.843" y="620.526" />
+      <point x="1929.843" y="669.0" />
+      <point x="1720.763" y="669.0" />
+      <point x="4.518586631547805E-4" y="125.99977532931246" />
+    </edge>
+    <edge source="com.diaby.model.King" target="com.diaby.model.ChessPiece" relationship="GENERALIZATION">
+      <point x="-2.5111358775120607E-4" y="91.99976466452406" />
+      <point x="866.845" y="274.0" />
+      <point x="1641.222" y="274.0" />
+      <point x="-2.5044162111953483E-4" y="211.99969947773192" />
+    </edge>
+    <edge source="com.diaby.model.Rook" target="com.diaby.model.ChessPiece" relationship="GENERALIZATION">
+      <point x="-217.49982158158423" y="-1.7587870331681188E-5" />
+      <point x="1893.0" y="236.419" />
+      <point x="1893.0" y="274.0" />
+      <point x="1641.222" y="274.0" />
+      <point x="-2.5044162111953483E-4" y="211.99969947773192" />
+    </edge>
+    <edge source="com.diaby.view.ChessBoardView" target="com.diaby.model.ChessPiece" relationship="TO_ONE">
+      <point x="215.49954517208607" y="2.440859777834703E-4" />
+      <point x="1878.0" y="854.639" />
+      <point x="1878.0" y="34.638" />
+      <point x="217.49974955837888" y="-3.005222680840802E-4" />
+    </edge>
+    <edge source="com.diaby.model.ChessBoard" target="com.diaby.model.ChessPiece" relationship="CREATE">
+      <point x="-15.000409057063735" y="-200.0" />
+      <point x="2127.721" y="374.0" />
+      <point x="1656.222" y="374.0" />
+      <point x="14.99974955837888" y="212.0" />
+    </edge>
+    <edge source="com.diaby.view.Game" target="com.diaby.view.ChessBoardView" relationship="CREATE">
+      <point x="-14.999548141336845" y="126.0" />
+      <point x="1705.763" y="839.639" />
+      <point x="215.5" y="-14.999755914022217" />
+    </edge>
+    <edge source="com.diaby.view.ChessBoardView" target="com.diaby.model.ChessBoard" relationship="TO_ONE">
+      <point x="215.5" y="30.000244085977783" />
+      <point x="2157.721" y="884.639" />
+      <point x="14.999590942936265" y="200.0" />
+    </edge>
+    <edge source="Main" target="com.diaby.view.Game" relationship="CREATE">
+      <point x="89.0" y="0.0" />
+      <point x="540.7483934720958" y="197.65989330280857" />
+      <point x="540.7483934720958" y="518.1192246706876" />
+      <point x="-141.5" y="0.0" />
+    </edge>
+    <edge source="com.diaby.model.ChessBoard" target="com.diaby.model.Pawn" relationship="CREATE">
+      <point x="186.5" y="15.00000432065201" />
+      <point x="2885.335" y="635.526" />
+      <point x="2885.335" y="-77.009" />
+      <point x="274.5" y="-15.000271494955129" />
+    </edge>
+    <edge source="com.diaby.model.ChessBoard" target="com.diaby.model.Queen" relationship="CREATE">
+      <point x="-4.090570637345081E-4" y="-199.99999567934793" />
+      <point x="2142.721" y="392.0" />
+      <point x="2349.843" y="392.0" />
+      <point x="2349.843" y="347.496" />
+      <point x="217.49978618463456" y="-42.78004517371045" />
+    </edge>
+    <edge source="com.diaby.model.ChessBoard" target="com.diaby.model.King" relationship="CREATE">
+      <point x="186.5" y="30.00000432065201" />
+      <point x="2900.335" y="650.526" />
+      <point x="2900.335" y="-227.0" />
+      <point x="866.8452511135878" y="-227.0" />
+      <point x="0.0" y="-92.0" />
+    </edge>
+    <edge source="com.diaby.model.Knight" target="com.diaby.model.ChessPiece" relationship="GENERALIZATION">
+      <point x="-217.5000429970778" y="32.92328493914647" />
+      <point x="1893.0" y="333.919" />
+      <point x="1893.0" y="274.0" />
+      <point x="1641.222" y="274.0" />
+      <point x="-2.5044162111953483E-4" y="211.99969947773192" />
+    </edge>
+    <edge source="com.diaby.view.ChessBoardView" target="com.diaby.model.ChessBoard" relationship="CREATE">
+      <point x="215.5" y="15.000244085977783" />
+      <point x="2127.721" y="869.639" />
+      <point x="-15.000409057063735" y="200.0" />
+    </edge>
+    <edge source="com.diaby.model.Pawn" target="com.diaby.model.Rook" relationship="CREATE">
+      <point x="1.7157007732748752E-5" y="127.99972850504487" />
+      <point x="2527.823" y="229.496" />
+      <point x="2397.0" y="229.496" />
+      <point x="2397.0" y="236.419" />
+      <point x="217.50017841841554" y="-1.7587870331681188E-5" />
+    </edge>
+    <edge source="com.diaby.model.ChessBoard" target="com.diaby.model.Rook" relationship="CREATE">
+      <point x="186.49959094293627" y="4.320652010392223E-6" />
+      <point x="2397.0" y="620.526" />
+      <point x="2397.0" y="236.419" />
+      <point x="217.50017841841554" y="-1.7587870331681188E-5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.5342019543973942" showDependencies="true" x="1471.5" y="423.00000000000006" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
