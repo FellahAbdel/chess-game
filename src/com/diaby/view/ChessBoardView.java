@@ -117,7 +117,7 @@ public class ChessBoardView extends Game implements MouseListener {
                              String imageName) {
         pawn.promotePawn(pawn, rowY, colX, pieceType, board.getTileBoard());
         promotionDialog.dispose();
-        JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+        JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
         promotionSquare.removeAll();
         JLabel image = new JLabel(new ImageIcon(imageName));
         promotionSquare.add(image);
