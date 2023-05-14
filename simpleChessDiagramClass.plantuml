@@ -1,0 +1,144 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Bishop {
+  + Bishop(Color, int, int, boolean): 
+  + Bishop(ChessPiece): 
+  + possiblesMoves(int, int, ChessPiece[][]): ArrayList<int[]>
+}
+class ChessBoard {
+  + ChessBoard(): 
+  - tileBoard: ChessPiece[][]
+  + isOccupied(int, int): boolean
+  + getPiecesByColor(Color): ArrayList<ChessPiece>
+  + getKing(boolean): King
+  + initialize(boolean): void
+  + removePieceAt(int, int): void
+  + resetBooleanPawn(boolean): void
+  + resetHighlight(): void
+  + movePiece(int, int, int, int): void
+  + setPieceAt(int, int, ChessPiece): void
+  + copyBoard(ChessPiece[][]): ChessPiece[][]
+  + getPieceAt(int, int): ChessPiece
+  + move(int, int, int, int): void
+   tileBoard: ChessPiece[][]
+}
+class ChessBoardView {
+  + ChessBoardView(boolean): 
+  - castling(int, int, int, int, int, int, int): void
+  - promoteInto(JDialog, Pawn, int, int, String, String): void
+  - removeSquare(int, int): void
+  + mouseClicked(MouseEvent): void
+  + mouseEntered(MouseEvent): void
+  - promotionView(ChessPiece, int, int): void
+  + mousePressed(MouseEvent): void
+  + mouseReleased(MouseEvent): void
+  + drawGrid(): void
+  + displayBoard(): void
+  + mouseExited(MouseEvent): void
+}
+class ChessPiece {
+  + ChessPiece(String, Color, int, int, boolean): 
+  - whitePiecesAtBottom: boolean
+  # color: Color
+  - pieceName: String
+  - row: int
+  - col: int
+  # captured: boolean
+  + possiblesMoves(int, int, ChessPiece[][]): ArrayList<int[]>
+  + canMove(int, int, ChessPiece[][]): boolean
+   col: int
+   captured: boolean
+   color: Color
+   white: boolean
+   whitePiecesAtBottom: boolean
+   row: int
+   pieceName: String
+}
+class Game {
+  + Game(): 
+  + mouseClicked(MouseEvent): void
+  + mouseReleased(MouseEvent): void
+  + startGame(): void
+  + createAndShowGUI(): void
+  + mousePressed(MouseEvent): void
+  + mouseExited(MouseEvent): void
+  + mouseEntered(MouseEvent): void
+  + displayGame(): void
+}
+class GameRules {
+  + GameRules(): 
+  + isADraw(boolean, ChessBoard): boolean
+  + isCheckMate(boolean, ChessPiece[][], ChessBoard): boolean
+}
+class King {
+  + King(ChessPiece): 
+  + King(Color, int, int, boolean): 
+  - hasMoved: boolean
+  + isInCheck(boolean, ChessPiece[][]): boolean
+  + possiblesMoves(int, int, ChessPiece[][]): ArrayList<int[]>
+   hasMoved: boolean
+}
+class Knight {
+  + Knight(Color, int, int, boolean): 
+  + Knight(ChessPiece): 
+  + possiblesMoves(int, int, ChessPiece[][]): ArrayList<int[]>
+}
+class Main {
+  + Main(): 
+  + main(String[]): void
+}
+class Pawn {
+  + Pawn(ChessPiece): 
+  + Pawn(Color, int, int, boolean): 
+  - hasJustMoveDouble: boolean
+  - possiblesMovesTurn(int, int, ChessPiece[][], ArrayList<int[]>, Boolean): ArrayList<int[]>
+  - descent(int, int, ChessPiece[][], ArrayList<int[]>, Boolean): void
+  + promotePawn(Pawn, int, int, String, ChessPiece[][]): void
+  - climb(int, int, ChessPiece[][], ArrayList<int[]>, Boolean): void
+  + possiblesMoves(int, int, ChessPiece[][]): ArrayList<int[]>
+   hasJustMoveDouble: boolean
+}
+class Queen {
+  + Queen(ChessPiece): 
+  + Queen(Color, int, int, boolean): 
+  + possiblesMoves(int, int, ChessPiece[][]): ArrayList<int[]>
+}
+class Rook {
+  + Rook(Color, int, int, boolean): 
+  + Rook(ChessPiece): 
+  - hasMoved: boolean
+  + possiblesMoves(int, int, ChessPiece[][]): ArrayList<int[]>
+   hasMoved: boolean
+}
+
+Bishop          -[#000082,plain]-^  ChessPiece     
+ChessBoard      -[#595959,dashed]->  Bishop         : "«create»"
+ChessBoard     "1" *-[#595959,plain]-> "tileBoard\n*" ChessPiece     
+ChessBoard      -[#595959,dashed]->  ChessPiece     : "«create»"
+ChessBoard      -[#000082,plain]-^  Game           
+ChessBoard      -[#595959,dashed]->  King           : "«create»"
+ChessBoard      -[#595959,dashed]->  Knight         : "«create»"
+ChessBoard      -[#595959,dashed]->  Pawn           : "«create»"
+ChessBoard      -[#595959,dashed]->  Queen          : "«create»"
+ChessBoard      -[#595959,dashed]->  Rook           : "«create»"
+ChessBoardView "1" *-[#595959,plain]-> "board\n1" ChessBoard     
+ChessBoardView  -[#595959,dashed]->  ChessBoard     : "«create»"
+ChessBoardView "1" *-[#595959,plain]-> "sourcePiece\n1" ChessPiece     
+ChessBoardView  -[#000082,plain]-^  Game           
+Game            -[#595959,dashed]->  ChessBoardView : "«create»"
+Game           "1" *-[#595959,plain]-> "chessBoardView\n1" ChessBoardView 
+King            -[#000082,plain]-^  ChessPiece     
+Knight          -[#000082,plain]-^  ChessPiece     
+Main            -[#595959,dashed]->  Game           : "«create»"
+Pawn            -[#595959,dashed]->  Bishop         : "«create»"
+Pawn            -[#000082,plain]-^  ChessPiece     
+Pawn            -[#595959,dashed]->  Knight         : "«create»"
+Pawn            -[#595959,dashed]->  Queen          : "«create»"
+Pawn            -[#595959,dashed]->  Rook           : "«create»"
+Queen           -[#000082,plain]-^  ChessPiece     
+Rook            -[#000082,plain]-^  ChessPiece     
+@enduml
