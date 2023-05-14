@@ -1,6 +1,6 @@
 package variant.view;
 
-import variant.controller.RegleDuJeu;
+import variant.controller.GameRules;
 import variant.model.ChessBoard;
 import variant.model.ChessPiece;
 import variant.model.Pawn;
@@ -282,12 +282,12 @@ public class ChessBoardView extends Game implements MouseListener {
             // On passe au joueur suivant que si et seulement si le joueur courant a fini son mouvement.
             isTurn = sourcePiece.getColor() != Color.WHITE;
 
-            if (RegleDuJeu.draw(isTurn, board)) {
+            if (GameRules.draw(isTurn, board)) {
                 JOptionPane.showMessageDialog(mainPanel, "Fin du jeu c'est un pat");
                 dispose();
             }
 
-            if (RegleDuJeu.checkMate(isTurn, board.getTileBoard(), board)) {
+            if (GameRules.checkMate(isTurn, board.getTileBoard(), board)) {
                 JOptionPane.showMessageDialog(mainPanel, "Fin du jeu, échec et mat ");
                 dispose();
             }
