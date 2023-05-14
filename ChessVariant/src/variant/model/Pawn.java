@@ -97,7 +97,7 @@ public class Pawn extends ChessPiece {
         if (startXCol < 8 && startYRow > 0 && board[startXCol + 1][startYRow - 1] != null && board[startXCol + 1][startYRow - 1].isWhite() == isWhite) {
             moves.add(new int[]{startXCol + 1, startYRow - 1});
         }
-        if (startXCol < 8 && startYRow < 11 && board[startXCol + 1][startYRow + 1] != null && board[startXCol + 1][startYRow + 1].isWhite() == isWhite) {
+        if (startXCol < 8 && startYRow < 9 && board[startXCol + 1][startYRow + 1] != null && board[startXCol + 1][startYRow + 1].isWhite() == isWhite) {
             moves.add(new int[]{startXCol + 1, startYRow + 1});
         }
 
@@ -123,7 +123,7 @@ public class Pawn extends ChessPiece {
         if (startXCol > 0 && startYRow > 0 && board[startXCol - 1][startYRow - 1] != null && board[startXCol - 1][startYRow - 1].isWhite() == isWhite) {
             moves.add(new int[]{startXCol - 1, startYRow - 1});
         }
-        if (startXCol > 0 && startYRow < 11 && board[startXCol - 1][startYRow + 1] != null && board[startXCol - 1][startYRow + 1].isWhite() == isWhite) {
+        if (startXCol > 0 && startYRow < 9 && board[startXCol - 1][startYRow + 1] != null && board[startXCol - 1][startYRow + 1].isWhite() == isWhite) {
             moves.add(new int[]{startXCol - 1, startYRow + 1});
         }
 

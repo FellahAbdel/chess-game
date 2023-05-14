@@ -24,7 +24,7 @@ public class ChessBoardView extends Game implements MouseListener {
      * Panneau correspondant au damier
      */
     JPanel chessBoard;
-    static final int SIZE_COLUMN_BOARD = 12;
+    static final int SIZE_COLUMN_BOARD = 10;
     static final int SIZE_ROW_BOARD = 8;
     static final int SIZE_CASE_X = 75;
     static final int SIZE_CASE_Y = 75;
@@ -121,7 +121,7 @@ public class ChessBoardView extends Game implements MouseListener {
                              String imageName) {
         pawn.promotePawn(pawn, rowY, colX, pieceType, board.getTileBoard());
         promotionDialog.dispose();
-        JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_ROW_BOARD) + colX);
+        JPanel promotionSquare = (JPanel) chessBoard.getComponent((rowY * SIZE_COLUMN_BOARD) + colX);
         promotionSquare.removeAll();
         JLabel image = new JLabel(new ImageIcon(imageName));
         promotionSquare.add(image);
@@ -159,14 +159,14 @@ public class ChessBoardView extends Game implements MouseListener {
 
         // Ajoute les boutons pour chaque type de promotion
         String imagePath = "src/com/diaby/model/img/";
-        String queen = pawn.isWhite() ? imagePath + "reine_b.png" : imagePath + "reine_n.png";
-        String rook = pawn.isWhite() ? imagePath + "tour_b.png" : imagePath + "tour_n.png";
-        String bishop = pawn.isWhite() ? imagePath + "fou_b.png" : imagePath + "fou_n.png";
-        String knight = pawn.isWhite() ? imagePath + "cavalier_b.png" : imagePath + "cavalier_n.png";
-        String princesse = pawn.isWhite() ? imagePath + "princesse_b.png" : imagePath + "princesse_n.png";
-        String imperatrice = pawn.isWhite() ? imagePath + "imperatrice_b.png" : imagePath + "imperatrice_n.png";
-        String sauterelle = pawn.isWhite() ? imagePath + "sauterelle_b.png" : imagePath + "sauterelle_n.png";
-        String noctambule = pawn.isWhite() ? imagePath + "noctambule_b.png" : imagePath + "noctambule_n.png";
+        String queen = pawn.isWhite() ? imagePath + "Queen_b.png" : imagePath + "Queen_n.png";
+        String rook = pawn.isWhite() ? imagePath + "Rook_b.png" : imagePath + "Rook_n.png";
+        String bishop = pawn.isWhite() ? imagePath + "Bishop_b.png" : imagePath + "Bishop_n.png";
+        String knight = pawn.isWhite() ? imagePath + "Knight_b.png" : imagePath + "Knight_n.png";
+        String princesse = pawn.isWhite() ? imagePath + "Princesse_b.png" : imagePath + "Princesse_n.png";
+        String imperatrice = pawn.isWhite() ? imagePath + "Imperatrice_b.png" : imagePath + "Imperatrice_n.png";
+        String sauterelle = pawn.isWhite() ? imagePath + "Sauterelle_b.png" : imagePath + "Sauterelle_n.png";
+        String noctambule = pawn.isWhite() ? imagePath + "Noctambule_b.png" : imagePath + "Noctambule_n.png";
 
         queenButton = new JButton(new ImageIcon(queen));
         rookButton = new JButton(new ImageIcon(rook));
@@ -268,14 +268,13 @@ public class ChessBoardView extends Game implements MouseListener {
 
             if (sourcePiece instanceof Pawn) {
                 if (colX != sourceCol && selectedPiece != null && sourcePiece.getColor() != selectedPiece.getColor()) {
-                    board.movePiece(sourceRow, sourceCol, rowY, colX);
                     removeSquare(rowY, colX);
                 }
                 if ((rowY == 0 || rowY == 7)) {
-                    promotionView(selectedPiece, rowY, colX);
+                    promotionView(sourcePiece, rowY, colX);
                 }
             } else if (selectedPiece != null && board.isOccupied(rowY, colX) && selectedPiece.getColor() != sourcePiece.getColor()) {
-                board.movePiece(sourceRow, selectedPiece.getCol(), rowY, colX);
+                // Il y a une pièce adverse à la destination.
                 removeSquare(rowY, colX);
             }
             board.movePiece(sourceRow, sourceCol, rowY, colX);

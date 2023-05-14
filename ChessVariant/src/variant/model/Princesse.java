@@ -37,7 +37,7 @@ public class Princesse extends ChessPiece{
      * sur l'échiquier.
      *
      * @param startYRow La ligne de la princesse sur l'échiquier (de 0 à 7)
-     * @param startXCol La colonne de la princesse sur l'échiquier (de 0 à 11)
+     * @param startXCol La colonne de la princesse sur l'échiquier (de 0 à 9)
      * @param board     L'échiquier actuel représenté par une matrice de ChessPiece
      * @return Une liste d'entiers représentant les positions (ligne, colonne) des cases où la princesse peut se déplacer.
      */
@@ -64,7 +64,7 @@ public class Princesse extends ChessPiece{
 
         // Upper Right Diagonal
         canMove = true;
-        for(int i=startYRow-1, j=startXCol+1; i>=0 && j<12 && canMove; i--, j++){
+        for(int i=startYRow-1, j=startXCol+1; i>=0 && j<10 && canMove; i--, j++){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
             }
@@ -94,7 +94,7 @@ public class Princesse extends ChessPiece{
 
         // Lower Right Diagonal
         canMove = true;
-        for(int i=startYRow+1, j=startXCol+1; i<8 && j<12 && canMove; i++, j++){
+        for(int i=startYRow+1, j=startXCol+1; i<8 && j<10 && canMove; i++, j++){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
             }
@@ -117,7 +117,7 @@ public class Princesse extends ChessPiece{
                 moves.add(new int[]{startYRow-2, startXCol-1});
             }
             // One step to the right
-            if(startXCol+1 < 12 && (board[startYRow-2][startXCol+1] == null || board[startYRow-2][startXCol+1].isWhite() != this.isWhite())){
+            if(startXCol+1 < 10 && (board[startYRow-2][startXCol+1] == null || board[startYRow-2][startXCol+1].isWhite() != this.isWhite())){
                 moves.add(new int[]{startYRow-2, startXCol+1});
             }
         }
@@ -129,7 +129,7 @@ public class Princesse extends ChessPiece{
                 moves.add(new int[]{startYRow+2, startXCol-1});
             }
             // One step to the right
-            if(startXCol+1 < 12 && (board[startYRow+2][startXCol+1] == null || board[startYRow+2][startXCol+1].isWhite() != this.isWhite())){
+            if(startXCol+1 < 10 && (board[startYRow+2][startXCol+1] == null || board[startYRow+2][startXCol+1].isWhite() != this.isWhite())){
                 moves.add(new int[]{startYRow+2, startXCol+1});
             }
         }
@@ -147,7 +147,7 @@ public class Princesse extends ChessPiece{
         }
 
         // Two steps to the right
-        if(startXCol+2 < 12){
+        if(startXCol+2 < 10){
             // One step up
             if(startYRow-1 >= 0 && (board[startYRow-1][startXCol+2] == null || board[startYRow-1][startXCol+2].isWhite() != this.isWhite())){
                 moves.add(new int[]{startYRow-1, startXCol+2});

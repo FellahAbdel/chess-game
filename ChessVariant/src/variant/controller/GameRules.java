@@ -26,7 +26,7 @@ public class GameRules {
         // Vérifie si le joueur a des mouvements possibles
         for (ChessPiece p : board.getPiecesByColor(king.getColor())) {
             for (int row = 0; row < 8; row++) {
-                for (int col = 0; col < 8; col++) {
+                for (int col = 0; col < 10; col++) {
                     if (p.canMove(row, col, board.getTileBoard())) {
                         // Si un mouvement est possible, ce n'est pas un pat
                         return false;

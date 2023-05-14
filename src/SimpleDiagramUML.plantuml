@@ -5,17 +5,13 @@ top to bottom direction
 skinparam linetype ortho
 
 class Bishop {
-  + Bishop(Color, int, int, boolean): 
   + Bishop(ChessPiece): 
+  + Bishop(Color, int, int, boolean): 
   + possiblesMoves(int, int, ChessPiece[][]): ArrayList<int[]>
 }
 class ChessBoard {
   + ChessBoard(): 
   - tileBoard: ChessPiece[][]
-<<<<<<<< HEAD:simpleChessDiagramClass.plantuml
-  + isOccupied(int, int): boolean
-  + getPiecesByColor(Color): ArrayList<ChessPiece>
-========
   + copyBoard(ChessPiece[][]): ChessPiece[][]
   + getPieceAt(int, int): ChessPiece
   + removePieceAt(int, int): void
@@ -27,41 +23,11 @@ class ChessBoard {
   + resetHighlight(): void
   + setPieceAt(int, int, ChessPiece): void
   + move(int, int, int, int): void
->>>>>>>> ae1540819f49eb842b7acfa52fa0b995e3e3a50e:src/SimpleDiagramUML.plantuml
   + getKing(boolean): King
-  + initialize(boolean): void
-  + removePieceAt(int, int): void
-  + resetBooleanPawn(boolean): void
-  + resetHighlight(): void
-  + movePiece(int, int, int, int): void
-  + setPieceAt(int, int, ChessPiece): void
-  + copyBoard(ChessPiece[][]): ChessPiece[][]
-  + getPieceAt(int, int): ChessPiece
-  + move(int, int, int, int): void
    tileBoard: ChessPiece[][]
 }
 class ChessBoardView {
   + ChessBoardView(boolean): 
-<<<<<<<< HEAD:simpleChessDiagramClass.plantuml
-  - castling(int, int, int, int, int, int, int): void
-  - promoteInto(JDialog, Pawn, int, int, String, String): void
-  - removeSquare(int, int): void
-  + mouseClicked(MouseEvent): void
-  + mouseEntered(MouseEvent): void
-  - promotionView(ChessPiece, int, int): void
-  + mousePressed(MouseEvent): void
-  + mouseReleased(MouseEvent): void
-  + drawGrid(): void
-  + displayBoard(): void
-  + mouseExited(MouseEvent): void
-}
-class ChessPiece {
-  + ChessPiece(String, Color, int, int, boolean): 
-  - whitePiecesAtBottom: boolean
-  # color: Color
-  - pieceName: String
-  - row: int
-========
   + mousePressed(MouseEvent): void
   + mouseReleased(MouseEvent): void
   - promotionView(ChessPiece, int, int): void
@@ -77,42 +43,17 @@ class ChessPiece {
 class ChessPiece {
   + ChessPiece(String, Color, int, int, boolean): 
   # color: Color
->>>>>>>> ae1540819f49eb842b7acfa52fa0b995e3e3a50e:src/SimpleDiagramUML.plantuml
   - col: int
   - whitePiecesAtBottom: boolean
   # captured: boolean
-<<<<<<<< HEAD:simpleChessDiagramClass.plantuml
-========
   - pieceName: String
   - row: int
->>>>>>>> ae1540819f49eb842b7acfa52fa0b995e3e3a50e:src/SimpleDiagramUML.plantuml
   + possiblesMoves(int, int, ChessPiece[][]): ArrayList<int[]>
   + canMove(int, int, ChessPiece[][]): boolean
    col: int
-   captured: boolean
    color: Color
-   white: boolean
-   whitePiecesAtBottom: boolean
    row: int
    pieceName: String
-<<<<<<<< HEAD:simpleChessDiagramClass.plantuml
-}
-class Game {
-  + Game(): 
-  + mouseClicked(MouseEvent): void
-  + mouseReleased(MouseEvent): void
-  + startGame(): void
-  + createAndShowGUI(): void
-  + mousePressed(MouseEvent): void
-  + mouseExited(MouseEvent): void
-  + mouseEntered(MouseEvent): void
-  + displayGame(): void
-}
-class GameRules {
-  + GameRules(): 
-  + isADraw(boolean, ChessBoard): boolean
-  + isCheckMate(boolean, ChessPiece[][], ChessBoard): boolean
-========
    white: boolean
    captured: boolean
    whitePiecesAtBottom: boolean
@@ -132,7 +73,6 @@ class GameRules {
   + GameRules(): 
   + isCheckMate(boolean, ChessPiece[][], ChessBoard): boolean
   + isADraw(boolean, ChessBoard): boolean
->>>>>>>> ae1540819f49eb842b7acfa52fa0b995e3e3a50e:src/SimpleDiagramUML.plantuml
 }
 class King {
   + King(ChessPiece): 
@@ -152,22 +92,14 @@ class Main {
   + main(String[]): void
 }
 class Pawn {
-  + Pawn(ChessPiece): 
   + Pawn(Color, int, int, boolean): 
+  + Pawn(ChessPiece): 
   - hasJustMoveDouble: boolean
-<<<<<<<< HEAD:simpleChessDiagramClass.plantuml
-  - possiblesMovesTurn(int, int, ChessPiece[][], ArrayList<int[]>, Boolean): ArrayList<int[]>
-  - descent(int, int, ChessPiece[][], ArrayList<int[]>, Boolean): void
-  + promotePawn(Pawn, int, int, String, ChessPiece[][]): void
-  - climb(int, int, ChessPiece[][], ArrayList<int[]>, Boolean): void
-  + possiblesMoves(int, int, ChessPiece[][]): ArrayList<int[]>
-========
   + possiblesMoves(int, int, ChessPiece[][]): ArrayList<int[]>
   + promotePawn(Pawn, int, int, String, ChessPiece[][]): void
   - possiblesMovesTurn(int, int, ChessPiece[][], ArrayList<int[]>, Boolean): ArrayList<int[]>
   - descent(int, int, ChessPiece[][], ArrayList<int[]>, Boolean): void
   - climb(int, int, ChessPiece[][], ArrayList<int[]>, Boolean): void
->>>>>>>> ae1540819f49eb842b7acfa52fa0b995e3e3a50e:src/SimpleDiagramUML.plantuml
    hasJustMoveDouble: boolean
 }
 class Queen {
@@ -197,13 +129,8 @@ ChessBoardView  -[#595959,dashed]->  ChessBoard     : "«create»"
 ChessBoardView "1" *-[#595959,plain]-> "board\n1" ChessBoard     
 ChessBoardView "1" *-[#595959,plain]-> "sourcePiece\n1" ChessPiece     
 ChessBoardView  -[#000082,plain]-^  Game           
-<<<<<<<< HEAD:simpleChessDiagramClass.plantuml
-Game            -[#595959,dashed]->  ChessBoardView : "«create»"
-Game           "1" *-[#595959,plain]-> "chessBoardView\n1" ChessBoardView 
-========
 Game           "1" *-[#595959,plain]-> "chessBoardView\n1" ChessBoardView 
 Game            -[#595959,dashed]->  ChessBoardView : "«create»"
->>>>>>>> ae1540819f49eb842b7acfa52fa0b995e3e3a50e:src/SimpleDiagramUML.plantuml
 King            -[#000082,plain]-^  ChessPiece     
 Knight          -[#000082,plain]-^  ChessPiece     
 Main            -[#595959,dashed]->  Game           : "«create»"

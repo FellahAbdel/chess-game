@@ -36,7 +36,7 @@ public class King extends ChessPiece {
      * sur l'échiquier.
      *
      * @param startYRow La ligne du cavalier sur l'échiquier (de 0 à 7)
-     * @param startXCol La colonne du cavalier sur l'échiquier (de 0 à 11)
+     * @param startXCol La colonne du cavalier sur l'échiquier (de 0 à 9)
      * @param board     L'échiquier actuel représenté par une matrice de ChessPiece
      * @return Une liste d'entiers représentant les positions (ligne, colonne) des cases où le roi peut se déplacer.
      */
@@ -44,7 +44,7 @@ public class King extends ChessPiece {
         ArrayList<int[]> moves = new ArrayList<>();
 
         // Check moves to the right
-        if (startXCol + 1 < 12) {
+        if (startXCol + 1 < 10) {
             ChessPiece piece = board[startYRow][startXCol + 1];
             if (piece == null || piece.isWhite() != this.isWhite()) {
                 // Try the move and check if king is in check
@@ -100,7 +100,7 @@ public class King extends ChessPiece {
         }
 
         // Check diagonal moves to the top-right
-        if (startYRow - 1 >= 0 && startXCol + 1 < 12) {
+        if (startYRow - 1 >= 0 && startXCol + 1 < 10) {
             ChessPiece piece = board[startYRow - 1][startXCol + 1];
             if (piece == null || piece.isWhite() != this.isWhite()) {
                 // Try the move and check if king is in check
@@ -129,7 +129,7 @@ public class King extends ChessPiece {
         }
 
         // Check diagonal moves to the bottom-right
-        if (startYRow + 1 < 8 && startXCol + 1 < 12) {
+        if (startYRow + 1 < 8 && startXCol + 1 < 10) {
             ChessPiece piece = board[startYRow + 1][startXCol + 1];
             if (piece == null || piece.isWhite() != this.isWhite()) {
                 // Try the move and check if king is in check
@@ -171,7 +171,7 @@ public class King extends ChessPiece {
         // Find the king's position
         int[] kingPos = null;
         for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 12; col++) {
+            for (int col = 0; col < 10; col++) {
                 ChessPiece piece = board[row][col];
                 if (piece instanceof King && piece.isWhite() == isWhiteKing) {
                     kingPos = new int[]{row, col};
@@ -181,7 +181,7 @@ public class King extends ChessPiece {
 
         // Check if any opponent piece can attack the king
         for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 12; col++) {
+            for (int col = 0; col < 10; col++) {
                 ChessPiece piece = board[row][col];
                 if(!(piece instanceof King) )
                 {

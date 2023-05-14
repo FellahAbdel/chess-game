@@ -6,11 +6,14 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class ChessBoard extends Game {
+
+    private static final int SIZE_COLUMN_BOARD = 10;
+    private static final int SIZE_ROW_BOARD = 8;
     private ChessPiece[][] tileBoard;
-    public boolean[][] highLightCase = new boolean[8][12];
+    public boolean[][] highLightCase = new boolean[SIZE_ROW_BOARD][SIZE_COLUMN_BOARD];
 
     public ChessBoard() {
-        tileBoard = new ChessPiece[8][12];
+        tileBoard = new ChessPiece[SIZE_ROW_BOARD][SIZE_COLUMN_BOARD ];
     }
 
     /**
@@ -26,16 +29,14 @@ public class ChessBoard extends Game {
         tileBoard[0][0] = new Rook(color, 0, 0, whitePiecesAtBottom);
         tileBoard[0][1] = new Knight(color, 0, 1, whitePiecesAtBottom);
         tileBoard[0][2] = new Princesse(color, 0, 2, whitePiecesAtBottom);
-        tileBoard[0][3] = new Sauterelle(color, 0, 3, whitePiecesAtBottom);
-        tileBoard[0][4] = new Bishop(color, 0, 4, whitePiecesAtBottom);
-        tileBoard[0][5] = new Queen(color, 0, 5, whitePiecesAtBottom);
-        tileBoard[0][6] = new King(color, 0, 6, whitePiecesAtBottom);
-        tileBoard[0][7] = new Bishop(color, 0, 7, whitePiecesAtBottom);
-        tileBoard[0][8] = new Imperatrice(color, 0, 8, whitePiecesAtBottom);
-        tileBoard[0][9] = new Noctambule(color, 0, 9, whitePiecesAtBottom);
-        tileBoard[0][10] = new Knight(color, 0, 10, whitePiecesAtBottom);
-        tileBoard[0][11] = new Rook(color, 0, 11, whitePiecesAtBottom);
-        for (int j = 0; j < 12; j++) {
+        tileBoard[0][3] = new Bishop(color, 0, 3, whitePiecesAtBottom);
+        tileBoard[0][4] = new Queen(color, 0, 4, whitePiecesAtBottom);
+        tileBoard[0][5] = new King(color, 0, 5, whitePiecesAtBottom);
+        tileBoard[0][6] = new Bishop(color, 0, 6, whitePiecesAtBottom);
+        tileBoard[0][7] = new Imperatrice(color, 0, 7, whitePiecesAtBottom);
+        tileBoard[0][8] = new Knight(color, 0, 8, whitePiecesAtBottom);
+        tileBoard[0][9] = new Rook(color, 0, 9, whitePiecesAtBottom);
+        for (int j = 0; j < SIZE_COLUMN_BOARD; j++) {
             tileBoard[1][j] = new Pawn(color, 1, j, whitePiecesAtBottom);
         }
 
@@ -43,16 +44,14 @@ public class ChessBoard extends Game {
         tileBoard[7][0] = new Rook(oppositeColor, 7, 0, whitePiecesAtBottom);
         tileBoard[7][1] = new Knight(oppositeColor, 7, 1, whitePiecesAtBottom);
         tileBoard[7][2] = new Princesse(oppositeColor, 7, 2, whitePiecesAtBottom);
-        tileBoard[7][3] = new Sauterelle(oppositeColor, 7, 3, whitePiecesAtBottom);
-        tileBoard[7][4] = new Bishop(oppositeColor, 7, 4, whitePiecesAtBottom);
-        tileBoard[7][5] = new Queen(oppositeColor, 7, 5, whitePiecesAtBottom);
-        tileBoard[7][6] = new King(oppositeColor, 7, 6, whitePiecesAtBottom);
-        tileBoard[7][7] = new Bishop(oppositeColor, 7, 7, whitePiecesAtBottom);
-        tileBoard[7][8] = new Imperatrice(oppositeColor, 7, 8, whitePiecesAtBottom);
-        tileBoard[7][9] = new Noctambule(oppositeColor, 7, 9, whitePiecesAtBottom);
-        tileBoard[7][10] = new Knight(oppositeColor, 7, 10, whitePiecesAtBottom);
-        tileBoard[7][11] = new Rook(oppositeColor, 7, 11, whitePiecesAtBottom);
-        for (int j = 0; j < 12; j++) {
+        tileBoard[7][3] = new Bishop(oppositeColor, 7, 3, whitePiecesAtBottom);
+        tileBoard[7][4] = new Queen(oppositeColor, 7, 4, whitePiecesAtBottom);
+        tileBoard[7][5] = new King(oppositeColor, 7, 5, whitePiecesAtBottom);
+        tileBoard[7][6] = new Bishop(oppositeColor, 7, 6, whitePiecesAtBottom);
+        tileBoard[7][7] = new Imperatrice(oppositeColor, 7, 7, whitePiecesAtBottom);
+        tileBoard[7][8] = new Knight(oppositeColor, 7, 8, whitePiecesAtBottom);
+        tileBoard[7][9] = new Rook(oppositeColor, 7, 9, whitePiecesAtBottom);
+        for (int j = 0; j <SIZE_COLUMN_BOARD; j++) {
             tileBoard[6][j] = new Pawn(oppositeColor, 6, j, whitePiecesAtBottom);
         }
 
@@ -65,9 +64,9 @@ public class ChessBoard extends Game {
      * @return une copie du tableau d'échecs "board"
      */
     public static ChessPiece[][] copyBoard(ChessPiece[][] board) {
-        ChessPiece[][] copy = new ChessPiece[8][12];
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 12; col++) {
+        ChessPiece[][] copy = new ChessPiece[SIZE_ROW_BOARD][SIZE_COLUMN_BOARD];
+        for (int row = 0; row < SIZE_ROW_BOARD; row++) {
+            for (int col = 0; col < SIZE_COLUMN_BOARD ; col++) {
                 ChessPiece piece = board[row][col];
                 if (piece != null) {
                     ChessPiece newPiece;
@@ -112,8 +111,8 @@ public class ChessBoard extends Game {
      * Réinitialise le tableau highLightCase à false pour chaque case.
      */
     public void resetHighlight() {
-        for (int i = 0; i < 8; i++)
-            for (int j = 0; j < 12; j++)
+        for (int i = 0; i < SIZE_ROW_BOARD; i++)
+            for (int j = 0; j < SIZE_COLUMN_BOARD; j++)
                 highLightCase[i][j] = false;
     }
 
@@ -173,8 +172,8 @@ public class ChessBoard extends Game {
      */
     public ArrayList<ChessPiece> getPiecesByColor(Color color) {
         ArrayList<ChessPiece> piecesList = new ArrayList<>();
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 12; col++) {
+        for (int row = 0; row < SIZE_ROW_BOARD; row++) {
+            for (int col = 0; col < SIZE_COLUMN_BOARD; col++) {
                 ChessPiece piece = tileBoard[row][col];
                 if (piece != null && piece.getColor() == color) {
                     piecesList.add(piece);
@@ -192,8 +191,8 @@ public class ChessBoard extends Game {
      */
     public King getKing(boolean isWhiteKing) {
         King king = null;
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 12; col++) {
+        for (int row = 0; row < SIZE_ROW_BOARD; row++) {
+            for (int col = 0; col < SIZE_COLUMN_BOARD; col++) {
                 ChessPiece piece = tileBoard[row][col];
                 if (piece instanceof King && piece.isWhite() == isWhiteKing) {
                     king = (King) getPieceAt(row, col);

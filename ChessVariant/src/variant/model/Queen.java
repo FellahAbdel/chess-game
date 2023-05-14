@@ -62,7 +62,7 @@ public class Queen extends ChessPiece {
 
         // Upper Right Diagonal
         canMove = true;
-        for(int i=startYRow-1, j=startXCol+1; i>=0 && j<12 && canMove; i--, j++){
+        for(int i=startYRow-1, j=startXCol+1; i>=0 && j<10 && canMove; i--, j++){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
             }
@@ -92,7 +92,7 @@ public class Queen extends ChessPiece {
 
         // Lower Right Diagonal
         canMove = true;
-        for(int i=startYRow+1, j=startXCol+1; i<8 && j<12 && canMove; i++, j++){
+        for(int i=startYRow+1, j=startXCol+1; i<8 && j<10 && canMove; i++, j++){
             if(board[i][j] == null) {
                 moves.add(new int[]{i, j});
             }
@@ -107,7 +107,7 @@ public class Queen extends ChessPiece {
 
         // generate moves like rook
         // Check moves to the right
-        for (int i = startXCol + 1; i < 12 && canMove; i++) {
+        for (int i = startXCol + 1; i < 10 && canMove; i++) {
             if (board[startYRow][i] == null) {
                 moves.add(new int[]{startYRow, i});
             } else if (board[startYRow][i].isWhite() != this.isWhite()) {
