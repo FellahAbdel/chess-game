@@ -265,6 +265,10 @@ public class ChessBoardView extends Game implements MouseListener {
                 removeSquare(capturedPieceRow, colX);
             }
             if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece != null && sourcePiece.getColor() != selectedPiece.getColor()) {
+                // on ne peut pas capturer le roi, juste le mettre en échec
+                if(selectedPiece instanceof King){
+                    return;
+                }
                 removeSquare(rowY, colX);
             } else if (sourcePiece instanceof Pawn && (rowY == 0 || rowY == 7)) {
                 promotionView(sourcePiece, rowY, colX);
@@ -280,6 +284,10 @@ public class ChessBoardView extends Game implements MouseListener {
                     castling(sourceRow, sourceCol, rowY, colX, 0, 3, 0);
                 }
             } else if (selectedPiece != null && board.isOccupied(rowY, colX) && selectedPiece.getColor() != sourcePiece.getColor()) {
+                // on ne peut pas capturer le roi, juste le mettre en échec
+                if(selectedPiece instanceof King){
+                    return;
+                }
                 // Il y a une pièce adverse à la destination.
                 removeSquare(rowY, colX);
             }

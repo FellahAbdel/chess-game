@@ -4,6 +4,7 @@ import variant.controller.GameRules;
 import variant.model.ChessBoard;
 import variant.model.ChessPiece;
 import variant.model.Pawn;
+import variant.model.King;
 
 import javax.swing.*;
 import java.awt.*;
@@ -264,20 +265,29 @@ public class ChessBoardView extends Game implements MouseListener {
             // C'est là qu'on fait les tests de déplacements.
             int sourceRow = sourcePiece.getRow();
             int sourceCol = sourcePiece.getCol();
-            removeSquare(sourceRow, sourceCol);
+
 
             if (sourcePiece instanceof Pawn) {
                 if (colX != sourceCol && selectedPiece != null && sourcePiece.getColor() != selectedPiece.getColor()) {
+                    // on ne peut pas capturer le roi, juste le mettre en échec
+                    if(selectedPiece instanceof King){
+                        return;
+                    }
                     removeSquare(rowY, colX);
                 }
                 if ((rowY == 0 || rowY == 7)) {
                     promotionView(sourcePiece, rowY, colX);
                 }
             } else if (selectedPiece != null && board.isOccupied(rowY, colX) && selectedPiece.getColor() != sourcePiece.getColor()) {
+                // on ne peut pas capturer le roi, juste le mettre en échec
+                if(selectedPiece instanceof King){
+                    return;
+                }
                 // Il y a une pièce adverse à la destination.
                 removeSquare(rowY, colX);
             }
             board.movePiece(sourceRow, sourceCol, rowY, colX);
+            removeSquare(sourceRow, sourceCol);
             // On passe au joueur suivant que si et seulement si le joueur courant a fini son mouvement.
             isTurn = sourcePiece.getColor() != Color.WHITE;
 
