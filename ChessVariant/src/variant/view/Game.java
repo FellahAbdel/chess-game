@@ -34,13 +34,14 @@ public class Game extends JFrame implements MouseListener {
         setLocationRelativeTo(null); // Centres the window on the screen
         setResizable(false); // Prevents resizing the window
 
+        String filePath = ChessBoardView.makePath();
         // Add the two buttons with images
-        JButton whiteButton = new JButton(new ImageIcon("src/com/diaby/model/img/Pawn_b.png"));
+        JButton whiteButton = new JButton(new ImageIcon(filePath + "/Pawn_b.png"));
         whiteButton.setName("white");
         whiteButton.setPreferredSize(new Dimension(120, 120)); // Sets the button size
         whiteButton.addMouseListener(this);
 
-        JButton blackButton = new JButton(new ImageIcon("src/com/diaby/model/img/Pawn_n.png"));
+        JButton blackButton = new JButton(new ImageIcon(filePath + "/Pawn_n.png"));
         blackButton.setName("black");
         blackButton.setPreferredSize(new Dimension(120, 120)); // Sets the button size
         blackButton.addMouseListener(this);
