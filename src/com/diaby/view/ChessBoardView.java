@@ -67,12 +67,32 @@ public class ChessBoardView extends Game implements MouseListener {
         drawGrid();
     }
 
+    public static String makePath() {
+        String filePath = "";
+        String currentDirectory = System.getProperty("user.dir");
+        if (currentDirectory.contains("chessProjectJava_jar")) {
+            String updatedDirectory = currentDirectory.replaceAll("\\b" + "artifacts/chessProjectJava_jar" + "\\b", "");
+            filePath = updatedDirectory + "production/chessProjectJava/com/diaby/model/img/";
+        } else if (currentDirectory.contains("chessproject")) {
+            filePath = currentDirectory + "/src/com/diaby/model/img/";
+        }
+
+        return filePath;
+    }
+
     /**
      * Methode d'affichage de la grille
      */
     public void drawGrid() {
+        String filePath = makePath();
+        String currentDirectory = System.getProperty("user.dir");
+        if (currentDirectory.contains("chessProjectJava_jar")) {
+            String updatedDirectory = currentDirectory.replaceAll("\\b" + "artifacts/chessProjectJava_jar" + "\\b", "");
+            filePath = updatedDirectory + "production/chessProjectJava/com/diaby/model/img/";
+        } else if (currentDirectory.contains("chessproject")) {
+            filePath = currentDirectory + "/src/com/diaby/model/img/";
+        }
         JPanel square;
-        String filePath = "src/com/diaby/model/img/";
         String fileName;
         String pieceName;
         int index = 0;
@@ -266,7 +286,7 @@ public class ChessBoardView extends Game implements MouseListener {
             }
             if (sourcePiece instanceof Pawn && colX != sourceCol && selectedPiece != null && sourcePiece.getColor() != selectedPiece.getColor()) {
                 // on ne peut pas capturer le roi, juste le mettre en échec
-                if(selectedPiece instanceof King){
+                if (selectedPiece instanceof King) {
                     return;
                 }
                 removeSquare(rowY, colX);
@@ -285,7 +305,7 @@ public class ChessBoardView extends Game implements MouseListener {
                 }
             } else if (selectedPiece != null && board.isOccupied(rowY, colX) && selectedPiece.getColor() != sourcePiece.getColor()) {
                 // on ne peut pas capturer le roi, juste le mettre en échec
-                if(selectedPiece instanceof King){
+                if (selectedPiece instanceof King) {
                     return;
                 }
                 // Il y a une pièce adverse à la destination.
